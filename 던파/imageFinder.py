@@ -14,7 +14,7 @@ imgPath = 'Images/'
 imgLogPath = 'ImagesLog/'
 
 # def method to return wether or not the image is found
-def isFound(imageName: str, threshold: float = 0.8, sleep: float = 0.0):
+def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
     if(sleep != 0.0):
         pyautogui.sleep(sleep)
 
@@ -53,7 +53,7 @@ def isFound(imageName: str, threshold: float = 0.8, sleep: float = 0.0):
     for pt in zip(*loc[::-1]):
         cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
         cv2.imwrite(imgLogPath+imageName+'_detect.png', img)
-        print(imageName + ' is found')
+        print(imageName + ' is found ')
         return pt
     # return null
     print(imageName + ' is not found')
@@ -67,7 +67,7 @@ def click(pt, name):
     pyautogui.click(x=pt[0]+5, y=pt[1]+5)
 
 # method to isFount and click
-def findAndClick(imageName: str, threshold: float = 0.80, error: bool = True, sleep = 3):
+def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True):
     pyautogui.sleep(sleep)
     pt = isFound(imageName, threshold)
     # if error is true and pt is null, exit

@@ -8,3 +8,6 @@ import pyautogui
 # ImageFinder.findAndClick('산등맵')
 # print(ImageFinder.isFound('지옥파티'))
 
+
+
+
