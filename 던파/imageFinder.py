@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 imgPath = 'Images/'
 imgLogPath = 'ImagesLog/'
 
+removeX=1280
+removeY=300
+
 # def method to return wether or not the image is found
 def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
     if(sleep != 0.0):
@@ -21,8 +24,8 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
     # osx 에서는 아래 코드를 추가해야 한다
     pyautogui.FAILSAFE = False
 
-    # 이미지 읽기
-    img = pyautogui.screenshot()
+    # payutogui half screenshot
+    img = pyautogui.screenshot(region=(removeX, removeY, 1920, 700))
     img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 
     # 이미지를 흑백으로 변환
@@ -64,7 +67,7 @@ def click(pt, name):
     if (pt == None):
         print('Error At ' + name)
         exit()
-    pyautogui.click(x=pt[0]+5, y=pt[1]+5)
+    pyautogui.click(x=pt[0]+5+removeX, y=pt[1]+5+removeY)
 
 # method to isFount and click
 def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True):

@@ -93,10 +93,12 @@ def 상점물품구매(unit:Module):
     imageFinder.findAndClick('상점')
     imageFinder.findAndClick('상점_신비')
     imageFinder.findAndClick('상점_신비라코', error=False)
+    imageFinder.findAndClick('상점_신비천', error=False)
+    imageFinder.findAndClick('상점_신비연석', error=False)
     if(unit.고급부캐 == True):
         imageFinder.findAndClick('상점_신비칼박', error=False)
+        imageFinder.findAndClick('상점_신비원소', error=False)
     imageFinder.findAndClick('구매하기', threshold=0.85, error=False)
     imageFinder.findAndClick('구입', threshold=0.85, error=False)
     imageFinder.findAndClick('확인', threshold=0.91, error=False)
     robot.pressKey('ESC')
-
