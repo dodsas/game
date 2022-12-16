@@ -2,21 +2,22 @@
 import pyautogui
 import imageFinder
 import robot
-import unit
+import action
+import unit 
 
-# map of Module objects
+# map of Unit objects
 map = {
-    "윈드꾸꾸": unit.Module("윈드꾸꾸", 6, False),
-    "보리뚜킥": unit.Module("보리뚜킥", 3, False),
-    "보리커": unit.Module("보리커", 3, False),
-    "보리뚜비": unit.Module("보리뚜비", 3, False),
-    "웨펀꾸꾸": unit.Module("웨펀꾸꾸", 3, False),
-    "보리꾸꾸": unit.Module("보리꾸꾸", 6, True),
-    "런처꾸꾸": unit.Module("런처꾸꾸", 6, True),
-    "보리템플러": unit.Module("보리템플러", 3, True),
-    "보리술사": unit.Module("보리술사", 3, True),
-    "소울뚜": unit.Module("소울뚜", 5, True),
-    "보리뚜뚜": unit.Module("보리뚜뚜", 6, True),
+    "윈드꾸꾸": unit.Unit("윈드꾸꾸", 6, False),
+    "보리뚜킥": unit.Unit("보리뚜킥", 3, False),
+    "보리커": unit.Unit("보리커", 3, False),
+    "보리뚜비": unit.Unit("보리뚜비", 3, False),
+    "웨펀꾸꾸": unit.Unit("웨펀꾸꾸", 3, False),
+    "보리꾸꾸": unit.Unit("보리꾸꾸", 6, True),
+    "런처꾸꾸": unit.Unit("런처꾸꾸", 6, True),
+    "보리템플러": unit.Unit("보리템플러", 3, True),
+    "보리술사": unit.Unit("보리술사", 3, True),
+    "소울뚜": unit.Unit("소울뚜", 5, True),
+    "보리뚜뚜": unit.Unit("보리뚜뚜", 6, True),
 }
 
 # map iterator
@@ -30,7 +31,7 @@ for key in map:
         pyautogui.press(str(char.buffIndex))
         imageFinder.findAndClick('산등맵', 2, 0.75)
         if(imageFinder.isFound('지옥파티', 0.5) != None):
-            unit.retry()
+            action.retry()
             continue
 
         for i in range(50):
@@ -53,6 +54,6 @@ for key in map:
         if(imageFinder.isFound('피로도부족', sleep=4) != None):
             break 
 
-    unit.사냥종료()
-    unit.상점물품구매(char)
+    action.사냥종료()
+    action.상점물품구매(char)
 
