@@ -3,57 +3,44 @@ import pyautogui
 import imageFinder
 import robot
 import action
-import unit 
+from unit import Unit
+import os
 
 # map of Unit objects
 map = {
-    "윈드꾸꾸": unit.Unit("윈드꾸꾸", 6, False),
-    "보리뚜킥": unit.Unit("보리뚜킥", 3, False),
-    "보리커": unit.Unit("보리커", 3, False),
-    "보리뚜비": unit.Unit("보리뚜비", 3, False),
-    "웨펀꾸꾸": unit.Unit("웨펀꾸꾸", 3, False),
-    "보리꾸꾸": unit.Unit("보리꾸꾸", 6, True),
-    "런처꾸꾸": unit.Unit("런처꾸꾸", 6, True),
-    "보리템플러": unit.Unit("보리템플러", 3, True),
-    "보리술사": unit.Unit("보리술사", 3, True),
-    "소울뚜": unit.Unit("소울뚜", 5, True),
-    "보리뚜뚜": unit.Unit("보리뚜뚜", 6, True),
+    # "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
+    # "보리성": Unit("보리성", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True),
+    # "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=False),
+    # "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
+    # "보리핏": Unit("보리핏", 3, 'w', False),
+    # "윈드꾸꾸": Unit("윈드꾸꾸", 6, 'w', False),
+    # "보리뚜킥": Unit("보리뚜킥", 3, 'w', False),
+    # "보리커": Unit("보리커", 3, 'w', False),
+    # "보리뚜비": Unit("보리뚜비", 3, 'w', False),
+    # "웨펀꾸꾸": Unit("웨펀꾸꾸", 3, 'w', False),
+    # "보리꾸꾸": Unit("보리꾸꾸", 6, 'w', True),
+    # "런처꾸꾸": Unit("런처꾸꾸", 6, 'w', True),
+    # "보리템플러": Unit("보리템플러", 3, 'w', True),
+    # "보리술사": Unit("보리술사", 3, 'w', True),
+    # "소울뚜": Unit("소울뚜", 3, 'w', True),
+    # "보리뚜뚜": Unit("보리뚜뚜", 6, 'w', True),
+    "베인뚜": Unit("베인뚜", 6, 'w', True),
 }
+
+# romove all files in imagesLog folder on osx
+os.system('rm -rf imagesLog/*')
 
 # map iterator
 for key in map:
     char = map[key]
-    # unit.캐릭터선택(char.name)
+    action.캐릭터선택(char)
 
-    # loop 20 times
-    for j in range(20):
-        pyautogui.sleep(4)
-        pyautogui.press(str(char.buffIndex))
-        imageFinder.findAndClick('산등맵', 2, 0.75)
-        if(imageFinder.isFound('지옥파티', 0.5) != None):
-            action.retry()
-            continue
+    if(char.산등노가다):
+        action.산등최초입장()
+        action.산등노가다(char)
+        action.수리및보관()
 
-        for i in range(50):
-            # print(i)
-            for j in range(5):
-                pyautogui.keyDown('x')
-                pyautogui.sleep(1)
-            if(imageFinder.isFound('재도전') != None):
-                pyautogui.keyUp('x')
-                pyautogui.keyDown('x')
-                pyautogui.sleep(4)
-                pyautogui.keyUp('x')
-                break
-            if(imageFinder.isFound('산등_시계방갈림길') != None):
-                robot.pressKey('right', duration=5)
-            pyautogui.keyUp('x')
-
-        pyautogui.sleep(3)
-        pyautogui.press('F6')
-        if(imageFinder.isFound('피로도부족', sleep=4) != None):
-            break 
-
-    action.사냥종료()
-    action.상점물품구매(char)
-
+    action.길드활동(char)
+    action.친구포인트()
+    action.즐찾구매()
+    action.신비상점구매(char)
