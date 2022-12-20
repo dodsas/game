@@ -17,7 +17,7 @@ def 수리및보관():
     robot.pressKey('i', sleep=4)
     imageFinder.findAndClick('장비수리')
     imageFinder.findAndClick('장비수리확인', error=False)
-    robot.pressKey('ESC')
+    robot.pressKey('ESC', sleep=4)
 
     # 해체
     장비해체()
@@ -28,14 +28,14 @@ def 수리및보관():
         imageFinder.findAndClick('판매확인', error=False)
         imageFinder.findAndClick('확인', threshold=0.91, error=False)
         imageFinder.findAndClick('확인', threshold=0.91, error=False)
-    robot.pressKey('ESC')
+    robot.pressKey('ESC', sleep=4)
 
     # 보관
     imageFinder.findAndClick('금고', sleep=10)
     imageFinder.findAndClick('모험단금고')
     imageFinder.findAndClick('자동보관')
     imageFinder.findAndClick('확인', threshold=0.91)
-    robot.pressKey('ESC')
+    robot.pressKey('ESC', sleep=4)
 
 def 길드활동(char: Unit):
     # 길드 출석
@@ -78,7 +78,7 @@ def 캐릭터선택(char:Unit):
     imageFinder.findAndClick('캐릭_게임시작')
 
 def 산등최초입장():
-    imageFinder.findAndClick('입장_최초맵선택', sleep=9)
+    imageFinder.findAndClick('입장_최초맵선택', threshold=0.7, sleep=9)
     imageFinder.findAndClick('입장_설산')
     imageFinder.findAndClick('모험난이도', threshold=0.9, sleep=15)
     imageFinder.findAndClick('산등성이')
@@ -96,13 +96,14 @@ def 산등노가다(char:Unit):
 
         for i in range(300):
             print(i)
-            if(i==200):
+            # if multip 30
+            if(i%30 == 0):
                 robot.pressKey('right', duration=2)
 
             pyautogui.sleep(0.01)
             pyautogui.keyDown('x')
             pyautogui.sleep(3)
-            if(imageFinder.isFound('재도전', threshold=0.7) != None):
+            if(imageFinder.isFound('재도전', threshold=0.6) != None):
                 pyautogui.keyUp('x')
                 pyautogui.keyDown('x')
                 pyautogui.sleep(4)
@@ -122,10 +123,10 @@ def 산등노가다(char:Unit):
 def 산등지옥재도전(): 
     pyautogui.press("ESC")
     imageFinder.findAndClick('재도전확인')
-    robot.pressKey('left', 4)
-    imageFinder.findAndClick('모험난이도', 0.9)
+    robot.pressKey('left', 10)
+    imageFinder.findAndClick('모험난이도', threshold=0.9)
     imageFinder.findAndClick('산등성이')
-    imageFinder.findAndClick('전투시작', 0.9)
+    imageFinder.findAndClick('전투시작', threshold=0.9)
 
 def 즐찾구매():
     # 즐찾상점
