@@ -99,6 +99,7 @@ def 산등노가다(char:Unit):
             # if multip 30
             if(i%30 == 0):
                 robot.pressKey('right', duration=2)
+                imageFinder.findAndClick('부활', 1, 0.75, error=False)
 
             pyautogui.sleep(0.01)
             pyautogui.keyDown('x')
