@@ -18,7 +18,7 @@ def 수리및보관():
     imageFinder.findAndClick('장비수리')
     imageFinder.findAndClick('장비수리확인', error=False)
     robot.pressKey('ESC', sleep=4)
-
+    pyautogui.sleep(6)
     # 해체
     장비해체()
 
@@ -160,5 +160,5 @@ def 신비상점구매(char:Unit):
         robot.pressKey('ESC')
     robot.pressKey('ESC')
 
-# sampleUnit = Unit("보리커", 3, 신비전체구매=True)
+# sampleUnit = Unit("보리핏", 3, 'w', False)
 # 신비상점구매(sampleUnit)
