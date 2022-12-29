@@ -73,9 +73,10 @@ def 캐릭터선택(char:Unit):
         if(pt != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.80, sleep=0, error=False)
             break
-        pyautogui.scroll(-1000)
+        pyautogui.scroll(-80000)
         pyautogui.sleep(0.1)
     imageFinder.findAndClick('캐릭_게임시작')
+    pyautogui.sleep(3)
 
 def 산등최초입장():
     imageFinder.findAndClick('확인', sleep=9, error=False)
@@ -88,7 +89,8 @@ def 산등최초입장():
 def 산등노가다(char:Unit):
 
     for j in range(20):
-        pyautogui.sleep(3)
+        # pyautogui.sleep(3)
+        pyautogui.sleep(1.8)
         pyautogui.press(str(char.buffIndex))
         imageFinder.findAndClick('산등맵', 1, 0.75, error=False)
         if(imageFinder.isFound('지옥파티', 0.5) != None):
@@ -98,7 +100,7 @@ def 산등노가다(char:Unit):
         for i in range(300):
             print(i)
             # if multip 30
-            if(i%30 == 0):
+            if(i%30 == 0 and i != 0):
                 robot.pressKey('right', duration=2)
                 imageFinder.findAndClick('부활', 1, 0.75, error=False)
 
@@ -161,20 +163,21 @@ def 신비상점구매(char:Unit):
     robot.pressKey('ESC')
 
 def 크리처():
-    robot.pressKey('ESC', sleep=7)
+    robot.pressKey('ESC', sleep=5)
     imageFinder.findAndClick('크리처')
 
     imageFinder.findAndClick('크리처_심부름')
     if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
         imageFinder.findAndClick('크리처_보상받기')
         imageFinder.findAndClick('확인')
-    imageFinder.findAndClick('크리처_빠른심부름', sleep=7)
-    imageFinder.findAndClick('크리처_자동배치')
-    imageFinder.findAndClick('크리처_보내기')
-    if(imageFinder.isFound('확인', sleep=4) == None):
-        robot.pressKey('ESC')
-    else:
-        imageFinder.findAndClick('확인')
+    if(imageFinder.isFound('크리처_빠른심부름', sleep=7) != None):
+        imageFinder.findAndClick('크리처_빠른심부름', sleep=0)
+        imageFinder.findAndClick('크리처_자동배치')
+        imageFinder.findAndClick('크리처_보내기')
+        if(imageFinder.isFound('확인', sleep=4) == None):
+            robot.pressKey('ESC')
+        else:
+            imageFinder.findAndClick('확인')
     robot.pressKey('ESC')
 
 def 아티팩트판매():
