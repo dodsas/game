@@ -64,6 +64,7 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
 
 # method to click on pt
 def click(pt, name):
+    pyautogui.sleep(0.1)
     if (pt == None):
         print('Error At ' + name)
         exit()
@@ -72,8 +73,21 @@ def click(pt, name):
 # method to isFount and click
 def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True):
     pyautogui.sleep(sleep)
-    pt = isFound(imageName, threshold)
+    pt = isFound(imageName, threshold=threshold, sleep=sleep)
     # if error is true and pt is null, exit
     if (error == False and pt == None):
         return
+    click(pt, imageName)
+
+def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True):
+    # loop until found image
+    i = 0
+    while True:
+        i += 1 
+        pt = isFound(imageName, threshold = threshold, sleep=0.5)
+        if(error == False and i > maxWait * 2):
+            print('waitAndClick finally not found ' + imageName)
+            return
+        if (pt != None or i > maxWait * 2):
+            break
     click(pt, imageName)
