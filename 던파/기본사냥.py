@@ -18,7 +18,7 @@ map = {
     # "보리커": Unit("보리커", 3, 'w', False),
     # "보리뚜비": Unit("보리뚜비", 3, 'w', False),
     # "보리꾸꾸": Unit("보리꾸꾸", 6, 'w', True),
-    "런처꾸꾸": Unit("런처꾸꾸", 6, 'w', True),
+    # "런처꾸꾸": Unit("런처꾸꾸", 6, 'w', True),
     "보리템플러": Unit("보리템플러", 3, 'w', True),
     "보리술사": Unit("보리술사", 3, 'w', True),
     "소울뚜": Unit("소울뚜", 3, 'w', True),
@@ -31,6 +31,9 @@ map = {
 
 # romove all files in imagesLog folder on osx
 os.system('rm -rf imagesLog/*')
+
+# remove result.txt
+os.system('rm -rf result.txt')
 
 for key in map:
     

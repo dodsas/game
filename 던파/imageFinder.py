@@ -64,7 +64,7 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
 
 # method to click on pt
 def click(pt, name):
-    pyautogui.sleep(0.1)
+    pyautogui.sleep(0.5)
     if (pt == None):
         print('Error At ' + name)
         exit()
