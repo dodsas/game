@@ -14,7 +14,7 @@ def 장비해체():
 
 def 수리및보관():
     # 수리
-    robot.pressKey('i', sleep=4)
+    robot.pressKey('i', sleep=6)
     imageFinder.findAndClick('장비수리')
     imageFinder.findAndClick('장비수리확인', error=False)
     robot.pressKey('ESC', sleep=4)
@@ -87,11 +87,11 @@ def 산등최초입장():
 
 def 산등노가다(char:Unit):
 
-    for j in range(20):
+    for j in range(40):
         pyautogui.sleep(3)
         pyautogui.press(str(char.buffIndex))
         imageFinder.findAndClick('산등맵', 1, 0.75, error=False)
-        if(imageFinder.isFound('지옥파티', 0.5) != None):
+        if(imageFinder.isFound('지옥파티', sleep=1) != None):
             산등지옥재도전()
             continue
 
@@ -110,6 +110,18 @@ def 산등노가다(char:Unit):
                 pyautogui.keyDown('x')
                 pyautogui.sleep(4)
                 pyautogui.keyUp('x')
+                if(imageFinder.isFound('재도전_초과') != None):
+                    imageFinder.findAndClick('재도전_초과')
+                    imageFinder.findAndClick('판매', sleep=10)
+                    imageFinder.findAndClick('판매확인', error=False)
+                    imageFinder.findAndClick('확인', threshold=0.91, error=False)
+                    imageFinder.findAndClick('확인', threshold=0.91, error=False)
+                    robot.pressKey('ESC', sleep=4)
+                    robot.pressKey('ESC', sleep=4)
+                if(imageFinder.isFound('재도전_수리', threshold=0.7) != None):
+                    imageFinder.findAndClick('재도전_수리', threshold=0.7)
+                    imageFinder.findAndClick('장비수리확인', error=False)
+                    robot.pressKey('ESC', sleep=4)
                 break
             # if(imageFinder.isFound('산등_시계방갈림길') != None):
                 # robot.pressKey('right', duration=5)
