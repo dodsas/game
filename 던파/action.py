@@ -79,7 +79,7 @@ def 캐릭터선택(char:Unit):
     pyautogui.sleep(3)
 
 def 산등최초입장():
-    imageFinder.findAndClick('확인', sleep=9, error=False)
+    imageFinder.findAndClick('확인', threshold=0.7, sleep=8, error=False)
     imageFinder.findAndClick('입장_최초맵선택', threshold=0.7, sleep=9)
     imageFinder.findAndClick('입장_설산')
     imageFinder.findAndClick('모험난이도', threshold=0.9, sleep=15)
