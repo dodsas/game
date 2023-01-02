@@ -3,7 +3,25 @@ import pyautogui
 import robot
 import imageFinder
 import threading
+import time
+from datetime import datetime
 
+def 일최초시작(hhmm: str):
+    # split hhmm to hh and mm
+    hh = int(hhmm[0:2])
+    mm = int(hhmm[2:4])
+
+    # start on every 06:00 AM
+    while True:
+        now = datetime.now()
+        if now.hour == hh and now.minute >= mm:
+            break
+        print('sleep...')
+        time.sleep(60)
+
+# imageFinder.findAndClick('일최초캐선_오늘그만보기', error=False)
+imageFinder.findAndClick('일최초게임시작', error=False)
+imageFinder.findAndClick('일최초팝업', error=False)
 
 def 장비해체():
     imageFinder.waitAndClick('장비해체')
@@ -87,7 +105,9 @@ def 산등최초입장():
 
 def 산등노가다(char:Unit):
 
-    for j in range(40):
+    loopCount = char.loopCount
+
+    for j in range(loopCount):
         imageFinder.waitAndClick('산등맵', threshold= 0.75, error=False)
         pyautogui.press(str(char.buffIndex))
         if(imageFinder.isFound('지옥파티', sleep=1) != None):
@@ -145,6 +165,7 @@ def 산등지옥재도전():
 def 즐찾구매():
     # 즐찾상점
     robot.pressKey('s', sleep=4)
+    imageFinder.findAndClick('구매하기_오늘그만보기', error=False)   
     imageFinder.waitAndClick('상점_관심상품')
     imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.91, error= False)
     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
@@ -194,17 +215,18 @@ def 크리처():
     robot.pressKey('ESC')
     imageFinder.waitAndClick('크리처')
     imageFinder.waitAndClick('크리처_심부름')
-    if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
-        imageFinder.waitAndClick('크리처_보상받기')
-        imageFinder.waitAndClick('확인')
-    if(imageFinder.isFound('크리처_빠른심부름', sleep=7) != None):
-        imageFinder.waitAndClick('크리처_빠른심부름')
-        imageFinder.waitAndClick('크리처_자동배치')
-        imageFinder.waitAndClick('크리처_보내기')
-        if(imageFinder.isFound('확인', sleep=4) == None):
-            robot.pressKey('ESC')
-        else:
+    if(imageFinder.isFound('크리처_심부름모두완료', sleep=1) != None):
+        if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
+            imageFinder.waitAndClick('크리처_보상받기')
             imageFinder.waitAndClick('확인')
+        if(imageFinder.isFound('크리처_빠른심부름', sleep=7) != None):
+            imageFinder.waitAndClick('크리처_빠른심부름')
+            imageFinder.waitAndClick('크리처_자동배치')
+            imageFinder.waitAndClick('크리처_보내기')
+            if(imageFinder.isFound('확인', sleep=4) == None):
+                robot.pressKey('ESC')
+            else:
+                imageFinder.waitAndClick('확인')
     robot.pressKey('ESC')
 
 
