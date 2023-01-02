@@ -13,7 +13,7 @@ def 장비해체():
     robot.pressKey('ESC')
 
 def 수리및보관():
-    # 수리
+    pyautogui.sleep(2)
     robot.pressKey('i')
     imageFinder.waitAndClick('장비수리')
     imageFinder.waitAndClick('장비수리확인',maxWait=3, error=False)
@@ -34,7 +34,7 @@ def 수리및보관():
     imageFinder.waitAndClick('금고')
     imageFinder.waitAndClick('모험단금고')
     imageFinder.waitAndClick('자동보관')
-    imageFinder.waitAndClick('확인', threshold=0.91)
+    imageFinder.waitAndClick('확인', threshold=0.91, error=False)
     robot.pressKey('ESC')
 
 def 길드활동(char: Unit):
@@ -75,10 +75,10 @@ def 캐릭터선택(char:Unit):
         pyautogui.sleep(0.5)
     pyautogui.sleep(2)
     imageFinder.waitAndClick('캐릭_게임시작')
-    pyautogui.sleep(3)
+    pyautogui.sleep(7)
 
 def 산등최초입장():
-    imageFinder.waitAndClick('확인', threshold=0.7, maxWait=5, error=False)
+    # imageFinder.waitAndClick('확인', threshold=0.7, maxWait=5, error=False)
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.85)
     imageFinder.waitAndClick('입장_설산')
     imageFinder.waitAndClick('모험난이도', threshold=0.9, maxWait=15)
@@ -108,7 +108,7 @@ def 산등노가다(char:Unit):
             if(imageFinder.isFound('재도전', threshold=0.6) != None):
                 pyautogui.keyUp('x')
                 pyautogui.keyDown('x')
-                pyautogui.sleep(2)
+                pyautogui.sleep(3)
                 if(imageFinder.isFound('재도전_초과') != None):
                     imageFinder.waitAndClick('재도전_초과')
                     imageFinder.waitAndClick('판매')
