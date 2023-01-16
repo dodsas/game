@@ -57,18 +57,34 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
         cv2.rectangle(img, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
         cv2.imwrite(imgLogPath+imageName+'_detect.png', img)
         print(imageName + ' is found ')
-        return pt
-    # return null
-    print(imageName + ' is not found')
-    return None
+        # return pt
+    
+    if(len(loc[0]) == 0):
+        print(imageName + ' is not found')
+        return None
+    return loc
+
 
 # method to click on pt
 def click(pt, name):
-    pyautogui.sleep(0.5)
     if (pt == None):
         print('Error At ' + name)
         exit()
-    pyautogui.click(x=pt[0]+5+removeX, y=pt[1]+5+removeY)
+
+    # check 
+
+    if (len(pt) > 1):
+        for ptt in pt:
+            pyautogui.sleep(0.5)
+            pyautogui.click(x=ptt[0]+5+removeX, y=ptt[1]+5+removeY)
+    else:
+        pyautogui.sleep(0.5)
+        pyautogui.click(x=pt[1]+5+removeX, y=pt[0]+5+removeY)
+
+    # # loop ptt in pt
+    # for ptt in pt:
+    #     pyautogui.sleep(0.5)
+    #     pyautogui.click(x=ptt[0]+5+removeX, y=ptt[1]+5+removeY)
 
 # method to isFount and click
 def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True):
@@ -79,7 +95,7 @@ def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool
         return
     click(pt, imageName)
 
-def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True, delay: float=0.0):
+def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True):
     # loop until found image
     i = 0
     while True:
@@ -90,6 +106,4 @@ def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: boo
             return
         if (pt != None or i > maxWait * 2):
             break
-    
-    pyautogui.sleep(delay)
     click(pt, imageName)

@@ -4,7 +4,14 @@ import robot
 import imageFinder
 import threading
 import time
+import random
 from datetime import datetime
+
+def uprint(unit: Unit, msg: str):
+    # print with unit name f-string
+    print(f'[{unit.name}]: {msg}')
+
+char=Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13)
 
 def 일최초시작(hhmm: str):
     # split hhmm to hh and mm
@@ -19,9 +26,10 @@ def 일최초시작(hhmm: str):
         print('sleep...')
         time.sleep(60)
 
-# imageFinder.findAndClick('일최초캐선_오늘그만보기', error=False)
-imageFinder.findAndClick('일최초게임시작', error=False)
-imageFinder.findAndClick('일최초팝업', error=False)
+    imageFinder.findAndClick('일최초캐선_오늘그만보기', error=False)
+    imageFinder.waitAndClick('일최초게임시작', error=False)
+    imageFinder.waitAndClick('일최초팝업', error=False)
+    imageFinder.waitAndClick('일최초팝업', error=False)
 
 def 장비해체():
     imageFinder.waitAndClick('장비해체')
@@ -54,6 +62,7 @@ def 수리및보관():
     imageFinder.waitAndClick('자동보관')
     imageFinder.waitAndClick('확인', threshold=0.91, error=False)
     robot.pressKey('ESC')
+    pyautogui.sleep(2)
 
 def 길드활동(char: Unit):
     # 길드 출석
@@ -71,7 +80,7 @@ def 길드활동(char: Unit):
     imageFinder.waitAndClick('확인', maxWait=3, error=False)
     imageFinder.waitAndClick('길드출석상자', threshold=0.70, error=False)
     imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    #imageFinder.waitAndClick('확인', error=False)
+    #imageFinder_bk.waitAndClick('확인', error=False)
     robot.pressKey('ESC', sleep=4)
     robot.pressKey('ESC', sleep=7)
 
@@ -80,6 +89,7 @@ def 친구포인트():
     imageFinder.waitAndClick('친구일괄보내기', error=False)
     imageFinder.waitAndClick('확인', error=False)
     imageFinder.waitAndClick('친구일괄받기', error=False)
+    pyautogui.sleep(4)
     robot.pressKey('ESC')
 
 def 캐릭터선택(char:Unit):
@@ -91,35 +101,58 @@ def 캐릭터선택(char:Unit):
             break
         pyautogui.scroll(-60000)
         pyautogui.sleep(0.5)
-    pyautogui.sleep(2)
+    pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
-    pyautogui.sleep(7)
+    pyautogui.sleep(5)
+    imageFinder.findAndClick('확인', error=False)
 
 def 산등최초입장():
-    # imageFinder.waitAndClick('확인', threshold=0.7, maxWait=5, error=False)
+    imageFinder.findAndClick('확인', sleep=1, threshold=0.7, error=False)
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.85)
     imageFinder.waitAndClick('입장_설산')
     imageFinder.waitAndClick('모험난이도', threshold=0.9, maxWait=15)
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
 
+# imageFinder_bk.waitAndClick('일최초팝업', threshold=0.90)
+
 def 산등노가다(char:Unit):
 
     loopCount = char.loopCount
+    j = 0
+    while(True):
+    # for j in range(loopCount):
+        j+=1
+        uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount-1))
+        while(True):
+            imageFinder.waitAndClick('산등맵', threshold= 0.75, error=False)
+            pyautogui.press(str(char.buffIndex))
+            if(imageFinder.isFound('방_보스') != None):
+                break
 
-    for j in range(loopCount):
-        imageFinder.waitAndClick('산등맵', threshold= 0.75, error=False)
-        pyautogui.press(str(char.buffIndex))
-        if(imageFinder.isFound('지옥파티', sleep=1) != None):
+        if(imageFinder.isFound('지옥파티') != None): 
+            j-=1
+            if(j == loopCount - 1):
+                pyautogui.press("ESC")
+                imageFinder.waitAndClick('재도전확인')
+                return
             산등지옥재도전()
             continue
 
         findClock=False
-        for i in range(300):
-            print(i)
+        for i in range(200):
+            uprint(char, i)
+
             # if multip 30
-            if(i%30 == 0 and i != 0):
-                robot.pressKey('right', duration=2)
+            if(i%45 == 0 and i != 0):
+
+                switcher = {
+                    0: 'right',
+                    1: 'left',
+                    2: 'up',
+                }
+                # random move with switcher
+                robot.pressKey(switcher.get(random.randint(0,2)), duration=2)
                 imageFinder.findAndClick('부활', 1, 0.75, error=False)
 
             pyautogui.sleep(0.01)
@@ -129,7 +162,7 @@ def 산등노가다(char:Unit):
                 pyautogui.keyUp('x')
                 pyautogui.keyDown('x')
                 pyautogui.sleep(3)
-                if(imageFinder.isFound('재도전_초과') != None):
+                if(imageFinder.isFound('재도전_초과', threshold=0.95) != None):
                     imageFinder.waitAndClick('재도전_초과')
                     imageFinder.waitAndClick('판매')
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
@@ -147,11 +180,20 @@ def 산등노가다(char:Unit):
             pyautogui.keyUp('x')
 
         pyautogui.sleep(3)
+        if(j == loopCount - 1):
+            robot.pressKey('F8', sleep=2)
+            imageFinder.findAndClick('확인', error=False)
+            pyautogui.sleep(4)
+            return
+        if(i == 199):
+            robot.pressKey('ESC', sleep=4)
+            robot.pressKey('ESC', sleep=4)
+            return
         pyautogui.press('F6')
         if(imageFinder.isFound('피로도부족', sleep=4) != None):
             break 
     imageFinder.waitAndClick('확인')
-    robot.pressKey('F8', sleep=2)
+    robot.pressKey('F8', sleep=4)
     pyautogui.sleep(4)
 
 def 산등지옥재도전(): 
@@ -161,6 +203,8 @@ def 산등지옥재도전():
     imageFinder.waitAndClick('모험난이도', threshold=0.9)
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
+
+# 산등노가다(char)
 
 def 즐찾구매():
     # 즐찾상점
@@ -176,7 +220,7 @@ def 신비상점구매(char:Unit):
     # 신비상점
     imageFinder.waitAndClick('상점')
     imageFinder.waitAndClick('상점_신비')
-    # imageFinder.findAndClick('상점_신비천', threshold=0.95, error=False)
+    # imageFinder_bk.findAndClick('상점_신비천', threshold=0.95, error=False)
     imageFinder.findAndClick('상점_신비연석', sleep=3, threshold=0.95, error=False)
     imageFinder.findAndClick('상점_신비라코', sleep=0.5, threshold=0.95, error=False)
     imageFinder.findAndClick('상점_신비가죽', sleep=0.5, threshold=0.95, error=False)
@@ -184,7 +228,7 @@ def 신비상점구매(char:Unit):
     imageFinder.findAndClick('상점_신비경화제', sleep=0.5, threshold=0.95, error=False)
     imageFinder.findAndClick('상점_신비원소', sleep=0.5, threshold=0.9, error=False)
     if(char.신비전체구매 == True):
-        # imageFinder.findAndClick('상점_신비다이야', threshold=1, error=False)
+        # imageFinder_bk.findAndClick('상점_신비다이야', threshold=1, error=False)
         imageFinder.findAndClick('상점_신비칼박', sleep=0.5, threshold=0.95, error=False)
     imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.85, error=False)
     imageFinder.waitAndClick('구입', maxWait=3, threshold=0.85, error=False)
@@ -192,6 +236,7 @@ def 신비상점구매(char:Unit):
     if(imageFinder.isFound('신비_소지금액부족') != None):
         robot.pressKey('ESC')
     robot.pressKey('ESC')
+    pyautogui.sleep(3)
 
 def 크리처_OLD():
     robot.pressKey('ESC', sleep=5)
@@ -215,7 +260,7 @@ def 크리처():
     robot.pressKey('ESC')
     imageFinder.waitAndClick('크리처')
     imageFinder.waitAndClick('크리처_심부름')
-    if(imageFinder.isFound('크리처_심부름모두완료', sleep=1) != None):
+    if(imageFinder.isFound('크리처_심부름모두완료', sleep=1) == None):
         if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
             imageFinder.waitAndClick('크리처_보상받기')
             imageFinder.waitAndClick('확인')
@@ -230,6 +275,74 @@ def 크리처():
     robot.pressKey('ESC')
 
 
+
+import keyboard
+keyboard.hook(print)
+# input()
+
+while(True):
+    keyboard.press_and_release(3) # f
+    keyboard.press_and_release('f6') # q
+    pyautogui.sleep(2)
+    print('aaa')
+
+# keyboard.press_and_release(3) # f
+# keyboard.press_and_release(12) # q
+# keyboard.press_and_release(13) # w
+# keyboard.press_and_release(14) # e
+# keyboard.press_and_release(15) # r
+
+
+# show all keymap for keybarod module
+
+
+
+def 서조(char:Unit):
+    imageFinder.waitAndClick('스케쥴러')
+    imageFinder.waitAndClick('서조의계곡3')
+    imageFinder.waitAndClick('입장')
+    for j in range(3):
+        isBossFound = False
+        # imageFinder_bk.waitAndClick('서조입장', threshold=0.95)
+        for i in range(200):
+            print(i)
+
+            if(i%30 == 0 and i != 0):
+                # random move with seed
+                random.seed(i)
+                robot.pressKey('right', duration=2)
+                imageFinder.findAndClick('부활', 1, 0.75, error=False)
+
+            if(imageFinder.isFound('서조_보스', threshold=0.95) != None and isBossFound == False):
+                pyautogui.press(char.finalIndex)
+                isBossFound = True
+
+            # swtich case with random value
+            switcher = {
+                0: 'Q',
+                1: 'W',
+                2: 'E',
+                3: 'R',
+                4: str(char.buffIndex)
+            }
+            robot.pressKey(switcher.get(random.randint(0,4)), sleep=0, duration=0.1)
+
+            pyautogui.keyDown('x')
+            pyautogui.sleep(1.5)
+            if(imageFinder.isFound('다른긴급의뢰선택', threshold=0.88) != None):
+                pyautogui.keyUp('x')
+                pyautogui.keyDown('x')
+                pyautogui.sleep(3)
+                pyautogui.keyUp('x')
+                break
+            pyautogui.keyUp('x')
+        robot.pressKey('F6', sleep=2)
+
+    robot.pressKey('F8', sleep=2)
+    pyautogui.sleep(7) 
+    robot.pressKey('ESC')
+    pyautogui.sleep(5) 
+# 서조(char)
 def 아티팩트판매():
     robot.pressKey('ESC')
     imageFinder.waitAndClick('크리처')
