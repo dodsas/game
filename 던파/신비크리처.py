@@ -1,6 +1,6 @@
 # pyautogui is a module that allows you to control the mouse and keyboard
 import pyautogui
-import imageFinder
+import __imageFinder__
 import robot
 import time
 import action
@@ -12,7 +12,7 @@ from datetime import datetime
 loop = 14 # 피로도남기 13 / 풀피로도 14
 # loop = 13
 map = {
-   "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
+    "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
     "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
     "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True, loopCount=loop),
     "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),

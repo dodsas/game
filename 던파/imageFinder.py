@@ -17,7 +17,7 @@ removeX=1280
 removeY=300
 
 # def method to return wether or not the image is found
-def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
+def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8, printLog: bool = True):
     if(sleep != 0.0):
         pyautogui.sleep(sleep)
 
@@ -59,7 +59,10 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8):
         print(imageName + ' is found ')
         return pt
     # return null
-    print(imageName + ' is not found')
+
+    if (printLog == True):
+        print(imageName + ' is not found')
+    
     return None
 
 # method to click on pt
@@ -71,9 +74,9 @@ def click(pt, name):
     pyautogui.click(x=pt[0]+5+removeX, y=pt[1]+5+removeY)
 
 # method to isFount and click
-def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True):
+def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True, printLog: bool = True):
     pyautogui.sleep(sleep)
-    pt = isFound(imageName, threshold=threshold, sleep=sleep)
+    pt = isFound(imageName, threshold=threshold, sleep=sleep, printLog=printLog)
     # if error is true and pt is null, exit
     if (error == False and pt == None):
         return

@@ -1,15 +1,16 @@
 from unit import Unit
 import pyautogui
-import robot
 import imageFinder
 import threading
 import time
 import random
+import keyboard2
+import robot 
 from datetime import datetime
 
 def uprint(unit: Unit, msg: str):
     # print with unit name f-string
-    print(f'[{unit.name}]: {msg}')
+    print(f'[{unit.name}] {msg}')
 
 char=Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13)
 
@@ -50,7 +51,7 @@ def 수리및보관():
 
     # 판매
     imageFinder.waitAndClick('판매')
-    for i in range(3):
+    for i in range(2):
         imageFinder.findAndClick('판매확인', sleep=1, error=False)
         imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
         imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
@@ -78,15 +79,17 @@ def 길드활동(char: Unit):
     imageFinder.waitAndClick('길드출석10000', maxWait=3, error=False)
     imageFinder.waitAndClick('확인', maxWait=3, error=False)
     imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    imageFinder.waitAndClick('길드출석상자', threshold=0.70, error=False)
-    imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    #imageFinder_bk.waitAndClick('확인', error=False)
+    # imageFinder.waitAndClick('길드출석상자', threshold=0.70, error=False)
+    # imageFinder.waitAndClick('확인', maxWait=3, error=False)
     robot.pressKey('ESC', sleep=4)
     robot.pressKey('ESC', sleep=7)
+
+# 길드활동(char)
 
 def 친구포인트():
     robot.pressKey('l')
     imageFinder.waitAndClick('친구일괄보내기', error=False)
+    pyautogui.sleep(5)
     imageFinder.waitAndClick('확인', error=False)
     imageFinder.waitAndClick('친구일괄받기', error=False)
     pyautogui.sleep(4)
@@ -96,8 +99,8 @@ def 캐릭터선택(char:Unit):
     imageFinder.waitAndClick('캐릭_선택')
     imageFinder.waitAndClick('캐릭_보리뚜')
     for i in range(100):
-        if(imageFinder.isFound('캐릭_' + char.name, threshold=0.85, sleep=0) != None):
-            imageFinder.findAndClick('캐릭_' + char.name, threshold=0.80, sleep=0, error=False)
+        if(imageFinder.isFound('캐릭_' + char.name, threshold=0.88, sleep=0) != None):
+            imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
         pyautogui.scroll(-60000)
         pyautogui.sleep(0.5)
@@ -107,14 +110,11 @@ def 캐릭터선택(char:Unit):
     imageFinder.findAndClick('확인', error=False)
 
 def 산등최초입장():
-    imageFinder.findAndClick('확인', sleep=1, threshold=0.7, error=False)
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.85)
     imageFinder.waitAndClick('입장_설산')
     imageFinder.waitAndClick('모험난이도', threshold=0.9, maxWait=15)
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
-
-# imageFinder_bk.waitAndClick('일최초팝업', threshold=0.90)
 
 def 산등노가다(char:Unit):
 
@@ -141,7 +141,7 @@ def 산등노가다(char:Unit):
 
         findClock=False
         for i in range(200):
-            uprint(char, i)
+            uprint(char, f'{i} ({j}/{loopCount-1})')
 
             # if multip 30
             if(i%45 == 0 and i != 0):
@@ -158,10 +158,11 @@ def 산등노가다(char:Unit):
             pyautogui.sleep(0.01)
             pyautogui.keyDown('x')
             pyautogui.sleep(3)
-            if(imageFinder.isFound('재도전', threshold=0.6) != None):
+            imageFinder.findAndClick('산등_골카', sleep=0, error=False, printLog=False)
+            if(imageFinder.isFound('재도전', threshold=0.6, printLog=False) != None):
                 pyautogui.keyUp('x')
                 pyautogui.keyDown('x')
-                pyautogui.sleep(3)
+                pyautogui.sleep(2.5)
                 if(imageFinder.isFound('재도전_초과', threshold=0.95) != None):
                     imageFinder.waitAndClick('재도전_초과')
                     imageFinder.waitAndClick('판매')
@@ -274,38 +275,17 @@ def 크리처():
                 imageFinder.waitAndClick('확인')
     robot.pressKey('ESC')
 
-
-
-import keyboard
-keyboard.hook(print)
-# input()
-
-while(True):
-    keyboard.press_and_release(3) # f
-    keyboard.press_and_release('f6') # q
-    pyautogui.sleep(2)
-    print('aaa')
-
-# keyboard.press_and_release(3) # f
-# keyboard.press_and_release(12) # q
-# keyboard.press_and_release(13) # w
-# keyboard.press_and_release(14) # e
-# keyboard.press_and_release(15) # r
-
-
-# show all keymap for keybarod module
-
-
+# imageFinder.isFound('다른긴급의뢰선택', threshold=0.85)
 
 def 서조(char:Unit):
     imageFinder.waitAndClick('스케쥴러')
-    imageFinder.waitAndClick('서조의계곡3')
+    imageFinder.waitAndClick('서조의계곡3', threshold=0.75)
     imageFinder.waitAndClick('입장')
     for j in range(3):
         isBossFound = False
         # imageFinder_bk.waitAndClick('서조입장', threshold=0.95)
         for i in range(200):
-            print(i)
+            # print(i)
 
             if(i%30 == 0 and i != 0):
                 # random move with seed
@@ -313,36 +293,38 @@ def 서조(char:Unit):
                 robot.pressKey('right', duration=2)
                 imageFinder.findAndClick('부활', 1, 0.75, error=False)
 
-            if(imageFinder.isFound('서조_보스', threshold=0.95) != None and isBossFound == False):
+            if(imageFinder.isFound('서조_보스', threshold=0.95, printLog=False) != None and isBossFound == False):
                 pyautogui.press(char.finalIndex)
                 isBossFound = True
 
             # swtich case with random value
             switcher = {
-                0: 'Q',
-                1: 'W',
-                2: 'E',
-                3: 'R',
+                0: 'q',
+                1: 'w',
+                2: 'e',
+                3: 'r',
                 4: str(char.buffIndex)
             }
-            robot.pressKey(switcher.get(random.randint(0,4)), sleep=0, duration=0.1)
+            keyboard2.pressKey(switcher.get(random.randint(0,4)), sleep=0, duration=0.1)
 
             pyautogui.keyDown('x')
             pyautogui.sleep(1.5)
-            if(imageFinder.isFound('다른긴급의뢰선택', threshold=0.88) != None):
+            if(imageFinder.isFound('다른긴급의뢰선택', threshold=0.88, printLog=False) != None):
                 pyautogui.keyUp('x')
-                pyautogui.keyDown('x')
-                pyautogui.sleep(3)
-                pyautogui.keyUp('x')
+                # for loop 3 times
+                for i in range(3):
+                    pyautogui.keyDown('x')
+                    pyautogui.sleep(2)
+                    pyautogui.keyUp('x')
                 break
             pyautogui.keyUp('x')
-        robot.pressKey('F6', sleep=2)
+        keyboard2.pressKey('f6', sleep=2)
 
-    robot.pressKey('F8', sleep=2)
+    keyboard2.pressKey('f8', sleep=2)
     pyautogui.sleep(7) 
-    robot.pressKey('ESC')
+    keyboard2.pressKey('esc')
     pyautogui.sleep(5) 
-# 서조(char)
+    
 def 아티팩트판매():
     robot.pressKey('ESC')
     imageFinder.waitAndClick('크리처')

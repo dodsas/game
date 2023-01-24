@@ -1,32 +1,46 @@
 import keyboard
+import time
 
-# while(True):
-    # robot.pressKey('f', sleep=0, duration=0.1)
-    # robot.pressKey('e', sleep=0, duration=0.1)
-    # robot.pressKey('r', sleep=0, duration=0.1)
-    # robot.pressKey('w', sleep=0, duration=0.1)
-    # robot.pressKey('q', sleep=0, duration=0.1)
-    
-    # robot.pressKey('f6', sleep=0, duration=0.1)
-    # pyautogui.press('f')
-    # pyautogui.press('f6')
+def pressKey(key: str, sleep: float = 2, duration: float = 1):
+    time.sleep(sleep)
+    print('pressKey: ' + key)
 
-# keyboard.send('f')
+    keyMap = {
+        'f': 3,
+        'q': 12,
+        'w': 13,
+        'e': 14,
+        'r': 15,
+        '1': 18,
+        '2': 19,
+        '3': 20,
+        '4': 21,
+        '5': 23,
+        '6': 22,
+        '7': 26,
+        '8': 28,
+    }
 
-keyboard.hook(print)
+    # check keyMap contain key
+    modifiedKey = None
+    if key in keyMap:
+        modifiedKey = keyMap[key]
+
+    if modifiedKey == None:
+        modifiedKey = key
+
+    keyboard.press(modifiedKey)
+    time.sleep(duration)
+    keyboard.release(modifiedKey)
+
+# pressKey('f6')
+# show all keymap for keybarod module
+# print('키보드후킹중')
+# keyboard.hook(print)
 # input()
 
-while(True):
-    keyboard.press_and_release(3) # f
-    keyboard.press_and_release('f6') # q
-    pyautogui.sleep(2)
-    print('aaa')
-
-# keyboard.press_and_release(3) # f
-# keyboard.press_and_release(12) # q
-# keyboard.press_and_release(13) # w
-# keyboard.press_and_release(14) # e
-# keyboard.press_and_release(15) # r
-
-
-# show all keymap for keybarod module
+# while(True):
+#     # keyboard.press_and_release('f6') # q
+#     pressKey('f', 2, 1)    # sleep 2 seconds
+#     time.sleep(2)
+#     print('aaa')
