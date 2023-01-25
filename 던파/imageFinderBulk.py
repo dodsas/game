@@ -133,4 +133,4 @@ def findAndClick(name: str, imageNmaeList: list):
 # af.l
 
 
-# findAndClick('신비', ['상점_신비라코', '상점_신비2라코100', '상점_신비2라코110', '상점_신비2칼박1'])
+findAndClick('신비', ['상점_신비라코', '상점_신비2라코100', '상점_신비2라코110', '상점_신비2칼박1'])
