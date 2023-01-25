@@ -1,12 +1,14 @@
 from unit import Unit
 import pyautogui
 import imageFinder
+import imageFinderBulk
 import threading
 import time
 import random
 import keyboard2
 import robot 
 from datetime import datetime
+from robot import printf
 
 def uprint(unit: Unit, msg: str):
     # print with unit name f-string
@@ -102,7 +104,8 @@ def 캐릭터선택(char:Unit):
         if(imageFinder.isFound('캐릭_' + char.name, threshold=0.88, sleep=0) != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
-        pyautogui.scroll(-60000)
+        # pyautogui.scroll(-60000)
+        pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
@@ -141,7 +144,8 @@ def 산등노가다(char:Unit):
 
         findClock=False
         for i in range(200):
-            uprint(char, f'{i} ({j}/{loopCount-1})')
+            # uprint(char, f'{i} ({j}/{loopCount-1})')
+            printf('', f'{i} ({j}/{loopCount-1})', '', char.name)
 
             # if multip 30
             if(i%45 == 0 and i != 0):
@@ -221,41 +225,47 @@ def 신비상점구매(char:Unit):
     # 신비상점
     imageFinder.waitAndClick('상점')
     imageFinder.waitAndClick('상점_신비')
-    # imageFinder_bk.findAndClick('상점_신비천', threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비연석', sleep=3, threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비라코', sleep=0.5, threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비가죽', sleep=0.5, threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비뼈', sleep=0.5, threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비경화제', sleep=0.5, threshold=0.95, error=False)
-    imageFinder.findAndClick('상점_신비원소', sleep=0.5, threshold=0.9, error=False)
+
+    pyautogui.sleep(3)
+
+    buyList = []
+    buyList.append('상점_신비천')
+    buyList.append('상점_신비뼈')
+    buyList.append('상점_신비철')
+    buyList.append('상점_신비연석')
+    buyList.append('상점_신비라코')
+    buyList.append('상점_신비가죽')
+    buyList.append('상점_신비원소')
+    buyList.append('상점_신비경화제')
+    buyList.append('상점_신비다이야')
+
     if(char.신비전체구매 == True):
+        buyList.append('상점_신비칼박')
+    # else:
+        # buyList.append('상점_신비테라')
+        # buyList.append('상점_신비테라2')
+    
+    imageFinderBulk.findAndClick('신비로그_' + char.name, buyList)
+
+    # imageFinder.findAndClick('상점_신비천', threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비연석', sleep=3, threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비라코', sleep=0.5, threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비가죽', sleep=0.5, threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비뼈', sleep=0.5, threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비경화제', sleep=0.5, threshold=0.95, error=False)
+    # imageFinder.findAndClick('상점_신비원소', sleep=0.5, threshold=0.9, error=False)
+    # if(char.신비전체구매 == True):
         # imageFinder_bk.findAndClick('상점_신비다이야', threshold=1, error=False)
-        imageFinder.findAndClick('상점_신비칼박', sleep=0.5, threshold=0.95, error=False)
-    imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.85, error=False)
-    imageFinder.waitAndClick('구입', maxWait=3, threshold=0.85, error=False)
-    imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
+        # imageFinder.findAndClick('상점_신비칼박', sleep=0.5, threshold=0.95, error=False)
+
+    if(imageFinder.waitAndClick('구매하기', maxWait=2, threshold=0.85, error=False) == True) :
+        imageFinder.waitAndClick('구입', maxWait=3, threshold=0.85, error=False)
+        imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
+
     if(imageFinder.isFound('신비_소지금액부족') != None):
         robot.pressKey('ESC')
     robot.pressKey('ESC')
     pyautogui.sleep(3)
-
-def 크리처_OLD():
-    robot.pressKey('ESC', sleep=5)
-    imageFinder.findAndClick('크리처')
-
-    imageFinder.findAndClick('크리처_심부름')
-    if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
-        imageFinder.findAndClick('크리처_보상받기')
-        imageFinder.findAndClick('확인')
-    if(imageFinder.isFound('크리처_빠른심부름', sleep=7) != None):
-        imageFinder.findAndClick('크리처_빠른심부름', sleep=0)
-        imageFinder.findAndClick('크리처_자동배치')
-        imageFinder.findAndClick('크리처_보내기')
-        if(imageFinder.isFound('확인', sleep=4) == None):
-            robot.pressKey('ESC')
-        else:
-            imageFinder.findAndClick('확인')
-    robot.pressKey('ESC')
 
 def 크리처():
     robot.pressKey('ESC')
