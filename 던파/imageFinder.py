@@ -61,15 +61,14 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8, printLog
         cv2.imwrite(imgLogPath+imageName+'_detect.png', img)
         # print(imageName + ' is found ')
         # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][FOUND!!! ][{max_val:.4f}] {imageName:15}')
-        printf(f'x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}', 'FOUND!!!', f'{max_val:.4f}', imageName)
+        printf(imageName, 'FOUND', f'{max_val:.4f}', f'x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}')        
         return pt
     # return null
 
     if (printLog == True):
         # print(imageName + ' is not found')
         # print(f'[             ][NOT FOUND][{max_val:.4f}] {imageName:15}')
-        printf('', 'NOT FOUND', f'{max_val:.4f}', imageName)
-
+        printf(imageName, 'NOT_FOUND', f'{max_val:.4f}', '')
     
     return None
 

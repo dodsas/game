@@ -71,14 +71,14 @@ def isFound(bg: cv2.Mat, imageName: str, threshold: float = 0.95, printLog: bool
         # rectangle fill color
         cv2.rectangle(bg, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), -1)
         # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][FOUND!!! ][{max_val:.4f}] {imageName:15}')
-        printf(f'x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}', 'FOUND!!!', f'{max_val:.4f}', imageName)
+        printf(imageName, 'FOUND', f'{max_val:.4f}', f'x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}')
         ptList.append(pt)
 
     # if ptList is empty, return None
     if (len(ptList) == 0):
         if (printLog == True):
             # print(f'[             ][NOT FOUND][{max_val:.4f}] {imageName:15}')
-            printf('', 'NOT FOUND', f'{max_val:.4f}', imageName)
+            printf(imageName, 'NOT_FOUND', f'{max_val:.4f}', '')
         return None
 
     return ptList
@@ -133,4 +133,4 @@ def findAndClick(name: str, imageNmaeList: list):
 # af.l
 
 
-findAndClick('신비', ['상점_신비라코', '상점_신비2라코100', '상점_신비2라코110', '상점_신비2칼박1'])
+# findAndClick('신비', ['상점_신비가죽', '상점_신비라코', '상점_신비2라코100', '상점_신비2라코110', '상점_신비2칼박1'])

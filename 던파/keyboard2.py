@@ -1,9 +1,11 @@
 import keyboard
 import time
+import robot
 
-def pressKey(key: str, sleep: float = 2, duration: float = 1):
+def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
     time.sleep(sleep)
-    print('pressKey: ' + key)
+    if(printLog == True):
+       robot.printf('pressKey', key, '', '')
 
     keyMap = {
         'f': 3,
@@ -27,6 +29,7 @@ def pressKey(key: str, sleep: float = 2, duration: float = 1):
         modifiedKey = keyMap[key]
 
     if modifiedKey == None:
+        print('pressKey: key not found in keyMap' + key)
         modifiedKey = key
 
     keyboard.press(modifiedKey)

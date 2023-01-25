@@ -6,6 +6,7 @@ import action
 from unit import Unit
 import os
 from datetime import datetime
+import imageFinder
 
 # map of Unit objects
 loop = 14  # 피로도남기 13 / 풀피로도 14
@@ -41,5 +42,12 @@ for key in map:
     char = map[key]
     robot.charName = char.name
     action.캐릭터선택(char)
-    action.크리처()
-    action.신비상점구매(char)
+
+    robot.pressKey(';')
+
+    imageFinder.waitAndClick('길드활동')
+    imageFinder.waitAndClick('길드빙고')
+    imageFinder.waitAndClick('빙고보상모두받기', error=False)
+    imageFinder.waitAndClick('확인', error=False, maxWait=1)
+    robot.pressKey('esc')
+    robot.pressKey('esc')

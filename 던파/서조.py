@@ -12,7 +12,7 @@ loop = 14  # 피로도남기 13 / 풀피로도 14
 # loop = 13
 map = {
     "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True, loopCount=loop),
-    "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
+    "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True),
     "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
     "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
     "윈드꾸꾸": Unit("윈드꾸꾸", 3, 'w', finalIndex='f', 신비전체구매=False),
@@ -34,9 +34,12 @@ map = {
     "보리심판관": Unit("보리심판관", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=14),
 }
 # romove all files in imagesLog folder on osx
-os.system('rm -rf imagesLog/*')
+# os.system('rm -rf imagesLog/*')
 
 for key in map:
     char = map[key]
+    robot.charName = char.name
     action.캐릭터선택(char)
     action.서조(char)
+
+# action.서조(map["보리심판관"])

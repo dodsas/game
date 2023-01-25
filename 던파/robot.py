@@ -15,7 +15,7 @@ def colorFilter(keyword, word, filter, color):
         return word 
 
 def lj(str, length):
-    retVal = f'{str.rjust(length - (wcswidth(str) - len(str)))}'
+    retVal = f'{str.ljust(length - (wcswidth(str) - len(str)))}'
 
     redFilter = [
         'NOT_FOUND',
@@ -48,7 +48,7 @@ def printf(p1, p2, p3, p4):
     # print(f'[ {p1.ljust(13-p1Adjust)} ][ {p2:9} ][ {p3:6} ] {p4:15}')
     # print(f'[ {p1.ljust(l(p1, 13))} ][ {p2:9} ][ {p3:6} ] {p4:15}')
     # print(f'{lj(p1, 13)} [ {p2:9} ][ {p3:6} ] {p4:15}')
-    print(lj(charName, 12) + lj(p1, 13) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15))
+    print(lj(charName, 12) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15))
 
 printf('한글', '1', '2', '3')
 printf('FOUND', '1', '2', '3')
