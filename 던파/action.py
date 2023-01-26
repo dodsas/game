@@ -70,23 +70,23 @@ def 수리및보관():
 def 길드활동(char: Unit):
     # 길드 출석
     robot.pressKey(';')
-    if(char.길드기부):
-        imageFinder.waitAndClick('길드기부', maxWait=3, error=False)
-        imageFinder.waitAndClick('기부하기', maxWait=3, error=False)
-        imageFinder.waitAndClick('확인', maxWait=3, error=False)
-        imageFinder.waitAndClick('길드기부_상자클릭', maxWait=3, error=False)
-        robot.pressKey('ESC')
-        robot.pressKey('ESC')
-    imageFinder.waitAndClick('길드출석', maxWait=3, error=False)
-    imageFinder.waitAndClick('길드출석10000', maxWait=3, error=False)
-    imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    # imageFinder.waitAndClick('길드출석상자', threshold=0.70, error=False)
+    # if(char.길드기부):
+    imageFinder.waitAndClick('길드기부', maxWait=3, error=False)
+        # imageFinder.waitAndClick('기부하기', maxWait=3, error=False)
+        # imageFinder.waitAndClick('확인', maxWait=3, error=False)
+    imageFinder.waitAndClick('길드기부_상자클릭', maxWait=3, error=False)
+    robot.pressKey('ESC')
+    # robot.pressKey('ESC')
+
+    # imageFinder.waitAndClick('길드출석', maxWait=3, error=False)
+    # imageFinder.waitAndClick('길드출석10000', maxWait=3, error=False)
     # imageFinder.waitAndClick('확인', maxWait=3, error=False)
-    robot.pressKey('ESC', sleep=4)
+    # imageFinder.waitAndClick('확인', maxWait=3, error=False)
+
+    # robot.pressKey('ESC', sleep=4)
     robot.pressKey('ESC', sleep=7)
 
-# 길드활동(char)
+길드활동(char)
 
 def 친구포인트():
     robot.pressKey('l')

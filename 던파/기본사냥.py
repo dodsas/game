@@ -28,10 +28,12 @@ map = {
    "보리뚜뚜": Unit("보리뚜뚜", 6, 'w', 신비전체구매=True, loopCount=12),
    "웨펀꾸꾸": Unit("웨펀꾸꾸", 3, 'w', 신비전체구매=False, loopCount=12), 
    "베인뚜": Unit("베인뚜", 6, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
-   "보리핏": Unit("보리핏", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
-   "무녀뚜": Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
-#    "보리파": Unit("보리파", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
-   "서큐버뚜": Unit("서큐버뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
+
+   "보리핏": Unit("보리핏", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True, loopCount=12),
+   "무녀뚜": Unit("무녀뚜", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True, loopCount=12),
+   "보리파": Unit("보리파", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True, loopCount=12),
+   "서큐버뚜": Unit("서큐버뚜", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True, loopCount=12),
+
    "보리심판관": Unit("보리심판관", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
 }
 
