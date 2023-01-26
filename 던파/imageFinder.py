@@ -5,17 +5,27 @@
 # pip3 install numpy
 # pip3 install matplotlib
 
+import mailSender
 import pyautogui
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import robot
+import datetime
 
 imgPath = 'Images/'
 imgLogPath = 'ImagesLog/'
 
 removeX=1280
 removeY=300
+
+def erorr(imageName: str):
+    robot.printf(imageName, 'ERROR')
+
+    # print HH:MM:SS timestamp
+    message = f'[{datetime.datetime.now().strftime("%H:%M:%S")}] {imageName} is not found [{robot.charName}]'
+    mailSender.sendMail(f'[DNF] IMAGE ERROR', message)
+    exit()
 
 # def method to return wether or not the image is found
 def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8, printLog: bool = True):
@@ -76,8 +86,7 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8, printLog
 def click(pt, name):
     pyautogui.sleep(0.5)
     if (pt == None):
-        print('Error At ' + name)
-        exit()
+        erorr(name)
     pyautogui.click(x=pt[0]+5+removeX, y=pt[1]+5+removeY)
 
 # method to isFount and click
@@ -135,5 +144,8 @@ def waitToFind(imageName: str, threshold: float = 0.92, maxWait=10, error: bool 
             return False
         if (pt != None or i > maxWait * 2):
             break
+
+    if(pt == None):
+        error(imageName)
     
     return True
