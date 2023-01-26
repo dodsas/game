@@ -17,7 +17,7 @@ def uprint(unit: Unit, msg: str):
 char=Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13)
 
 def waitToHome():
-    imageFinder.waitToFind('스케쥴러', maxWait=3, error=False)
+    imageFinder.waitToFind('스케쥴러', maxWait=7, error=True)
 
 def 일최초시작(hhmm: str):
     # split hhmm to hh and mm
@@ -84,10 +84,10 @@ def 길드활동(char: Unit):
 def 친구포인트():
     robot.pressKey('l')
     imageFinder.waitAndClick('친구일괄보내기', error=False)
-    pyautogui.sleep(5)
     imageFinder.waitAndClick('확인', error=False)
+    # pyautogui.sleep(5)
     imageFinder.waitAndClick('친구일괄받기', error=False)
-    pyautogui.sleep(4)
+    # pyautogui.sleep(4)
     robot.pressKey('ESC')
     waitToHome()
 
@@ -98,8 +98,8 @@ def 캐릭터선택(char:Unit):
         if(imageFinder.isFound('캐릭_' + char.name, threshold=0.88, sleep=0) != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
-        pyautogui.scroll(-60000)
-        # pyautogui.scroll(-10000)
+        # pyautogui.scroll(-60000)
+        pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
@@ -118,11 +118,11 @@ def 산등최초입장():
 def 산등노가다(char:Unit):
 
     loopCount = char.loopCount
-    j = 0
+    j = 1
     while(True):
     # for j in range(loopCount):
         j+=1
-        uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount-1))
+        uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
         while(True):
             imageFinder.waitAndClick('산등맵', threshold= 0.75, error=False)
             pyautogui.press(str(char.buffIndex))
@@ -131,7 +131,7 @@ def 산등노가다(char:Unit):
 
         if(imageFinder.isFound('지옥파티') != None): 
             j-=1
-            if(j == loopCount - 1):
+            if(j == loopCount):
                 pyautogui.press("ESC")
                 imageFinder.waitAndClick('재도전확인')
                 return
@@ -141,7 +141,7 @@ def 산등노가다(char:Unit):
         findClock=False
         for i in range(200):
             # uprint(char, f'{i} ({j}/{loopCount-1})')
-            printf('', f'{i} ({j}/{loopCount-1})', '', char.name)
+            printf('산등재도전중', f'{i}', f'{j}/{loopCount}', '')
 
             # if multip 30
             if(i%45 == 0 and i != 0):
@@ -226,6 +226,7 @@ def 신비상점구매(char:Unit):
     imageFinder.waitAndClick('상점_신비')
 
     imageFinder.waitToFind('신비상점입장')
+    pyautogui.sleep(2) 
 
     buyList = []
     buyList.append('상점_신비천')
@@ -259,21 +260,19 @@ def 신비상점구매(char:Unit):
 # 신비상점구매(char)
 
 def 크리처():
-    robot.pressKey('ESC')
-    imageFinder.waitAndClick('크리처')
+    # robot.pressKey('ESC')
+    # imageFinder.waitAndClick('크리처')
+
+    imageFinder.pressAndWaitAndClick('ESC', '크리처')
     imageFinder.waitAndClick('크리처_심부름')
     if(imageFinder.isFound('크리처_심부름모두완료', sleep=1) == None):
-        if(imageFinder.isFound('크리처_보상받기', sleep=4) != None):
-            imageFinder.waitAndClick('크리처_보상받기')
+        if(imageFinder.waitAndClick('크리처_보상받기', maxWait=1, error=False) == True):
             imageFinder.waitAndClick('확인')
-        if(imageFinder.isFound('크리처_빠른심부름', sleep=7) != None):
-            imageFinder.waitAndClick('크리처_빠른심부름')
+        if(imageFinder.waitAndClick('크리처_빠른심부름', maxWait=7, error=False) == True):
             imageFinder.waitAndClick('크리처_자동배치')
             imageFinder.waitAndClick('크리처_보내기')
-            if(imageFinder.isFound('확인', sleep=4) == None):
+            if(imageFinder.waitAndClick('확인', maxWait=4, error=False) == False):
                 robot.pressKey('ESC')
-            else:
-                imageFinder.waitAndClick('확인')
     robot.pressKey('ESC')
     waitToHome()
 
@@ -332,8 +331,7 @@ def 서조(char:Unit):
     waitToHome()
     
 def 아티팩트판매():
-    robot.pressKey('ESC')
-    imageFinder.waitAndClick('크리처')
+    imageFinder.pressAndWaitAndClick('ESC', '크리처')
     imageFinder.waitAndClick('크리처_아티팩트')
     imageFinder.waitAndClick('장비해체', maxWait=3, error=False)
     imageFinder.waitAndClick('크리처_장비해체클릭', maxWait=3, error=False)

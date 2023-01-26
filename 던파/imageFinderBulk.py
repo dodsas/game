@@ -99,7 +99,7 @@ def findBulk(name: str, imageNmaeList: list):
 
     #remove none value in foundList
     foundList = [x for x in foundList if x is not None]
-    print(foundList)
+    # print(foundList)
     saveDebugImage(f'{name}_detected', bg)
     return foundList
 

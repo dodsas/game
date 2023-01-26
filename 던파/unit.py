@@ -11,7 +11,7 @@ class Unit:
     길드기부: bool = False 
     loopCount: int = 14
     
-    def __init__(self, name, buffIndex, 짧은스킬, 신비전체구매=False, 산등노가다=True, 길드기부=False, loopCount=14,
+    def __init__(self, name, buffIndex, 짧은스킬, 신비전체구매=False, 산등노가다=True, 길드기부=False, loopCount=13,
     finalIndex='6'):
         self.name = name
         self.짧은스킬 = 짧은스킬
