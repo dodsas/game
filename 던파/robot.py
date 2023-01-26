@@ -1,4 +1,5 @@
 import pyautogui
+import datetime
 from wcwidth import wcswidth
 
 def pressKey(key: str, sleep: float = 2, duration: float = 1):
@@ -44,16 +45,20 @@ def lj(str, length):
 
 # [ 캐릭며어어엉 ]
 charName = '캐릭며어어엉'
-def printf(p1, p2, p3, p4):
+def printf(p1, p2 = '', p3 = '', p4 = ''):
     # print(f'[ {p1.ljust(13-p1Adjust)} ][ {p2:9} ][ {p3:6} ] {p4:15}')
     # print(f'[ {p1.ljust(l(p1, 13))} ][ {p2:9} ][ {p3:6} ] {p4:15}')
     # print(f'{lj(p1, 13)} [ {p2:9} ][ {p3:6} ] {p4:15}')
-    print(lj(charName, 12) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15))
+    print(
+        lj(datetime.datetime.now().strftime('%H:%M:%S'), 8) + 
+        lj(charName, 12) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15)
+    )
 
-printf('한글', '1', '2', '3')
-printf('FOUND', '1', '2', '3')
-printf('NOT_FOUND', '1', '2', '3')
-charName = '보리앤파이터'
-printf('abcd', '1', '2', '3')
-charName = '런처꾸꾸'
-printf('abcdff', '1', '2', '3')
+
+# printf('한글', '1', '2', '3')
+# printf('FOUND', '1', '2', '3')
+# printf('NOT_FOUND', '1', '2', '3')
+# charName = '보리앤파이터'
+# printf('abcd', '1', '2', '3')
+# charName = '런처꾸꾸'
+# printf('abcdff', '1', '2', '3')

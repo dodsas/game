@@ -96,11 +96,27 @@ def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: boo
         i += 1 
         pt = isFound(imageName, threshold = threshold, sleep=0.5, printLog=False)
         if(error == False and i > maxWait * 2):
-            print('waitAndClick finally not found ' + imageName)
+            isFound(imageName, threshold = threshold, sleep=0.0, printLog=True)
+            printf('waitAndClick', 'NOT_FOUND', imageName)
             return False
         if (pt != None or i > maxWait * 2):
             break
     
     pyautogui.sleep(delay)
     click(pt, imageName)
+    return True
+
+def waitToFind(imageName: str, threshold: float = 0.92, maxWait=10, error: bool = True):
+    # loop until found image
+    i = 0
+    while True:
+        i += 1 
+        pt = isFound(imageName, threshold = threshold, sleep=0.5, printLog=False)
+        if(error == False and i > maxWait * 2):
+            isFound(imageName, threshold = threshold, sleep=0.0, printLog=True)
+            printf('wiatToFind', 'NOT_FOUND', imageName)
+            return False
+        if (pt != None or i > maxWait * 2):
+            break
+    
     return True

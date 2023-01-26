@@ -44,7 +44,6 @@ for key in map:
     action.캐릭터선택(char)
 
     robot.pressKey(';')
-
     imageFinder.waitAndClick('길드활동')
     imageFinder.waitAndClick('길드빙고')
     imageFinder.waitAndClick('빙고보상모두받기', error=False)
