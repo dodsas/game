@@ -89,6 +89,7 @@ def 친구포인트():
     imageFinder.waitAndClick('친구일괄받기', error=False)
     pyautogui.sleep(4)
     robot.pressKey('ESC')
+    waitToHome()
 
 def 캐릭터선택(char:Unit):
     imageFinder.waitAndClick('캐릭_선택')
@@ -103,6 +104,7 @@ def 캐릭터선택(char:Unit):
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
     waitToHome()
+    # FIXME 아래 두개가 더 필요할수도 있음 (상황나오면 그때 확인해보자)
     # pyautogui.sleep(5)
     # imageFinder.findAndClick('확인', error=False)
 
@@ -193,7 +195,8 @@ def 산등노가다(char:Unit):
             break 
     imageFinder.waitAndClick('확인')
     robot.pressKey('F8', sleep=4)
-    pyautogui.sleep(4)
+    waitToHome()
+
 
 def 산등지옥재도전(): 
     pyautogui.press("ESC")
@@ -213,7 +216,9 @@ def 즐찾구매():
     imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.91, error= False)
     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
     imageFinder.waitAndClick('확인', maxWait=2, threshold=0.91, error=False)
-    robot.pressKey('ESC', sleep=8)
+    # robot.pressKey('ESC', sleep=8)
+    robot.pressKey('ESC')
+    waitToHome()
 
 def 신비상점구매(char:Unit):
     # 신비상점
@@ -322,9 +327,9 @@ def 서조(char:Unit):
         keyboard2.pressKey('f6', sleep=2)
 
     keyboard2.pressKey('f8', sleep=2)
-    pyautogui.sleep(7) 
+    imageFinder.waitToFind('스케쥴러입장')
     keyboard2.pressKey('esc')
-    pyautogui.sleep(5) 
+    waitToHome()
     
 def 아티팩트판매():
     robot.pressKey('ESC')
@@ -336,7 +341,9 @@ def 아티팩트판매():
         imageFinder.waitAndClick('확인', maxWait=3, error=False)
         imageFinder.waitAndClick('확인', maxWait=3, error=False)
     robot.pressKey('ESC') 
-    robot.pressKey('ESC', sleep=5) # 최초분해 따아앙뜨는거 5초
+    # robot.pressKey('ESC', sleep=5) # 최초분해 따아앙뜨는거 5초
+    robot.pressKey('ESC') # 최초분해 따아앙뜨는거 5초 안기다려도 가짐
+    waitToHome()
 
 # 크리처()
 # sampleUnit = Unit("보리핏", 3, 'w', False)
