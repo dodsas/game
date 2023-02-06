@@ -29,7 +29,7 @@ def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
         modifiedKey = keyMap[key]
 
     if modifiedKey == None:
-        print('pressKey: key not found in keyMap' + key)
+        print('pressKey: key not found in keyMap ' + key)
         modifiedKey = key
 
     keyboard.press(modifiedKey)

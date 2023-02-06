@@ -17,7 +17,11 @@ def uprint(unit: Unit, msg: str):
 char=Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13)
 
 def waitToHome():
-    imageFinder.waitToFind('스케쥴러', maxWait=7, error=True)
+    imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
+
+def waitToHomeWithKey(key):
+    imageFinder.pressAndWait(key, '스케쥴러', maxWait=7, error=True, threshold=0.95)
+    # imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
 
 def 일최초시작(hhmm: str):
     # split hhmm to hh and mm
@@ -67,8 +71,9 @@ def 수리및보관():
     imageFinder.waitAndClick('모험단금고')
     imageFinder.waitAndClick('자동보관')
     imageFinder.waitAndClick('확인', threshold=0.91, error=False)
-    robot.pressKey('ESC')
-    pyautogui.sleep(2)
+    # robot.pressKey('ESC')
+    # pyautogui.sleep(2)
+    waitToHomeWithKey('ESC')
 
 def 길드활동(char: Unit):
     # 길드 출석
@@ -76,8 +81,8 @@ def 길드활동(char: Unit):
     imageFinder.waitAndClick('길드기부', maxWait=3, error=False)
     imageFinder.waitAndClick('길드기부_상자클릭', maxWait=3, error=False)
     imageFinder.waitAndClick('x', maxWait=3, error=False)
-    robot.pressKey('ESC')
-    waitToHome()
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
 
 # 길드활동(char)
 
@@ -88,28 +93,44 @@ def 친구포인트():
     # pyautogui.sleep(5)
     imageFinder.waitAndClick('친구일괄받기', error=False)
     # pyautogui.sleep(4)
-    robot.pressKey('ESC')
-    waitToHome()
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
 
 def 캐릭터선택(char:Unit):
-    imageFinder.waitAndClick('캐릭_선택')
+    imageFinder.waitAndClick('캐릭_선택', threshold=0.97)
     imageFinder.waitAndClick('캐릭_보리뚜')
     for i in range(100):
         if(imageFinder.isFound('캐릭_' + char.name, threshold=0.88, sleep=0) != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
-        # pyautogui.scroll(-60000)
-        pyautogui.scroll(-10000)
+        # pyautogui.scroll(-120000)
+        pyautogui.scroll(-60000)
+        # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
-    waitToHome()
+    # waitToHome()
     # FIXME 아래 두개가 더 필요할수도 있음 (상황나오면 그때 확인해보자)
-    # pyautogui.sleep(5)
+    pyautogui.sleep(2)
     # imageFinder.findAndClick('확인', error=False)
 
+    # loop until found image
+    i = 0
+    maxWait = 15
+    while True:
+        i += 1 
+        imageFinder.findAndClick('확인', error=False, printLog=False, sleep=0.1)
+        pt = imageFinder.isFound('스케쥴러', threshold = 0.92, sleep=0.5, printLog=False)
+        if (pt != None or i > maxWait * 2):
+            break
+    if(pt == None):
+        imageFinder.errorf('스케쥴러 이미지를 찾을 수 없습니다. (캐릭터 선택)')
+    
+    pyautogui.sleep(3)
+    
+
 def 산등최초입장():
-    imageFinder.waitAndClick('입장_최초맵선택', threshold=0.85)
+    imageFinder.waitAndClick('입장_최초맵선택', threshold=0.97)
     imageFinder.waitAndClick('입장_설산')
     imageFinder.waitAndClick('모험난이도', threshold=0.9, maxWait=15)
     imageFinder.waitAndClick('산등성이')
@@ -118,16 +139,25 @@ def 산등최초입장():
 def 산등노가다(char:Unit):
 
     loopCount = char.loopCount
-    j = 1
+    j = 0
     while(True):
     # for j in range(loopCount):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
-        while(True):
-            imageFinder.waitAndClick('산등맵', threshold= 0.75, error=False)
-            pyautogui.press(str(char.buffIndex))
-            if(imageFinder.isFound('방_보스') != None):
-                break
+
+        imageFinder.waitAndClick('산등맵', threshold= 0.97)
+        robot.pressKey(str(char.buffIndex), sleep=0)
+
+        # stopCount = 0
+        # while(True):
+        #     stopCount += 1
+        #     imageFinder.waitAndClick('산등맵', threshold= 0.95, error=False)
+        # # if(imageFinder.waitAndClick('산등맵', threshold= 0.75, error=True) == True):
+        #     pyautogui.press(str(char.buffIndex))
+        #     if(imageFinder.isFound('방_보스') != None):
+        #         break
+        #     if(stopCount > 10):
+        #         imageFinder.errorf('산등맵에서 빠져나오지 못함')
 
         if(imageFinder.isFound('지옥파티') != None): 
             j-=1
@@ -181,7 +211,7 @@ def 산등노가다(char:Unit):
             pyautogui.keyUp('x')
 
         pyautogui.sleep(3)
-        if(j == loopCount - 1):
+        if(j == loopCount):
             robot.pressKey('F8', sleep=2)
             imageFinder.findAndClick('확인', error=False)
             pyautogui.sleep(4)
@@ -190,18 +220,18 @@ def 산등노가다(char:Unit):
             robot.pressKey('ESC', sleep=4)
             robot.pressKey('ESC', sleep=4)
             return
-        pyautogui.press('F6')
+        robot.pressKey('F6')
         if(imageFinder.isFound('피로도부족', sleep=4) != None):
             break 
     imageFinder.waitAndClick('확인')
-    robot.pressKey('F8', sleep=4)
-    waitToHome()
-
+    # robot.pressKey('F8', sleep=4)
+    waitToHomeWithKey('F8')
 
 def 산등지옥재도전(): 
     pyautogui.press("ESC")
     imageFinder.waitAndClick('재도전확인')
-    robot.pressKey('left', 9)
+    #imageFinder.waitAndClick('확인', threshold=0.9)
+    robot.pressKey('left', duration=9)
     imageFinder.waitAndClick('모험난이도', threshold=0.9)
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
@@ -217,16 +247,18 @@ def 즐찾구매():
     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
     imageFinder.waitAndClick('확인', maxWait=2, threshold=0.91, error=False)
     # robot.pressKey('ESC', sleep=8)
-    robot.pressKey('ESC')
-    waitToHome()
+    # robot.pressKey('ESC')
+    # waitToHome()
+    # imageFinder.pressAndWait('ESC', '스케쥴러')
+    waitToHomeWithKey('ESC')
 
 def 신비상점구매(char:Unit):
     # 신비상점
     imageFinder.waitAndClick('상점')
     imageFinder.waitAndClick('상점_신비')
 
-    imageFinder.waitToFind('신비상점입장')
-    pyautogui.sleep(2) 
+    imageFinder.wait('신비상점입장')
+    pyautogui.sleep(3) 
 
     buyList = []
     buyList.append('상점_신비천')
@@ -254,8 +286,8 @@ def 신비상점구매(char:Unit):
 
     if(imageFinder.isFound('신비_소지금액부족') != None):
         robot.pressKey('ESC')
-    robot.pressKey('ESC')
-    waitToHome()
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
 
 # 신비상점구매(char)
 
@@ -273,15 +305,15 @@ def 크리처():
             imageFinder.waitAndClick('크리처_보내기')
             if(imageFinder.waitAndClick('확인', maxWait=4, error=False) == False):
                 robot.pressKey('ESC')
-    robot.pressKey('ESC')
-    waitToHome()
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
 
 # imageFinder.isFound('다른긴급의뢰선택', threshold=0.85)
 
 def 서조(char:Unit):
-    # imageFinder.waitAndClick('스케쥴러')
-    # imageFinder.waitAndClick('서조의계곡3', threshold=0.75)
-    # imageFinder.waitAndClick('입장')
+    imageFinder.waitAndClick('스케쥴러')
+    imageFinder.waitAndClick('서조의계곡3', threshold=0.75)
+    imageFinder.waitAndClick('입장')
     for j in range(3):
         isBossFound = False
         # imageFinder_bk.waitAndClick('서조입장', threshold=0.95)
@@ -317,18 +349,18 @@ def 서조(char:Unit):
             if(imageFinder.isFound('다른긴급의뢰선택', threshold=0.88, printLog=False) != None):
                 pyautogui.keyUp('x')
                 # for loop 3 times
-                for i in range(3):
+                for i in range(4):
                     pyautogui.keyDown('x')
-                    pyautogui.sleep(2)
+                    pyautogui.sleep(3)
                     pyautogui.keyUp('x')
                 break
             pyautogui.keyUp('x')
-        keyboard2.pressKey('f6', sleep=2)
+        robot.pressKey('f6', sleep=2)
 
-    keyboard2.pressKey('f8', sleep=2)
-    imageFinder.waitToFind('스케쥴러입장')
-    keyboard2.pressKey('esc')
-    waitToHome()
+    robot.pressKey('f8', sleep=2)
+    imageFinder.wait('스케쥴러입장')
+    # robot.pressKey('esc')
+    waitToHomeWithKey('ESC')
     
 def 아티팩트판매():
     imageFinder.pressAndWaitAndClick('ESC', '크리처')
@@ -340,8 +372,8 @@ def 아티팩트판매():
         imageFinder.waitAndClick('확인', maxWait=3, error=False)
     robot.pressKey('ESC') 
     # robot.pressKey('ESC', sleep=5) # 최초분해 따아앙뜨는거 5초
-    robot.pressKey('ESC') # 최초분해 따아앙뜨는거 5초 안기다려도 가짐
-    waitToHome()
+    # robot.pressKey('ESC') # 최초분해 따아앙뜨는거 5초 안기다려도 가짐
+    waitToHomeWithKey('ESC')
 
 # 크리처()
 # sampleUnit = Unit("보리핏", 3, 'w', False)

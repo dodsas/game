@@ -2,7 +2,7 @@ import pyautogui
 import datetime
 from wcwidth import wcswidth
 
-def pressKey(key: str, sleep: float = 2, duration: float = 1):
+def pressKey(key: str, sleep: float = 2, duration: float = 0.2):
     pyautogui.sleep(sleep)
     printf('pressKey', key)
     pyautogui.keyDown(key)
@@ -41,7 +41,7 @@ def lj(str, length):
     retVal = colorFilter(str, retVal, redFilter, 91)
     retVal = colorFilter(str, retVal, greenFilter, 92)
 
-    return f'[{retVal}]'
+    return f'[ {retVal} ]'
 
 # [ 캐릭며어어엉 ]
 charName = '캐릭며어어엉'
@@ -51,7 +51,7 @@ def printf(p1, p2 = '', p3 = '', p4 = ''):
     # print(f'{lj(p1, 13)} [ {p2:9} ][ {p3:6} ] {p4:15}')
     print(
         lj(datetime.datetime.now().strftime('%H:%M:%S'), 8) + 
-        lj(charName, 12) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15)
+        lj(charName, 3) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15)
     )
 
 

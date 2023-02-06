@@ -19,7 +19,7 @@ imgLogPath = 'ImagesLog/'
 removeX=1280
 removeY=300
 
-def erorr(imageName: str):
+def errorf(imageName: str):
     robot.printf(imageName, 'ERROR')
 
     # print HH:MM:SS timestamp
@@ -86,8 +86,10 @@ def isFound(imageName: str, sleep: float = 0.0, threshold: float = 0.8, printLog
 def click(pt, name):
     pyautogui.sleep(0.5)
     if (pt == None):
-        erorr(name)
+        errorf(name)
     pyautogui.click(x=pt[0]+5+removeX, y=pt[1]+5+removeY)
+    # print x y
+    # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][CLICKED!!! ] {name:15}')
 
 # method to isFount and click
 def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True, printLog: bool = True):
@@ -99,10 +101,15 @@ def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool
     click(pt, imageName)
 
 def pressAndWaitAndClick(key: str, imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True, delay: float=0.0):    
+
+    if (key == 'esc' or key == 'ESC'): 
+        sleep = 3
+
     i = 0
     while True:
         i += 1 
-        robot.pressKey(key, sleep=0)
+        robot.pressKey(key, sleep=0.0)
+        pyautogui.sleep(sleep)
         pt = isFound(imageName, threshold = threshold, sleep=0.5, printLog=False)
         if(error == False and i > maxWait * 2):
             isFound(imageName, threshold = threshold, sleep=0.0, printLog=True)
@@ -113,6 +120,27 @@ def pressAndWaitAndClick(key: str, imageName: str, threshold: float = 0.80, maxW
     
     pyautogui.sleep(delay)
     click(pt, imageName)
+    return True
+
+def pressAndWait(key: str, imageName: str, threshold: float = 0.92, maxWait=10, error: bool = True):    
+    i = 0
+    while True:
+        i += 1 
+        robot.pressKey(key, sleep=0)
+        findAndClick('확인', threshold=0.9, error=False, printLog=False)
+        pt = isFound(imageName, threshold = threshold, sleep=0.5, printLog=False)
+        if(error == False and i > maxWait * 2):
+            isFound(imageName, threshold = threshold, sleep=0.0, printLog=True)
+            robot.printf(imageName, 'NOT_FOUND', '', 'waitAndClick')
+            return False
+        if (pt != None or i > maxWait * 2):
+            break
+
+    if(pt == None):
+        isFound(imageName, threshold = threshold, sleep=0.0, printLog=True)
+        robot.printf(imageName, 'NOT_FOUND', '', 'waitAndClick')
+        errorf(imageName)
+
     return True
 
 def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True, delay: float=0.0):
@@ -132,7 +160,7 @@ def waitAndClick(imageName: str, threshold: float = 0.80, maxWait=10, error: boo
     click(pt, imageName)
     return True
 
-def waitToFind(imageName: str, threshold: float = 0.92, maxWait=10, error: bool = True):
+def wait(imageName: str, threshold: float = 0.92, maxWait=10, error: bool = True):
     # loop until found image
     i = 0
     while True:
@@ -146,6 +174,6 @@ def waitToFind(imageName: str, threshold: float = 0.92, maxWait=10, error: bool 
             break
 
     if(pt == None):
-        error(imageName)
+        errorf(imageName)
     
     return True

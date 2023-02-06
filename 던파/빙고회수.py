@@ -7,14 +7,16 @@ from unit import Unit
 import os
 from datetime import datetime
 import imageFinder
+import mailSender
 
+# import 신비크리처
 # map of Unit objects
 loop = 14  # 피로도남기 13 / 풀피로도 14
 # loop = 13
 map = {
+    "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True, loopCount=loop),
     "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
     "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
-    "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True, loopCount=loop),
     "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
     "윈드꾸꾸": Unit("윈드꾸꾸", 6, 'w', 신비전체구매=False),
     "보리뚜킥": Unit("보리뚜킥", 3, 'w', 신비전체구매=True),
@@ -50,3 +52,5 @@ for key in map:
     imageFinder.waitAndClick('확인', error=False, maxWait=1)
     robot.pressKey('esc')
     robot.pressKey('esc')
+
+mailSender.sendMail("[DNF] bingo 완료" , "-")

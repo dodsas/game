@@ -6,30 +6,29 @@ import action
 from unit import Unit
 import os
 from datetime import datetime
+import mailSender
 
-# map of Unit objects
-loop = 14  # 피로도남기 12 / 풀피로도 13
-# loop = 13
+# import 기본사냥
 map = {
-    # "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
-    # "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
-    # "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True, loopCount=loop),
-    # "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
-    "윈드꾸꾸": Unit("윈드꾸꾸", 6, 'w', 신비전체구매=False),
-    "보리뚜킥": Unit("보리뚜킥", 3, 'w', 신비전체구매=True),
-    "보리커": Unit("보리커", 3, 'w', 신비전체구매=False, 길드기부=True),
-    "보리뚜비": Unit("보리뚜비", 3, 'w', 신비전체구매=False),
-    "보리꾸꾸": Unit("보리꾸꾸", 6, 'w', 신비전체구매=False),
+    "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True),
+     "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
+     "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=13),
+     "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
+     "윈드꾸꾸": Unit("윈드꾸꾸", 6, 'w', 신비전체구매=False),
+     "보리뚜킥": Unit("보리뚜킥", 3, 'w', 신비전체구매=False),
+     "보리커": Unit("보리커", 3, 'w', 신비전체구매=False, 길드기부=True),
+     "보리뚜비": Unit("보리뚜비", 3, 'w', 신비전체구매=False),
+     "보리꾸꾸": Unit("보리꾸꾸", 6, 'w', 신비전체구매=False),
     "런처꾸꾸": Unit("런처꾸꾸", 6, 'w', 신비전체구매=False),
-    "보리템플러": Unit("보리템플러", 3, 'w', 신비전체구매=True),
+    "보리템플러": Unit("보리템플러", 3, 'w', 신비전체구매=False),
     "보리술사": Unit("보리술사", 3, 'w', 신비전체구매=False),
     "소울뚜": Unit("소울뚜", 3, 'w', 신비전체구매=False),
-    "보리뚜뚜": Unit("보리뚜뚜", 6, 'w', 신비전체구매=True),
+    "보리뚜뚜": Unit("보리뚜뚜", 6, 'w', 신비전체구매=False),
     "웨펀꾸꾸": Unit("웨펀꾸꾸", 3, 'w', 신비전체구매=False),
-    "베인뚜": Unit("베인뚜", 6, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
-    "보리핏": Unit("보리핏", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
+    "베인뚜": Unit("베인뚜", 6, 'w', 신비전체구매=False, 길드기부=True, loopCount=12),
     "무녀뚜": Unit("무녀뚜", 3, 'w', 신비전체구매=False, 길드기부=True, loopCount=12),
-    "보리파": Unit("보리파", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=12),
+    "보리핏": Unit("보리핏", 3, 'w', 신비전체구매=False, 길드기부=True, loopCount=12),
+    "보리파": Unit("보리파", 3, 'w', 신비전체구매=False, 길드기부=True, loopCount=12),
     "서큐버뚜": Unit("서큐버뚜", 3, 'w', 신비전체구매=False, 길드기부=True, loopCount=12),
     "보리심판관": Unit("보리심판관", 3, 'w', 신비전체구매=False, 길드기부=True, loopCount=13),
 }
@@ -43,3 +42,5 @@ for key in map:
     action.캐릭터선택(char)
     action.크리처()
     action.신비상점구매(char)
+
+mailSender.sendMail("[DNF] 신비상점 완료" , "-")
