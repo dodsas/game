@@ -17,11 +17,10 @@ import mailSender
 os.system('rm -rf imagesLog/*')
 
 # action.일최초시작("0700")
-f = open(f'result_{datetime.now().strftime("%Y%m%d")}.txt', "a")
+f = open(f'result/result_{datetime.now().strftime("%Y%m%d")}.txt', "a")
 
 map = unit.map
 for key in map:
-
 
     char = map[key]
     unit.select(key)

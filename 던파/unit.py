@@ -61,7 +61,6 @@ def update():
         json.dump(list, f)
 
 def select(name):
-    print("===========================================================")
     print("=== select " + name)
     global selected
     selected = map[name]
@@ -69,7 +68,6 @@ def select(name):
 
 def workingDone():
     global selected
-    print("===========================================================")
     print("=== workingDone " + selected.name)
     print(selected)
     selected.workingDone = True
@@ -78,14 +76,13 @@ def workingDone():
 def workingDone2(name):
     select(name)
     global selected
-    print("===========================================================")
     print("=== workingDone " + selected.name)
     selected.workingDone = True
     print(selected)
     update()
 
 selected: Unit = None
-fileName = 'char.json'
+fileName = 'result/char.json'
 mapInit = {
     "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4),
     "보리뚜": Unit("보리뚜", 신비전체구매=True),
@@ -119,15 +116,25 @@ load()
 
 # select("보리세이더")
 # workingDone()
-
 # workingDone2("보리성")
 # workingDone2("보리뚜")
 # workingDone2("보리세이더")
 # workingDone2("보리빵떡")
 # workingDone2("보리템플러")
 # workingDone2("보리뚜뚜")
-# workingDone2("보리술사")
-# workingDone2("런처꾸꾸")
-# workingDone2("소울뚜")
 # workingDone2("보리뚜킥")
+# workingDone2("보리핏")
+# workingDone2("베인뚜")
+# workingDone2("보리뚜비")
+# workingDone2("보리커")
+# workingDone2("런처꾸꾸")
+# workingDone2("보리꾸꾸")
+# workingDone2("보리술사")
+# workingDone2("소울뚜")
+# workingDone2("웨펀꾸꾸")
+# workingDone2("무녀뚜")
+# workingDone2("보리파")
+# workingDone2("서큐버뚜")
+# workingDone2("윈드꾸꾸")
+# workingDone2("보리심판관")
 # print(selected.workingDone)

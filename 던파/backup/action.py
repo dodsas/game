@@ -14,7 +14,7 @@ def uprint(unit: Unit, msg: str):
     # print with unit name f-string
     print(f'[{unit.name}] {msg}')
 
-char=Unit("무녀뚜")
+char=Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13)
 
 def waitToHome():
     imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
@@ -104,8 +104,8 @@ def 캐릭터선택(char:Unit):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
         # pyautogui.scroll(-120000)
-        # pyautogui.scroll(-60000)
-        pyautogui.scroll(-10000)
+        pyautogui.scroll(-60000)
+        # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
@@ -148,7 +148,18 @@ def 산등노가다(char:Unit):
         imageFinder.waitAndClick('산등맵', threshold= 0.97)
         robot.pressKey(str(char.buffIndex), sleep=0)
 
-        if(imageFinder.isFound('지옥파티', sleep=1) != None): 
+        # stopCount = 0
+        # while(True):
+        #     stopCount += 1
+        #     imageFinder.waitAndClick('산등맵', threshold= 0.95, error=False)
+        # # if(imageFinder.waitAndClick('산등맵', threshold= 0.75, error=True) == True):
+        #     pyautogui.press(str(char.buffIndex))
+        #     if(imageFinder.isFound('방_보스') != None):
+        #         break
+        #     if(stopCount > 10):
+        #         imageFinder.errorf('산등맵에서 빠져나오지 못함')
+
+        if(imageFinder.isFound('지옥파티') != None): 
             j-=1
             if(j == loopCount):
                 pyautogui.press("ESC")
@@ -215,8 +226,6 @@ def 산등노가다(char:Unit):
     imageFinder.waitAndClick('확인')
     # robot.pressKey('F8', sleep=4)
     waitToHomeWithKey('F8')
-
-# 산등노가다(char)
 
 def 산등지옥재도전(): 
     pyautogui.press("ESC")
