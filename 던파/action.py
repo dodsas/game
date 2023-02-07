@@ -104,8 +104,8 @@ def 캐릭터선택(char:Unit):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
             break
         # pyautogui.scroll(-120000)
-        # pyautogui.scroll(-60000)
-        pyautogui.scroll(-10000)
+        pyautogui.scroll(-70000)
+        # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
     imageFinder.waitAndClick('캐릭_게임시작')
