@@ -1,35 +1,21 @@
 from dataclasses import dataclass
 import json
 
-
 @dataclass
 class Unit:
-    name: str = 'NONE'
+    name: str = 'None'
     # 짧은스킬 = 'q'
-    finalIndex = '6'
-    buffIndex = 3
-    신비전체구매 = False
+    finalIndex: int = '6'
+    buffIndex: int = 3
+    신비전체구매: bool = False
     산등노가다 = True
     loopCount:int = 13
     workingDone: bool = False
+    jsonString: str = None
 
-    def __init__(self,
-                 name='NONE', buffIndex=3, finalIndex='6',
-                 신비전체구매=False,
-                 산등노가다=True, workingDone=False, loopCount=13,
-                 jsonString=None,
-                 ):
-        if (jsonString != None):
-            self.__dict__ = json.loads(jsonString)
-        else:
-            self.name = name
-            # self.짧은스킬 = 짧은스킬
-            self.buffIndex = buffIndex
-            self.신비전체구매 = 신비전체구매
-            self.산등노가다 = 산등노가다
-            self.loopCount = loopCount
-            self.finalIndex = finalIndex
-            self.workingDone = workingDone
+    def __post_init__(self):
+        if (self.jsonString != None):
+            self.__dict__ = json.loads(self.jsonString)
 
     def to_json(self):
         return json.dumps(self, indent=4, default=lambda o: o.__dict__)
@@ -46,7 +32,6 @@ def load():
         for char in list:
             print(char)
             map[char.name] = char
-        # print(mapLoad)
 
 def update():
     global map
@@ -57,7 +42,6 @@ def update():
         json.dump(list, f)
 
 def select(name):
-    print("=== select " + name)
     global selected
     selected = map[name]
     print(selected)
@@ -81,7 +65,7 @@ selected: Unit = None
 fileName = 'result/char.json'
 loop=11
 mapInit = {
-    "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4),
+    "보리성": Unit(name="보리성", 신비전체구매=True, buffIndex=4),
     "보리뚜": Unit("보리뚜", 신비전체구매=True),
     "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=2),
     "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=2),
@@ -135,3 +119,6 @@ load()
 # workingDone2("윈드꾸꾸")
 # workingDone2("보리심판관")
 # print(selected.workingDone)
+
+
+
