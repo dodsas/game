@@ -3,38 +3,40 @@ import pyautogui
 import robot
 import time
 import action
-from unit import Unit
+import unit
 import os
 from datetime import datetime
 import mailSender
 
-# seojo~~~
+import 신비크리처
 
 map = {
-   "보리성": Unit("보리성", 4, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True),
-   "보리세이더": Unit("보리세이더", 3, 'w', 신비전체구매=True, 산등노가다=True, 길드기부=True),
-   "보리뚜": Unit("보리뚜", 3, 'q', 신비전체구매=True, 산등노가다=True, 길드기부=True),
-   "보리빵떡": Unit("보리빵떡", 3, 'w', 신비전체구매=True, 산등노가다=False, 길드기부=True),
-   "윈드꾸꾸": Unit("윈드꾸꾸", 3, 'w', finalIndex='f', 신비전체구매=False),
-   "보리뚜킥": Unit("보리뚜킥", 3, 'w', 신비전체구매=False),
-   "보리커": Unit("보리커", 3, 'w', 신비전체구매=True, 길드기부=True),
-   "보리뚜비": Unit("보리뚜비", 3, 'w', 신비전체구매=False),
-   "런처꾸꾸": Unit("런처꾸꾸", 3, 'w', 신비전체구매=True),
-   "보리꾸꾸": Unit("보리꾸꾸", 6, 'w', 신비전체구매=True),
-    "보리템플러": Unit("보리템플러", 3, 'w', 신비전체구매=False),
-    "보리술사": Unit("보리술사", 3, 'w', 신비전체구매=False),
-    "소울뚜": Unit("소울뚜", 3, 'w', 신비전체구매=False),
-    "보리뚜뚜": Unit("보리뚜뚜", 6, 'w', 신비전체구매=True),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸", 3, 'w', 신비전체구매=False),
-    "보리핏": Unit("보리핏", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13),
-    "무녀뚜": Unit("무녀뚜", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13),
-    "보리파": Unit("보리파", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=13),
-    "서큐버뚜": Unit("서큐버뚜", 3, 'w', finalIndex='3', 신비전체구매=True, 길드기부=True, loopCount=13),
-    "베인뚜": Unit("베인뚜", 6, 'w', finalIndex='f', 신비전체구매=True, 길드기부=True, loopCount=13),
-    "보리심판관": Unit("보리심판관", 3, 'w', 신비전체구매=True, 길드기부=True, loopCount=14),
+    # "보리성": unit.Unit("보리성", 신비전체구매=True, buffIndex=4),
+    # "보리뚜": unit.Unit("보리뚜", 신비전체구매=True),
+    # "보리세이더": unit.Unit("보리세이더", 신비전체구매=True, loopCount=3),
+    # "보리빵떡": unit.Unit("보리빵떡", 신비전체구매=True, loopCount=3),
+    # "보리템플러": unit.Unit("보리템플러", 신비전체구매=True) ,
+    # "보리뚜뚜": unit.Unit("보리뚜뚜", 신비전체구매=True, buffIndex=6),
+    # "보리뚜킥": unit.Unit("보리뚜킥"),  
+    # "보리핏": unit.Unit("보리핏", 신비전체구매=False, loopCount=13),
+    "베인뚜": unit.Unit("베인뚜", 신비전체구매=False, loopCount=13, finalIndex='f'),
+    "보리뚜비": unit.Unit("보리뚜비"),
+    "보리커": unit.Unit("보리커", 신비전체구매=True),
+    "런처꾸꾸": unit.Unit("런처꾸꾸", 신비전체구매=True),
+   # "보리꾸꾸": unit.Unit("보리꾸꾸", 신비전체구매=True, buffIndex=6),
+   # "보리술사": unit.Unit("보리술사"),
+    #"소울뚜": unit.Unit("소울뚜"),
+   # "웨펀꾸꾸": unit.Unit("웨펀꾸꾸"),
+    #"무녀뚜": unit.Unit("무녀뚜", 신비전체구매=False, loopCount=13),
+    "보리파": unit.Unit("보리파", 신비전체구매=False, loopCount=13),
+    "서큐버뚜": unit.Unit("서큐버뚜", 신비전체구매=False, loopCount=13, finalIndex='3'),
+    "윈드꾸꾸": unit.Unit("윈드꾸꾸", 신비전체구매=False, finalIndex='f'),
+    "보리심판관": unit.Unit("보리심판관", 신비전체구매=False, loopCount=13),
 }
 
+# map = unit.map
 for key in map:
+    unit.select(key)
     char = map[key]
     robot.charName = char.name
     action.캐릭터선택(char)

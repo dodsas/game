@@ -13,6 +13,8 @@ import mailSender
 # import 신비크리처
 # import 서조
 
+# luncher ggu / boricu
+
 # romove all files in imagesLog folder on osx
 os.system('rm -rf imagesLog/*')
 
@@ -32,10 +34,10 @@ for key in map:
     startTime = time.time()
 
     action.캐릭터선택(char)
-    if (char.산등노가다):
+    if (char.산등노가다 and char.loopCount != 0):
         action.산등최초입장()
         action.산등노가다(char)
-    action.수리및보관()
+        action.수리및보관()
 
     # action.크리처()
     # action.길드활동(char)

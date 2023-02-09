@@ -100,11 +100,11 @@ def 캐릭터선택(char:Unit):
     imageFinder.waitAndClick('캐릭_선택', threshold=0.97)
     imageFinder.waitAndClick('캐릭_보리뚜')
     for i in range(100):
-        if(imageFinder.isFound('캐릭_' + char.name, threshold=0.88, sleep=0) != None):
-            imageFinder.findAndClick('캐릭_' + char.name, threshold=0.88, sleep=0, error=False)
+        if(imageFinder.isFound('캐릭_' + char.name, threshold=0.86, sleep=0) != None):
+            imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False)
             break
         # pyautogui.scroll(-120000)
-        pyautogui.scroll(-70000)
+        pyautogui.scroll(-50000)
         # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
@@ -134,11 +134,15 @@ def 산등최초입장():
     imageFinder.waitAndClick('입장_설산')
     imageFinder.waitAndClick('모험난이도', threshold=0.9, maxWait=15)
     imageFinder.waitAndClick('산등성이')
-    imageFinder.waitAndClick('전투시작', threshold=0.9)
+    imageFinder.waitAndClick('전투시작', threshold=0.9, maxWait=20)
 
 def 산등노가다(char:Unit):
 
     loopCount = char.loopCount
+    print(loopCount)
+    if(loopCount == 0):
+        return
+
     j = 0
     while(True):
     # for j in range(loopCount):

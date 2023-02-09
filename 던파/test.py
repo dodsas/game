@@ -12,16 +12,3 @@ map = {
 }
 
 # print(map)
-
-# save map as file
-with open('map.json', 'w') as f:
-    map['보리세이더'].buffIndex = 4
-    # dump dict to fils
-    json.dump(map, f)
-
-# load map from file
-with open('map.json', 'r') as f:
-    map2 = json.load(f)
-
-# print map
-print(map2)
