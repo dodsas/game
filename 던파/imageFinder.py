@@ -91,6 +91,11 @@ def click(pt, name):
     # print x y
     # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][CLICKED!!! ] {name:15}')
 
+# method to click on pt
+def clickDirect(x, y):
+    pyautogui.sleep(0.5)
+    pyautogui.click(x, y)
+
 # method to isFount and click
 def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool = True, printLog: bool = True):
     pyautogui.sleep(sleep)
@@ -177,3 +182,5 @@ def wait(imageName: str, threshold: float = 0.92, maxWait=10, error: bool = True
         errorf(imageName)
     
     return True
+
+# findAndClick('재도전_초과')

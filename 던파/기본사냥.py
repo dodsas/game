@@ -10,14 +10,10 @@ import imageFinderBulk
 import imageFinder
 import mailSender
 
-# import 신비크리처
-# import 서조
+import 신비크리처 
+import 서조
 
-# luncher ggu / boricu
-
-# romove all files in imagesLog folder on osx
 os.system('rm -rf imagesLog/*')
-
 # action.일최초시작("0700")
 f = open(f'result/result_{datetime.now().strftime("%Y%m%d")}.txt', "a")
 

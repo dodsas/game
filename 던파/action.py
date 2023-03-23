@@ -38,8 +38,8 @@ def 일최초시작(hhmm: str):
 
     imageFinder.findAndClick('일최초캐선_오늘그만보기', error=False)
     imageFinder.waitAndClick('일최초게임시작', error=False)
-    imageFinder.waitAndClick('일최초팝업', error=False)
-    imageFinder.waitAndClick('일최초팝업', error=False)
+    imageFinder.clickDirect(1870, 476)
+    # imageFinder.waitAndClick('일최초팝업', error=False)
 
 def 장비해체():
     imageFinder.waitAndClick('장비해체')
@@ -103,8 +103,8 @@ def 캐릭터선택(char:Unit):
         if(imageFinder.isFound('캐릭_' + char.name, threshold=0.86, sleep=0) != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False)
             break
-        # pyautogui.scroll(-120000)
         pyautogui.scroll(-50000)
+        # pyautogui.scroll(-25000)
         # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)
     pyautogui.sleep(1)
@@ -148,11 +148,11 @@ def 산등노가다(char:Unit):
     # for j in range(loopCount):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
+        pyautogui.sleep(2)
+        imageFinder.waitAndClick('산등맵', threshold= 0.97, delay=0.8)
+        robot.pressKey(str(char.buffIndex), sleep=0.2)
 
-        imageFinder.waitAndClick('산등맵', threshold= 0.97)
-        robot.pressKey(str(char.buffIndex), sleep=0)
-
-        if(imageFinder.isFound('지옥파티', sleep=1) != None): 
+        if(imageFinder.isFound('지옥파티', sleep=0.2) != None): 
             j-=1
             if(j == loopCount):
                 pyautogui.press("ESC")
@@ -186,7 +186,7 @@ def 산등노가다(char:Unit):
                 pyautogui.keyUp('x')
                 pyautogui.keyDown('x')
                 pyautogui.sleep(2.5)
-                if(imageFinder.isFound('재도전_초과', threshold=0.90) != None):
+                if(imageFinder.isFound('재도전_초과', threshold=0.95) != None):
                     imageFinder.waitAndClick('재도전_초과')
                     imageFinder.waitAndClick('판매')
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)

@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 import mailSender
 
+# import 회수우포
 # romove all files in imagesLog folder on osx
 os.system('rm -rf imagesLog/*')
 
@@ -17,7 +18,7 @@ for key in map:
     char = map[key]
     robot.charName = char.name
     action.캐릭터선택(char)
-    action.크리처()
+    # action.크리처()
     action.신비상점구매(char)
 
 mailSender.sendMail("[DNF] 신비상점 완료" , "-")
