@@ -10,8 +10,8 @@ import imageFinderBulk
 import imageFinder
 import mailSender
 
-import 신비크리처 
-import 서조
+# import 신비크리처 
+# import 서조
 
 os.system('rm -rf imagesLog/*')
 # action.일최초시작("0700")
@@ -37,7 +37,7 @@ for key in map:
 
     # action.크리처()
     # action.길드활동(char)
-    action.친구포인트()
+    # action.친구포인트()
     action.즐찾구매()
     # action.신비상점구매(char)
     action.아티팩트판매()

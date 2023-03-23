@@ -91,7 +91,6 @@ def click(pt, name):
     # print x y
     # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][CLICKED!!! ] {name:15}')
 
-# method to click on pt
 def clickDirect(x, y):
     pyautogui.sleep(0.5)
     pyautogui.click(x, y)
