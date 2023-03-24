@@ -70,13 +70,12 @@ fileName = 'result/char.json'
 loop=13
 mapInit = {
 
-    "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=3),
-    "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=3),
-    "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=3),
-    "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=3),
-    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=3),
-
-    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, buffIndex=2, loopCount=3),
+    "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=13),
+    "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=13),
+    "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=13),
+    "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=13),
+    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=13),
+    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, buffIndex=2, loopCount=13),
     "베인뚜": Unit("베인뚜", 신비전체구매=False, loopCount=0, finalIndex='f'),
     "보리뚜킥": Unit("보리뚜킥", loopCount=13),
     "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=13),
@@ -111,12 +110,12 @@ load()
 # workingDone2("보리세이더")
 # workingDone2("보리빵떡")
 # workingDone2("보리템플러")
-# workingDone2("보리뚜뚜")
+workingDone2("보리뚜뚜")
 # workingDone2("보리뚜킥")
 # workingDone2("보리핏")
+# workingDone2("보리커")
 # workingDone2("베인뚜")
 # workingDone2("보리뚜비")
-# workingDone2("보리커")
 # workingDone2("런처꾸꾸")
 # workingDone2("보리꾸꾸")
 # workingDone2("보리술사")

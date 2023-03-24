@@ -187,10 +187,11 @@ def 산등노가다(char:Unit):
             pyautogui.sleep(3)
             imageFinder.findAndClick('산등_골카', sleep=0, error=False, printLog=False)
             if(imageFinder.isFound('재도전', threshold=0.6, printLog=False) != None):
-                pyautogui.keyUp('x')
-                pyautogui.keyDown('x')
+                # pyautogui.keyUp('x')
+                # pyautogui.keyDown('x')
                 pyautogui.sleep(2.5)
-                if(imageFinder.isFound('재도전_초과', threshold=0.95) != None):
+                pyautogui.keyUp('x')
+                if(imageFinder.isFound('재도전_초과', threshold=0.97) != None):
                     imageFinder.waitAndClick('재도전_초과')
                     imageFinder.waitAndClick('판매')
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
@@ -202,7 +203,6 @@ def 산등노가다(char:Unit):
                     imageFinder.waitAndClick('재도전_수리', threshold=0.7)
                     imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
                     robot.pressKey('ESC', sleep=4)
-                pyautogui.keyUp('x')
                 break
 
             pyautogui.keyUp('x')
@@ -230,7 +230,8 @@ def 산등지옥재도전():
     pyautogui.press("ESC")
     imageFinder.waitAndClick('재도전확인')
     #imageFinder.waitAndClick('확인', threshold=0.9)
-    robot.pressKey('left', duration=9)
+    robot.pressKey('left', duration=4)
+    robot.pressKey('left', duration=4)
     imageFinder.waitAndClick('모험난이도', threshold=0.9)
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
