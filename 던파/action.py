@@ -107,7 +107,7 @@ def 캐릭터선택(char:Unit):
         if(imageFinder.isFound('캐릭_' + char.name, threshold=0.86, sleep=0) != None):
             imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False)
             break
-        pyautogui.scroll(500000)
+        pyautogui.scroll(30000)
         # pyautogui.scroll(-25000)
         # pyautogui.scroll(-10000)
         pyautogui.sleep(0.5)

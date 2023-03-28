@@ -9,7 +9,7 @@ import imageFinder
 import mailSender
 from unit import Unit
 
-import 신비크리처
+# import 신비크리처
 # map of Unit objects
 os.system('rm -rf imagesLog/*')
 
@@ -65,12 +65,12 @@ mapInit = {
 }
 
 # map = unit.map
-map = mapInit 
-for key in map:
-    unit.select(key)
-    char = map[key]
-    robot.charName = char.name
-    action.캐릭터선택(char)
-    우포상점구매()
+# map = mapInit 
+# for key in map:
+#     unit.select(key)
+#     char = map[key]
+#     robot.charName = char.name
+#     action.캐릭터선택(char)
+#     우포상점구매()
 
 mailSender.sendMail("[DNF] 우포 완료" , "-")
