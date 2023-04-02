@@ -19,23 +19,30 @@ def 우포상점구매():
     imageFinder.waitAndClick('상점_우포')
     pyautogui.sleep(2)
 
-    upo('상점_우포_쿠키')
-    upo('상점_우포_크리처')
-    # upo('상점_우포_아티')
     upo('상점_우포_촉매')
-    upo('상점_우포_타코야끼')
-    # upo('상점_우포_함성')
+    upo('상점_우포_함성')
+
+    imageFinder.waitAndClick('상점_우포_크리처')
+    pyautogui.sleep(0.5)
+    upo('상점_우포_진화용')
+
+    imageFinder.waitAndClick('상점_우포_크리처_소모폼')
+    pyautogui.sleep(0.5)
+    upo('상점_우포_쿠키')
+    upo('상점_우포_타코')
+    # upo('상점_우포_아티')
+
     robot.pressKey('esc')
     robot.pressKey('esc')
 
 def upo(imageName):
     if(imageFinder.isFound(imageName, threshold=0.97)):
         imageFinder.waitAndClick(imageName)
-        imageFinder.waitAndClick('상점_우포_개수설정')
         imageFinder.waitAndClick('상점_우포_최대입력')
         imageFinder.waitAndClick('구입')
-        imageFinder.waitAndClick('구입')
         imageFinder.waitAndClick('확인')
+
+
 
 loop = 1
 mapInit = {
@@ -64,13 +71,14 @@ mapInit = {
     "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=loop),
 }
 
-# map = unit.map
+map = unit.map
 # map = mapInit 
-# for key in map:
-#     unit.select(key)
-#     char = map[key]
-#     robot.charName = char.name
-#     action.캐릭터선택(char)
-#     우포상점구매()
+for key in map:
+    unit.select(key)
+    char = map[key]
+    robot.charName = char.name
+    action.캐릭터선택(char)
+    우포상점구매()
+# 우포상점구매()
 
 mailSender.sendMail("[DNF] 우포 완료" , "-")

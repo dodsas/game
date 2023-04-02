@@ -71,23 +71,23 @@ def workingDone2(name):
     selected.workingDone = True
     print(selected)
     update()
-
+#
 selected: Unit = None
 fileName = f'result/char_{datetime.now().strftime("%Y%m%d")}.json'
 
-loop=12
-loopDoneSungan=11
+loop=13
 
 mapInit = {
-   "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=2),
+   "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=3),
    "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=2),
-   "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=2),
+   "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=3),
    "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=3),
+
    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=loop),
    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, buffIndex=2, loopCount=loop),
    "베인뚜": Unit("베인뚜", 신비전체구매=False, loopCount=0, finalIndex='f'),
    "보리뚜킥": Unit("보리뚜킥", loopCount=loop),
-   "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=loop),
+   "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=12),
    "보리커": Unit("보리커", 신비전체구매=True, loopCount=loop),
    "윈드꾸꾸": Unit("윈드꾸꾸", 신비전체구매=False, finalIndex='f', loopCount=loop),
    "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop),
@@ -98,7 +98,7 @@ mapInit = {
    "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=loop),
     "보리뚜비": Unit("보리뚜비", loopCount=loop),
     "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
-    "무녀뚜": Unit("무녀뚜", 신비전체구매=False, loopCount=loop),
+    "무녀뚜": Unit("무녀뚜", 신비전체구매=False, loopCount=12),
     "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
     "보리닉": Unit("보리닉", 신비전체구매=False, loopCount=0, finalIndex='3'),
 }
@@ -106,19 +106,19 @@ map = mapInit
 # update()
 load()
 
-workingDone2("보리성")
-workingDone2("보리뚜")
-workingDone2("보리세이더")
-workingDone2("보리빵떡")
-workingDone2("보리템플러")
-workingDone2("보리뚜뚜")
-workingDone2("베인뚜")
-workingDone2("보리뚜킥")
-workingDone2("보리핏")
+# workingDone2("보리성")
+# workingDone2("보리뚜")
+# workingDone2("보리세이더")
+# workingDone2("보리빵떡")
+# workingDone2("보리템플러")
+# workingDone2("보리뚜뚜")
+# workingDone2("베인뚜")
+# workingDone2("보리뚜킥")
+# workingDone2("보리핏")
 # workingDone2("보리커")
 # workingDone2("윈드꾸꾸")
 # workingDone2("보리파")
-# workingDone2("런처꾸꾸")
+workingDone2("런처꾸꾸")
 # workingDone2("보리꾸꾸")
 # workingDone2("보리술사")
 # workingDone2("소울뚜")
