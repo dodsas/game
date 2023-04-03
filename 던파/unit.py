@@ -1,3 +1,7 @@
+import sys
+sys.path.append('tobe')
+from image_robot import * 
+
 from dataclasses import dataclass
 import json
 from datetime import datetime
@@ -55,6 +59,7 @@ def select(name):
     print("=== select " + name)
     global selected
     selected = map[name]
+    dun_print.g_charName = name
     print(selected)
 
 def workingDone():
@@ -85,7 +90,7 @@ mapInit = {
 
    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=loop),
    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, buffIndex=2, loopCount=loop),
-   "베인뚜": Unit("베인뚜", 신비전체구매=False, loopCount=0, finalIndex='f'),
+   "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=0, finalIndex='f'),
    "보리뚜킥": Unit("보리뚜킥", loopCount=loop),
    "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=12),
    "보리커": Unit("보리커", 신비전체구매=True, loopCount=loop),
@@ -101,6 +106,8 @@ mapInit = {
     "무녀뚜": Unit("무녀뚜", 신비전체구매=False, loopCount=12),
     "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
     "보리닉": Unit("보리닉", 신비전체구매=False, loopCount=0, finalIndex='3'),
+    "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=0, finalIndex='3'),
+    "건꾸꾸": Unit("건꾸꾸", 신비전체구매=False, loopCount=0, finalIndex='3'),
 }
 map = mapInit
 # update()
@@ -118,7 +125,7 @@ load()
 # workingDone2("보리커")
 # workingDone2("윈드꾸꾸")
 # workingDone2("보리파")
-workingDone2("런처꾸꾸")
+# workingDone2("런처꾸꾸")
 # workingDone2("보리꾸꾸")
 # workingDone2("보리술사")
 # workingDone2("소울뚜")

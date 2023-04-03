@@ -11,7 +11,6 @@ import time
 import random
 import keyboard2
 import robot 
-import unit
 from datetime import datetime
 from robot import printf
 
@@ -89,6 +88,18 @@ def 길드활동(char: Unit):
     # robot.pressKey('ESC')
     waitToHomeWithKey('ESC')
 
+# 길드활동(char)
+
+def 친구포인트():
+    robot.pressKey('l')
+    imageFinder.waitAndClick('친구일괄보내기', error=False)
+    imageFinder.waitAndClick('확인', error=False)
+    # pyautogui.sleep(5)
+    imageFinder.waitAndClick('친구일괄받기', error=False)
+    # pyautogui.sleep(4)
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
+
 def 캐릭터선택(char:Unit):
     imageFinder.waitAndClick('캐릭_선택', threshold=0.97)
     # imageFinder.waitAndClick('캐릭_보리뚜')
@@ -124,23 +135,7 @@ def 캐릭터선택(char:Unit):
         imageFinder.errorf('스케쥴러 이미지를 찾을 수 없습니다. (캐릭터 선택)')
     
     pyautogui.sleep(3)
-
-def 캐릭터선택2():
-    char = unit.selected
-
-    action(Clicker('캐릭_선택', threshold=0.97))
-    time.sleep(1)
-    imageFinder.clickDirect(1352, 522)
-    for i in range(100):
-        if imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False) :
-            break
-        pyautogui.scroll(40000)
-        # pyautogui.scroll(-25000)
-        # pyautogui.scroll(-10000)
-        pyautogui.sleep(0.5)
-
-    action(Clicker('캐릭_게임시작'))
-    action(Founder('스케쥴러'))
+    
 
 def 산등최초입장():
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.97)
@@ -245,70 +240,21 @@ def 산등지옥재도전():
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
 
+# 산등노가다(char)
+
 def 즐찾구매():
-    # # 즐찾상점
-    # robot.pressKey('s', sleep=4)
-    # imageFinder.findAndClick('구매하기_오늘그만보기', error=False)   
-    # imageFinder.waitAndClick('상점_관심상품')
-    # imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.91, error= False)
-    # imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
-    # imageFinder.waitAndClick('확인', maxWait=2, threshold=0.91, error=False)
-    # # robot.pressKey('ESC', sleep=8)
-    # # robot.pressKey('ESC')
-    # # waitToHome()
-    # # imageFinder.pressAndWait('ESC', '스케쥴러')
-    # waitToHomeWithKey('ESC')
-    action(Clicker('상점', threshold=0.78))
-    action(Clicker('상점_상점'))
-
-    # 자질구리한 팝업 스킵
-    screenshot = image_finder.getScreenShotToGray()
-    Clicker('구매하기_오늘그만보기', screenShot=screenshot).action(printFail=True)
-
-    action(Clicker('상점_관심상품'), canSkip=True)
-    if action(Clicker('구매하기')):
-        action(Clicker('확인'))
-        action(Clicker('확인'), canSkip=True)
-    action(Clicker('뒤로가기'))
-    action(Founder('스케쥴러'))
-
-def 신비상점구매2():
-    action(Clicker('상점', threshold=0.78))
-    action(Clicker('상점_신비'))
-    # action(Clicker('신비상점입장'))
-
-    pyautogui.sleep(3) 
-    buyList = []
-    buyList.append('상점_신비천')
-    buyList.append('상점_신비뼈')
-    buyList.append('상점_신비철')
-    buyList.append('상점_신비')
-    buyList.append('상점_신비연석')
-    buyList.append('상점_신비라코')
-    buyList.append('상점_신비가죽')
-    buyList.append('상점_신비원소')
-    buyList.append('상점_신비경화제')
-    buyList.append('상점_신비다이야')
-
-    if(unit.selected.신비전체구매 == True):
-        buyList.append('상점_신비칼박')
-    # else:
-        # buyList.append('상점_신비테라')
-        # buyList.append('상점_신비테라2')
-    
-    imageFinderBulk.findAndClick('신비로그_' + char.name, buyList)
-
-    if action(Clicker('구매하기', threshold=0.8), canSkip=True):
-        action(Clicker('구입'), canSkip=True)
-        # action(Clicker('확인'))
-
-    # if(Founder('신비_소지금액부족').action()):
-        # action(Clicker('확인'))
-        # action(Presser('ESC'))
-    
-    action(Clicker('뒤로가기'))
-    action(Founder('스케쥴러'))
-# 신비상점구매2()
+    # 즐찾상점
+    robot.pressKey('s', sleep=4)
+    imageFinder.findAndClick('구매하기_오늘그만보기', error=False)   
+    imageFinder.waitAndClick('상점_관심상품')
+    imageFinder.waitAndClick('구매하기', maxWait=3, threshold=0.91, error= False)
+    imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
+    imageFinder.waitAndClick('확인', maxWait=2, threshold=0.91, error=False)
+    # robot.pressKey('ESC', sleep=8)
+    # robot.pressKey('ESC')
+    # waitToHome()
+    # imageFinder.pressAndWait('ESC', '스케쥴러')
+    waitToHomeWithKey('ESC')
 
 def 신비상점구매(char:Unit):
     # 신비상점
@@ -346,6 +292,27 @@ def 신비상점구매(char:Unit):
         robot.pressKey('ESC')
     # robot.pressKey('ESC')
     waitToHomeWithKey('ESC')
+
+# 신비상점구매(char)
+
+def 크리처():
+    # robot.pressKey('ESC')
+    # imageFinder.waitAndClick('크리처')
+
+    imageFinder.pressAndWaitAndClick('ESC', '크리처')
+    imageFinder.waitAndClick('크리처_심부름')
+    if(imageFinder.isFound('크리처_심부름모두완료', sleep=1) == None):
+        if(imageFinder.waitAndClick('크리처_보상받기', maxWait=1, error=False) == True):
+            imageFinder.waitAndClick('확인')
+        if(imageFinder.waitAndClick('크리처_빠른심부름', maxWait=7, error=False) == True):
+            imageFinder.waitAndClick('크리처_자동배치')
+            imageFinder.waitAndClick('크리처_보내기')
+            if(imageFinder.waitAndClick('확인', maxWait=4, error=False) == False):
+                robot.pressKey('ESC')
+    # robot.pressKey('ESC')
+    waitToHomeWithKey('ESC')
+
+# imageFinder.isFound('다른긴급의뢰선택', threshold=0.85)
 
 def 서조(char:Unit):
     imageFinder.waitAndClick('스케쥴러')

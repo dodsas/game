@@ -13,11 +13,19 @@ imgPath = 'Images/'
 imgLogPath = 'ImagesLog/'
 
 # 1920 x 1080 해상도기준
-removeX=1280
-removeY=300
-
 width=640
 heigth=700
+removeX=1920-width
+removeY=300
+
+# 노트북 기준
+# 2560x1600
+# 2880 × 1800
+# 1680 x 1050
+# width=300
+# heigth=500
+# removeX=2460
+# removeY=1100
 
 pyautogui.FAILSAFE = False
 
@@ -52,16 +60,7 @@ def find(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
     for pt in zip(*loc[::-1]):
         cv2.rectangle(screenShot, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
         cv2.imwrite(imgLogPath+imageName+'_detect.png', screenShot)
-        # print(imageName + ' is found ')
-        # print(f'[x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}][FOUND!!! ][{max_val:.4f}] {imageName:15}')
-        # robot.printf(imageName, 'FOUND', f'{max_val:.4f}', f'x:{pt[0]+removeX:4} y:{pt[1]+removeY:4}')        
-        print(pt)
-        print(w, h)
-
         return (pt[0] + w/2 + removeX, pt[1] + h/2 + removeY), max_val
-
-    # if (printLog == True):
-    #     robot.printf(imageName, 'NOT_FOUND', f'{max_val:.4f}', '')
     return None, max_val
 
 def isFound(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):

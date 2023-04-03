@@ -1,7 +1,6 @@
 import pyautogui
 import datetime
 from wcwidth import wcswidth
-
 import mail_sender
 
 def errorf(imageName: str):
@@ -23,10 +22,12 @@ def lj(str, length):
 
     redFilter = [
         'NOT_FOUND',
+        'NOT_CLICK',
     ]
 
     greenFilter = [
         'FOUND',
+        'CLICK',
         '한글',
     ]
 
@@ -49,7 +50,7 @@ def lj(str, length):
 def printf(p1, p2 = '', p3 = '', p4 = ''):
     print(
         lj(datetime.datetime.now().strftime('%H:%M:%S'), 8) + 
-        lj(g_charName, 3) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 15)
+        lj(g_charName, 3) + lj(p1, 21) + lj(p2, 9) + lj(p3, 6) + lj(p4, 16)
     )
 
 g_charName = '캐릭며어어엉'

@@ -101,8 +101,9 @@ def findAndClick(imageName: str, sleep = 3, threshold: float = 0.80, error: bool
     pt = isFound(imageName, threshold=threshold, sleep=sleep, printLog=printLog)
     # if error is true and pt is null, exit
     if (error == False and pt == None):
-        return
+        return False
     click(pt, imageName)
+    return True
 
 def pressAndWaitAndClick(key: str, imageName: str, threshold: float = 0.80, maxWait=10, error: bool = True, delay: float=0.0):    
 

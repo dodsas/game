@@ -10,14 +10,13 @@ import pyautogui
 # pyautogui.moveTo(current_x, current_y)
 
 def click(pt):
-    pyautogui.sleep(0.5)
+    # pyautogui.sleep(0.5)
     if (pt == None):
         raise Exception(f"Click Pointer is null")
-        # errorf(name)
     pyautogui.click(x=pt[0], y=pt[1])
 
 def clickDirect(x, y):
-    pyautogui.sleep(0.5)
+    # pyautogui.sleep(0.5)
     pyautogui.click(x, y)
 
 # click(image_finder.find("test")[0])
