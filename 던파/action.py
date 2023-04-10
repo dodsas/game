@@ -246,7 +246,7 @@ def 산등노가다(char:Unit):
     # robot.pressKey('F8', sleep=4)
     waitToHomeWithKey('F8')
 
-def 산등노가다22():
+def 산등노가다223():
     char = unit.selected
     loopCount = char.loopCount
     print(loopCount)
