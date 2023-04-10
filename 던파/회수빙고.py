@@ -9,7 +9,7 @@ from datetime import datetime
 import imageFinder
 import mailSender
 
-import 신비크리처
+#import 신비크리처
 # map of Unit objects
 os.system('rm -rf imagesLog/*')
 

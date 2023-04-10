@@ -6,7 +6,7 @@ import dun_print
 import cv2
 import image_keyboard
 
-g_fallbackCount = 15
+g_fallbackCount = 25
 g_skipCount = 4
 g_prevAction = None
 
@@ -100,7 +100,7 @@ class Presser(Actionable):
     def name(self):
         return self.key
 
-def action(currAction: Actionable, canSkip=False):
+def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -122,6 +122,8 @@ def action(currAction: Actionable, canSkip=False):
             dun_print.errorf(currAction.name())
         if currAction.action() is True:
             isOk = True
+            break
+        if onlyOneTime:
             break
         else:
             loopCount += 1

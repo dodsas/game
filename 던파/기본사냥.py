@@ -31,7 +31,7 @@ for key in map:
 
     action.캐릭터선택(char)
     if (char.산등노가다 and char.loopCount != 0):
-        action.산등최초입장()
+        action.산등최초입장2()
         action.산등노가다(char)
         action.수리및보관()
 
@@ -44,7 +44,6 @@ for key in map:
 
     # save startTime as minutes
     duration = round((time.time() - startTime) / 60, 2)
-
     f.write(f'{char.name.ljust(10)} : {str(duration)}\n')
 
     unit.workingDone()
