@@ -126,8 +126,8 @@ map = mapInit
 # update()
 load()
 
-# workingDone2("보리성")
-# workingDone2("보리뚜")
+workingDone2("보리성")
+workingDone2("보리뚜")
 # workingDone2("보리세이더")
 # workingDone2("보리빵떡")
 # workingDone2("보리템플러")

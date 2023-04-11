@@ -89,16 +89,34 @@ class Presser(Actionable):
 
         image_keyboard.press(self.key)
         if printOk:
-            dun_print.printf('KEY PRESS', self.key)
-        time.sleep(2)
+            dun_print.printf('키입력', 'KEY_PRESS', self.key)
+        time.sleep(0.2)
         return True
 
     def fallback(self, screenShot=None):
-        time.sleep(3)
-        self.action(printFail=False, printOk=False, screenShot=screenShot)     
+        time.sleep(1)
+        self.action(printFail=True, printOk=False, screenShot=screenShot)     
 
     def name(self):
         return self.key
+
+class Direct(Actionable):
+    def __init__(self, x: int, y:int):
+        self.x = x
+        self.y = y 
+
+    def action(self, printFail=False, printOk=True, screenShot=None):
+        image_clicker.clickDirect(self.x, self.y)
+        if printOk:
+            dun_print.printf('클릭', 'DIRECT', str(self.x) + " " + str(self.y))
+        return True
+
+    def fallback(self, screenShot=None):
+        time.sleep(0.2)
+        self.action(printFail=True, printOk=False, screenShot=screenShot)
+
+    def name(self):
+        return str(self.x) + " " + str(self.y)
 
 def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
     global g_prevAction
@@ -113,6 +131,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
         screenShot = image_finder.getScreenShotToGray()
         # skip
         Clicker('확인', screenShot=screenShot).action(printFail=False)
+        Clicker('산등_골카', screenShot=screenShot).action(printFail=False)
 
         if canSkip and loopCount == g_skipCount:
             currAction.action(printFail=True, screenShot=screenShot)

@@ -1,6 +1,7 @@
 import sys
 sys.path.append('tobe')
 from image_robot import * 
+import image_finder
 
 from unit import Unit
 import pyautogui
@@ -20,6 +21,7 @@ def uprint(unit: Unit, msg: str):
     print(f'[{unit.name}] {msg}')
 
 char=Unit("무녀뚜")
+# unit.select(char.name)
 
 def waitToHome():
     imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
@@ -158,7 +160,15 @@ def 산등최초입장2():
     action(Clicker('산등성이'))
     action(Clicker('전투시작'))
 
-# 산등최초입장2()
+def 산등지옥재도전(): 
+    pyautogui.press("ESC")
+    imageFinder.waitAndClick('재도전확인')
+    #imageFinder.waitAndClick('확인', threshold=0.9)
+    robot.pressKey('left', duration=4)
+    robot.pressKey('left', duration=4)
+    imageFinder.waitAndClick('모험난이도', threshold=0.9)
+    imageFinder.waitAndClick('산등성이')
+    imageFinder.waitAndClick('전투시작', threshold=0.9)
 
 def 산등노가다(char:Unit):
 
@@ -246,7 +256,7 @@ def 산등노가다(char:Unit):
     # robot.pressKey('F8', sleep=4)
     waitToHomeWithKey('F8')
 
-def 산등노가다223():
+def 산등노가다2():
     char = unit.selected
     loopCount = char.loopCount
     print(loopCount)
@@ -258,11 +268,13 @@ def 산등노가다223():
     # for j in range(loopCount):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
-        pyautogui.sleep(2)
-        imageFinder.waitAndClick('산등맵', threshold= 0.97, delay=0.8)
-        robot.pressKey(str(char.buffIndex), sleep=0.2)
+        action(Founder('산등', threshold=0.95))
+        robot.pressKey(str(char.buffIndex), sleep=0.1)
+        action(Direct(1887, 467))
+        action(Founder('맵_보스'))
 
-        if(imageFinder.isFound('지옥파티', sleep=0.2) != None): 
+        screenShot = image_finder.getScreenShotToGray()
+        if(action(Founder('지옥파티', screenShot=screenShot), onlyOneTime=True)): 
             j-=1
             if(j == loopCount):
                 pyautogui.press("ESC")
@@ -275,10 +287,9 @@ def 산등노가다223():
 
         findClock=False
         for i in range(200):
-            # uprint(char, f'{i} ({j}/{loopCount-1})')
             printf('산등재도전중', f'{i}', f'{j}/{loopCount}', '')
+            screenShot = image_finder.getScreenShotToGray()
 
-            # if multip 30
             if(i%45 == 0 and i != 0):
 
                 switcher = {
@@ -286,36 +297,32 @@ def 산등노가다223():
                     1: 'left',
                     2: 'up',
                 }
-                # random move with switcher
                 robot.pressKey(switcher.get(random.randint(0,2)), duration=2)
-                imageFinder.findAndClick('부활', 1, 0.75, error=False)
+                action(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)
 
             pyautogui.sleep(0.01)
             pyautogui.keyDown('x')
             pyautogui.sleep(3)
-            imageFinder.findAndClick('산등_골카', sleep=0, error=False, printLog=False)
-            if(imageFinder.isFound('재도전', threshold=0.6, printLog=False) != None):
-                # pyautogui.keyUp('x')
-                # pyautogui.keyDown('x')
+            # action(Clicker('산등_골카', screenShot=screenShot), onlyOneTime=True)
+            if(action(Founder('재도전', screenShot=screenShot), onlyOneTime=True)):
                 pyautogui.sleep(2.5)
                 pyautogui.keyUp('x')
-                if(imageFinder.isFound('재도전_초과', threshold=0.97) != None):
-                    imageFinder.waitAndClick('재도전_초과')
+                if(action(Clicker('재도전_초과', screenShot=screenShot), onlyOneTime=True)):
                     imageFinder.waitAndClick('판매')
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     robot.pressKey('ESC', sleep=4)
                     robot.pressKey('ESC', sleep=4)
-                if(imageFinder.isFound('재도전_수리', threshold=0.75) != None):
-                    imageFinder.waitAndClick('재도전_수리', threshold=0.7)
+                if(action(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                     imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
                     robot.pressKey('ESC', sleep=4)
                 break
 
             pyautogui.keyUp('x')
 
-        pyautogui.sleep(3)
+        time.sleep(1)
+        # pyautogui.sleep(3)
         if(j == loopCount):
             robot.pressKey('F8', sleep=2)
             imageFinder.findAndClick('확인', error=False)
@@ -326,23 +333,13 @@ def 산등노가다223():
             robot.pressKey('ESC', sleep=4)
             return
         robot.pressKey('F6')
-        if(imageFinder.isFound('피로도부족', sleep=4) != None):
+        if(action(Founder('피로도부족'), canSkip=True)):
+            waitToHomeWithKey('F8')
             break 
-    imageFinder.waitAndClick('확인')
+    # imageFinder.waitAndClick('확인')
     # robot.pressKey('F8', sleep=4)
-    waitToHomeWithKey('F8')
 
-# 산등노가다(char)
-
-def 산등지옥재도전(): 
-    pyautogui.press("ESC")
-    imageFinder.waitAndClick('재도전확인')
-    #imageFinder.waitAndClick('확인', threshold=0.9)
-    robot.pressKey('left', duration=4)
-    robot.pressKey('left', duration=4)
-    imageFinder.waitAndClick('모험난이도', threshold=0.9)
-    imageFinder.waitAndClick('산등성이')
-    imageFinder.waitAndClick('전투시작', threshold=0.9)
+# 산등노가다2()
 
 def 즐찾구매():
     # # 즐찾상점

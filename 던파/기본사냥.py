@@ -32,7 +32,8 @@ for key in map:
     action.캐릭터선택(char)
     if (char.산등노가다 and char.loopCount != 0):
         action.산등최초입장2()
-        action.산등노가다(char)
+        # action.산등노가다(char)
+        action.산등노가다2()
         action.수리및보관()
 
     # action.크리처()
