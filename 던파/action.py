@@ -157,7 +157,7 @@ def 산등최초입장2():
     action(Clicker('입장_최초맵선택'))
     action(Clicker('입장_설산'))
     action(Clicker('모험난이도'))
-    action(Clicker('산등성이'))
+    action(Clicker('산등성이', threshold=0.99))
     action(Clicker('전투시작'))
 
 def 산등지옥재도전(): 
@@ -219,8 +219,6 @@ def 산등노가다(char:Unit):
             pyautogui.sleep(3)
             imageFinder.findAndClick('산등_골카', sleep=0, error=False, printLog=False)
             if(imageFinder.isFound('재도전', threshold=0.6, printLog=False) != None):
-                # pyautogui.keyUp('x')
-                # pyautogui.keyDown('x')
                 pyautogui.sleep(2.5)
                 pyautogui.keyUp('x')
                 if(imageFinder.isFound('재도전_초과', threshold=0.97) != None):
@@ -265,7 +263,6 @@ def 산등노가다2():
 
     j = char.loop
     while(True):
-    # for j in range(loopCount):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
         action(Founder('산등', threshold=0.95))
@@ -273,8 +270,7 @@ def 산등노가다2():
         action(Direct(1887, 467))
         action(Founder('맵_보스'))
 
-        screenShot = image_finder.getScreenShotToGray()
-        if(action(Founder('지옥파티', screenShot=screenShot), onlyOneTime=True)): 
+        if(action(Founder('지옥파티'), onlyOneTime=True)): 
             j-=1
             if(j == loopCount):
                 pyautogui.press("ESC")
@@ -285,10 +281,9 @@ def 산등노가다2():
 
         unit.loopDone()
 
-        findClock=False
-        for i in range(200):
+        for i in range(100):
             printf('산등재도전중', f'{i}', f'{j}/{loopCount}', '')
-            screenShot = image_finder.getScreenShotToGray()
+            screenShot = image_finder.getScreenShotToGray("loop")
 
             if(i%45 == 0 and i != 0):
 
@@ -300,15 +295,13 @@ def 산등노가다2():
                 robot.pressKey(switcher.get(random.randint(0,2)), duration=2)
                 action(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)
 
-            pyautogui.sleep(0.01)
             pyautogui.keyDown('x')
-            pyautogui.sleep(3)
+            pyautogui.sleep(4)
             # action(Clicker('산등_골카', screenShot=screenShot), onlyOneTime=True)
-            if(action(Founder('재도전', screenShot=screenShot), onlyOneTime=True)):
-                pyautogui.sleep(2.5)
+            if(action(Founder('재도전', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                 pyautogui.keyUp('x')
-                if(action(Clicker('재도전_초과', screenShot=screenShot), onlyOneTime=True)):
-                    imageFinder.waitAndClick('판매')
+                if(action(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93), onlyOneTime=True)):
+                    action(Clicker('판매'))
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
@@ -322,7 +315,6 @@ def 산등노가다2():
             pyautogui.keyUp('x')
 
         time.sleep(1)
-        # pyautogui.sleep(3)
         if(j == loopCount):
             robot.pressKey('F8', sleep=2)
             imageFinder.findAndClick('확인', error=False)

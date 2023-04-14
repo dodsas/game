@@ -29,13 +29,17 @@ removeY=300
 
 pyautogui.FAILSAFE = False
 
-def getScreenShotToGray():
+def getScreenShotToGray(name:str = None):
     # payutogui half screenshot
     img = pyautogui.screenshot(region=(removeX, removeY, width, heigth))
     img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     gray = cv2.cvtColor(imgRGB, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite(imgLogPath+'바탕화면.png', gray)
+
+    if name is not None:
+        cv2.imwrite(imgLogPath+name+'_바탕화면.png', gray)
+    else:
+        cv2.imwrite(imgLogPath+'바탕화면.png', gray)
     return gray
 
 def find(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
