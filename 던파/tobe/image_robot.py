@@ -45,7 +45,7 @@ class Founder(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        time.sleep(0.1)
+        # time.sleep(0.1)
         self.action(printFail=True, printOk=True, screenShot=screenShot)
 
     def name(self):
@@ -76,7 +76,7 @@ class Clicker(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        time.sleep(0.1)
+        # time.sleep(0.3)
         self.action(printFail=True, printOk=True, screenShot=screenShot)
 
     def name(self):
@@ -98,7 +98,7 @@ class Presser(Actionable):
 
     def fallback(self, screenShot=None):
         time.sleep(0.5)
-        self.action(printFail=True, printOk=False, screenShot=screenShot)     
+        self.action(printFail=True, printOk=True, screenShot=screenShot)     
 
     def name(self):
         return self.key
@@ -115,8 +115,8 @@ class Direct(Actionable):
         return True
 
     def fallback(self, screenShot=None):
-        time.sleep(0.2)
-        self.action(printFail=True, printOk=False, screenShot=screenShot)
+        # time.sleep(0.2)
+        self.action(printFail=True, printOk=True, screenShot=screenShot)
 
     def name(self):
         return str(self.x) + " " + str(self.y)
@@ -131,6 +131,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
     # dun_print.printf(currAction.name(), 'START')
 
     while True:
+        time.sleep(0.2)
         if screenShot is None :
             screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
@@ -150,12 +151,15 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
         else:
             loopCount += 1
             if g_prevAction is not None:
+                screenShot = image_finder.getScreenShotToGray(currAction.name())
                 g_prevAction.fallback(screenShot=screenShot)
             screenShot = None
 
     if canSkip == False :
         g_prevAction = currAction
     
+    # time.sleep(0.2)
+
     return isOk
 
 # action(Clicker('상점', threshold=0.78))

@@ -278,7 +278,7 @@ def 산등노가다2():
         action(Founder('산등', threshold=0.95))
         robot.pressKey(str(char.buffIndex), sleep=0.1, duration=0.1)
         action(Direct(1887, 467))
-        time.sleep(0.15)
+        #time.sleep(0.15)
         bossFounder=Founder('맵_보스')
         action(bossFounder)
         # time.sleep(0.2)
@@ -317,7 +317,7 @@ def 산등노가다2():
                 pyautogui.keyDown('x')
 
             if(findGoldCard == False and Clicker('산등_골카', screenShot=screenShot).action()):
-                time.sleep(0.2)
+                time.sleep(0.5)
                 Clicker('산등_일카', screenShot=screenShot, threshold=0.985).action()
                 # robot.pressKey('ESC', duration=0.1)
                 findGoldCard=True
@@ -341,17 +341,18 @@ def 산등노가다2():
 
             if(Founder('재도전', screenShot=screenShot, threshold=0.75).action()):
 
-                robot.pressKey('right', duration=0.1, sleep=0)
+                robot.pressKey('right', duration=0.05, sleep=0)
                 pyautogui.keyUp('x')
                 time.sleep(0.1)
                 pyautogui.keyDown('x')
                 time.sleep(3.5)
+                pyautogui.keyUp('x')
 
-                if(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75).action()):
+                if(action(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                     imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
                     robot.pressKey('ESC', sleep=4)
 
-                if(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93).action()):
+                if(action(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93), onlyOneTime=True)):
                     action(Clicker('판매'))
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
@@ -360,6 +361,7 @@ def 산등노가다2():
                     robot.pressKey('ESC', sleep=4)
                 break
 
+        pyautogui.keyUp('x')
         if(j == loopCount):
             robot.pressKey('F8', sleep=2)
             imageFinder.findAndClick('확인', error=False)
@@ -370,7 +372,6 @@ def 산등노가다2():
             robot.pressKey('ESC', sleep=4)
             return
 
-        pyautogui.keyUp('x')
         robot.pressKey('F6')
         if(action(Founder('피로도부족'), canSkip=True)):
             pyautogui.keyUp('x')
@@ -402,7 +403,6 @@ def 즐찾구매():
 
     action(Clicker('상점_관심상품'), canSkip=True)
     if action(Clicker('구매하기')):
-        action(Clicker('확인'))
         action(Clicker('확인'), canSkip=True)
     action(Clicker('뒤로가기'))
     action(Founder('스케쥴러'))
@@ -441,8 +441,10 @@ def 신비상점구매2():
         # action(Clicker('확인'))
         # action(Presser('ESC'))
     
-    action(Clicker('뒤로가기'))
+    action(Clicker('뒤로가기', threshold=0.98))
+    # time.sleep(2)
     action(Founder('스케쥴러'))
+
 # 신비상점구매2()
 
 def 신비상점구매(char:Unit):
