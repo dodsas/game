@@ -133,7 +133,7 @@ load()
 # workingDone2("보리세이더")
 # workingDone2("보리빵떡")
 # workingDone2("보리템플러")
-# workingDone2("보리뚜뚜")
+workingDone2("보리뚜뚜")
 # workingDone2("무녀뚜")
 
 # workingDone2("보리뚜킥")

@@ -21,7 +21,6 @@ def uprint(unit: Unit, msg: str):
     print(f'[{unit.name}] {msg}')
 
 char=Unit("무녀뚜")
-# unit.select(char.name)
 
 def waitToHome():
     imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
@@ -170,6 +169,17 @@ def 산등지옥재도전():
     imageFinder.waitAndClick('산등성이')
     imageFinder.waitAndClick('전투시작', threshold=0.9)
 
+# def 산등지옥재도전2(): 
+#     action(Presser('ESC'))
+#     time.sleep(1)
+#     action(Clicker('재도전확인'))
+#     action(Presser('left'))
+#     action(Clicker('모험난이도'))
+#     action(Clicker('산등성이', threshold=0.99))
+#     action(Clicker('전투시작'))
+
+# 산등지옥재도전2()
+
 def 산등노가다(char:Unit):
 
     loopCount = char.loopCount
@@ -266,11 +276,18 @@ def 산등노가다2():
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
         action(Founder('산등', threshold=0.95))
-        robot.pressKey(str(char.buffIndex), sleep=0.1)
+        robot.pressKey(str(char.buffIndex), sleep=0.1, duration=0.1)
         action(Direct(1887, 467))
-        action(Founder('맵_보스'))
+        time.sleep(0.15)
+        bossFounder=Founder('맵_보스')
+        action(bossFounder)
+        # time.sleep(0.2)
+        pyautogui.keyUp('x')
+        time.sleep(0.1)
+        pyautogui.keyDown('x')
 
-        if(action(Founder('지옥파티'), onlyOneTime=True)): 
+        if(Founder('지옥파티', screenShot=bossFounder.screenShot).action()): 
+            pyautogui.keyUp('x')
             j-=1
             if(j == loopCount):
                 pyautogui.press("ESC")
@@ -280,58 +297,88 @@ def 산등노가다2():
             continue
 
         unit.loopDone()
+        useFinalSkill = False
+        findGoldCard = False
 
-        for i in range(100):
+        for i in range(550):
             printf('산등재도전중', f'{i}', f'{j}/{loopCount}', '')
             screenShot = image_finder.getScreenShotToGray("loop")
 
             if(i%45 == 0 and i != 0):
-
                 switcher = {
                     0: 'right',
                     1: 'left',
                     2: 'up',
                 }
-                robot.pressKey(switcher.get(random.randint(0,2)), duration=2)
-                action(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)
-
-            pyautogui.keyDown('x')
-            pyautogui.sleep(4)
-            # action(Clicker('산등_골카', screenShot=screenShot), onlyOneTime=True)
-            if(action(Founder('재도전', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
+                robot.pressKey(switcher.get(random.randint(0,2)), duration=0.5)
+                Clicker('부활', screenShot=screenShot, threshold=0.75).action()
                 pyautogui.keyUp('x')
-                if(action(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93), onlyOneTime=True)):
+                time.sleep(0.1)
+                pyautogui.keyDown('x')
+
+            if(findGoldCard == False and Clicker('산등_골카', screenShot=screenShot).action()):
+                time.sleep(0.2)
+                Clicker('산등_일카', screenShot=screenShot, threshold=0.985).action()
+                # robot.pressKey('ESC', duration=0.1)
+                findGoldCard=True
+
+            if (Founder('down', screenShot=screenShot).action()):
+                time.sleep(1)
+                pyautogui.keyUp('x')
+                time.sleep(0.1)
+                pyautogui.keyDown('x')
+
+            if (Founder('down_stand', screenShot=screenShot, threshold=0.85).action()):
+                time.sleep(1)
+                pyautogui.keyUp('x')
+                time.sleep(0.1)
+                pyautogui.keyDown('x')
+
+            # pyautogui.sleep(0.05)
+            # if(useFinalSkill is False and action(Clicker('BOSS', screenShot=screenShot), onlyOneTime=True)):
+            #     robot.pressKey(char.finalIndex)
+            #     useFinalSkill = True
+
+            if(Founder('재도전', screenShot=screenShot, threshold=0.75).action()):
+
+                robot.pressKey('right', duration=0.1, sleep=0)
+                pyautogui.keyUp('x')
+                time.sleep(0.1)
+                pyautogui.keyDown('x')
+                time.sleep(3.5)
+
+                if(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75).action()):
+                    imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
+                    robot.pressKey('ESC', sleep=4)
+
+                if(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93).action()):
                     action(Clicker('판매'))
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     robot.pressKey('ESC', sleep=4)
                     robot.pressKey('ESC', sleep=4)
-                if(action(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
-                    imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
-                    robot.pressKey('ESC', sleep=4)
                 break
 
-            pyautogui.keyUp('x')
-
-        time.sleep(1)
         if(j == loopCount):
             robot.pressKey('F8', sleep=2)
             imageFinder.findAndClick('확인', error=False)
             pyautogui.sleep(4)
             return
-        if(i == 199):
+        if(i == 450):
             robot.pressKey('ESC', sleep=4)
             robot.pressKey('ESC', sleep=4)
             return
+
+        pyautogui.keyUp('x')
         robot.pressKey('F6')
         if(action(Founder('피로도부족'), canSkip=True)):
+            pyautogui.keyUp('x')
             waitToHomeWithKey('F8')
             break 
-    # imageFinder.waitAndClick('확인')
-    # robot.pressKey('F8', sleep=4)
 
-# 산등노가다2()
+unit.select(char.name)
+산등노가다2()
 
 def 즐찾구매():
     # # 즐찾상점

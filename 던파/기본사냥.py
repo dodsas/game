@@ -29,18 +29,13 @@ for key in map:
 
     startTime = time.time()
 
-    action.캐릭터선택(char)
+    action.캐릭터선택2()
     if (char.산등노가다 and char.loopCount != 0):
         action.산등최초입장2()
-        # action.산등노가다(char)
         action.산등노가다2()
         action.수리및보관()
 
-    # action.크리처()
-    # action.길드활동(char)
-    # action.친구포인트()
     action.즐찾구매()
-    # action.신비상점구매(char)
     action.아티팩트판매()
 
     # save startTime as minutes

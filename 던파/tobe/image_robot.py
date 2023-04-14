@@ -6,8 +6,9 @@ import dun_print
 import cv2
 import image_keyboard
 
-g_fallbackCount = 25
-g_skipCount = 4
+# g_fallbackCount = 70
+g_fallbackCount = 30
+g_skipCount = 5
 g_prevAction = None
 
 class Actionable:
@@ -28,6 +29,8 @@ class Founder(Actionable):
     def action(self, printFail=False, printOk=True, screenShot=None):
         if screenShot is not None:
             self.screenShot = screenShot
+        if self.screenShot is None:
+            self.screenShot = image_finder.getScreenShotToGray()
 
         pt, score = image_finder.find(self.imageName, screenShot=self.screenShot, threshold=self.threshold)
         if pt is None:
@@ -42,7 +45,7 @@ class Founder(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        time.sleep(0.2)
+        time.sleep(0.1)
         self.action(printFail=True, printOk=True, screenShot=screenShot)
 
     def name(self):
@@ -73,7 +76,7 @@ class Clicker(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        time.sleep(0.2)
+        time.sleep(0.1)
         self.action(printFail=True, printOk=True, screenShot=screenShot)
 
     def name(self):
@@ -90,11 +93,11 @@ class Presser(Actionable):
         image_keyboard.press(self.key)
         if printOk:
             dun_print.printf('키입력', 'KEY_PRESS', self.key)
-        time.sleep(0.2)
+        time.sleep(0.1)
         return True
 
     def fallback(self, screenShot=None):
-        time.sleep(1)
+        time.sleep(0.5)
         self.action(printFail=True, printOk=False, screenShot=screenShot)     
 
     def name(self):
@@ -118,7 +121,7 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
+def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -128,10 +131,10 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
     # dun_print.printf(currAction.name(), 'START')
 
     while True:
-        screenShot = image_finder.getScreenShotToGray()
+        if screenShot is None :
+            screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
         Clicker('확인', screenShot=screenShot).action(printFail=False)
-        Clicker('산등_골카', screenShot=screenShot).action(printFail=False)
 
         if canSkip and loopCount == g_skipCount:
             currAction.action(printFail=True, screenShot=screenShot)
@@ -139,7 +142,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
         if loopCount == g_fallbackCount:
             currAction.action(printFail=True, screenShot=screenShot)
             dun_print.errorf(currAction.name())
-        if currAction.action() is True:
+        if currAction.action(screenShot=screenShot) is True:
             isOk = True
             break
         if onlyOneTime:
@@ -148,6 +151,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False):
             loopCount += 1
             if g_prevAction is not None:
                 g_prevAction.fallback(screenShot=screenShot)
+            screenShot = None
 
     if canSkip == False :
         g_prevAction = currAction
