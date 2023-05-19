@@ -76,13 +76,15 @@ def calcProfit(item:str, condtionList, printDetail=False):
     if printDetail: 
         print(f'총 재료비 : {totalConditionPrice}')
 
-    profit = round((itemPrice - totalPrice) * 0.97)
-    # profit = round((itemPrice - totalPrice) * 1.05 * 0.97)
+    profit = round(itemPrice * 1.05 * 0.97 - totalPrice)
+    # profit = round(itemPrice * 0.97 - totalPrice)
     print(f'[{ljustk(item,20)}] 원가 {rjustk(itemPrice, 5)}원 수익 {rjustk(profit, 5)}원 (총 수익 {rjustk(profit*makeCount, 8)}원, 재료비 {rjustk(totalConditionPrice,8)}원) 마지막거래시간:{itemSoldDate} 수량:{itemSoldCount}')
 
+# print(getItemInfo('생명의 숨결'))
 
+calcProfit('피로 회복의 영약', [('생명의 숨결',20),('무색 마력의 산물',1),('노련한 영혼의 정수',3),('황금 큐브 조각',3)], printDetail=True)
+calcProfit('강화의 비밀', [('생명의 숨결',20),('황금 큐브 조각',10),('강인한 영혼의 정수', 5)], printDetail=True)
 
-# calcProfit('1', [('생명의 숨결',20),('적색 마력의 산물',1),('노련한 영혼의 정수', 1)])
 
 # 8레벨
 # 극상 HP 회복 포션: 생명의 숨결 4개, 황금 가루 4개
@@ -96,13 +98,11 @@ def calcProfit(item:str, condtionList, printDetail=False):
 # 11레벨
 # calcProfit('고농축 힘의 비약', [('생명의 숨결',5),('황금 가루',7)])
 # calcProfit('고농축 생명력의 비약', [('생명의 숨결',5),('황금 가루',7)])
-calcProfit('스태미너 회복 포션', [('생명의 숨결',10),('황금 큐브 조각',1)])
+# calcProfit('스태미너 회복 포션', [('생명의 숨결',10),('황금 큐브 조각',1)])
 
 # 7레벨
-calcProfit('신의 가호', [('생명의 숨결',10),('흰색 마력의 산물',10),('강인한 영혼의 정수', 1)])
-calcProfit('순간이동 포션', [('생명의 숨결',1),('무색 마력의 산물',1)])
-calcProfit('피로 회복의 영약', [('생명의 숨결',20),('무색 마력의 산물',1),('노련한 영혼의 정수',3),('황금 큐브 조각',3)])
-calcProfit('강화의 비밀', [('생명의 숨결',20),('황금 큐브 조각',10),('강인한 영혼의 정수', 5)], printDetail=True)
+# calcProfit('신의 가호', [('생명의 숨결',10),('흰색 마력의 산물',10),('강인한 영혼의 정수', 1)])
+# calcProfit('순간이동 포션', [('생명의 숨결',1),('무색 마력의 산물',1)])
 
 # 이득이긴 하나 거래물량이 적음
 # calcProfit('천상의 HP 포션', [('생명의 숨결',20),('적색 마력의 산물',1),('노련한 영혼의 정수', 1)]) # 이득, 거래물량 적음

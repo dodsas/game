@@ -12,7 +12,7 @@ receiver = 'dods87@naver.com'
 smtpserver = 'smtp.gmail.com'
 port = 587
 username = 'dodsas87@gmail.com'
-password = 'odmahqstnapzhuxq'
+password = ''
 
 def sendMail(subject:str, text:str):
     msg = MIMEText(text)
