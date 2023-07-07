@@ -378,8 +378,8 @@ def 산등노가다2():
             waitToHomeWithKey('F8')
             break 
 
-unit.select(char.name)
-산등노가다2()
+# unit.select(char.name)
+# 산등노가다2()
 
 def 즐찾구매():
     # # 즐찾상점
@@ -535,7 +535,58 @@ def 서조(char:Unit):
     imageFinder.wait('스케쥴러입장')
     # robot.pressKey('esc')
     waitToHomeWithKey('ESC')
-    
+
+def 서조2():
+    char = unit.selected
+    action(Clicker('스케쥴러'))
+    action(Clicker('서조의계곡3', threshold=0.75))
+    action(Clicker('입장'))
+
+    for j in range(3):
+        isBossFound = False
+        for i in range(200):
+            # when first i
+            if(i == 0):
+                keyboard2.pressKey(str(char.buffIndex), sleep=0, duration=0.2)
+
+            if(i%30 == 0 and i != 0):
+                # random move with seed
+                random.seed(i)
+                robot.pressKey('right', duration=2)
+                imageFinder.findAndClick('부활', 1, 0.75, error=False)
+
+            if(isBossFound == False and imageFinder.isFound('서조_보스', threshold=0.95, printLog=False) != None):
+                # pyautogui.press(char.finalIndex)
+                keyboard2.pressKey(char.finalIndex, sleep=0, duration=0.1)
+                isBossFound = True
+
+            # swtich case with random value
+            switcher = {
+                0: 'q',
+                1: 'w',
+                2: 'e',
+                3: 'r',
+            }
+            keyboard2.pressKey(switcher.get(random.randint(0,3)), sleep=0, duration=0.1, printLog=False)
+
+            pyautogui.keyDown('x')
+            pyautogui.sleep(1.5)
+            if(imageFinder.isFound('다른긴급의뢰선택', threshold=0.88, printLog=False) != None):
+                pyautogui.keyUp('x')
+                # for loop 3 times
+                for i in range(4):
+                    pyautogui.keyDown('x')
+                    pyautogui.sleep(3)
+                    pyautogui.keyUp('x')
+                break
+            pyautogui.keyUp('x')
+        robot.pressKey('f6', sleep=2)
+
+    robot.pressKey('f8', sleep=2)
+    imageFinder.wait('스케쥴러입장')
+    # robot.pressKey('esc')
+    waitToHomeWithKey('ESC')
+
 def 아티팩트판매():
     imageFinder.pressAndWaitAndClick('ESC', '크리처')
     imageFinder.waitAndClick('크리처_아티팩트')

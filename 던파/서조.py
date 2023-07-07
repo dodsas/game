@@ -13,8 +13,8 @@ import mailSender
 #import 신비크리처
 loop=13
 map = {
-    # "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop),
-    # "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=loop, sunganDone=True),
+    "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop),
+    "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=loop, sunganDone=True),
     # "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=loop, sunganDone=True),
     # "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=4, finalIndex='f'),
 
@@ -46,7 +46,8 @@ for key in map:
     char = map[key]
     robot.charName = char.name
     action.캐릭터선택2()
-    action.서조(char)
+    # action.서조(char)
+    action.서조2()
 
 # action.서조(map["보리심판관"])
 
