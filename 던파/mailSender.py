@@ -12,7 +12,10 @@ receiver = 'dods87@naver.com'
 smtpserver = 'smtp.gmail.com'
 port = 587
 username = 'dodsas87@gmail.com'
-password = ''
+
+# import password value from config.py
+from config import mailPassword
+password = mailPassword
 
 def sendMail(subject:str, text:str):
     msg = MIMEText(text)
@@ -28,3 +31,5 @@ def sendMail(subject:str, text:str):
     smtp.login(username, password)
     smtp.sendmail(sender, receiver, msg.as_string())
     smtp.quit()
+
+sendMail('test', 'test')
