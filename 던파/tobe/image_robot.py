@@ -70,9 +70,11 @@ class Clicker(Actionable):
                 dun_print.errorf(self.imageName)
             return False
         else: 
+            time.sleep(0.5)
             image_clicker.click(pt)
             if printOk:
                 dun_print.printf(self.imageName, 'CLICK', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
+            time.sleep(0.5)
             return True
     
     def fallback(self, screenShot=None):
@@ -90,7 +92,7 @@ class Presser(Actionable):
         if screenShot is not None:
             self.screenShot = screenShot
 
-        image_keyboard.press(self.key)
+        image_keyboard.press(self.key, sleep=0, duration=0.01)
         if printOk:
             dun_print.printf('키입력', 'KEY_PRESS', self.key)
         time.sleep(0.1)
@@ -131,7 +133,6 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
     # dun_print.printf(currAction.name(), 'START')
 
     while True:
-        time.sleep(0.2)
         if screenShot is None :
             screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
@@ -149,6 +150,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
         if onlyOneTime:
             break
         else:
+            time.sleep(0.1)
             loopCount += 1
             if g_prevAction is not None:
                 screenShot = image_finder.getScreenShotToGray(currAction.name())

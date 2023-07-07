@@ -18,7 +18,7 @@ for key in map:
     unit.select(key)
     char = map[key]
     robot.charName = char.name
-    action.캐릭터선택(char)
+    action.캐릭터선택2()
 
     robot.pressKey(';')
     imageFinder.waitAndClick('길드활동')

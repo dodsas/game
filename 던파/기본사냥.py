@@ -33,16 +33,19 @@ for key in map:
     if (char.산등노가다 and char.loopCount != 0):
         action.산등최초입장2()
         action.산등노가다2()
+        unit.workingDone()
         action.수리및보관()
+    else:
+        unit.workingDone()
 
-    action.즐찾구매()
+    # action.즐찾구매()
     action.아티팩트판매()
+    action.우편함()
 
     # save startTime as minutes
     duration = round((time.time() - startTime) / 60, 2)
     f.write(f'{char.name.ljust(10)} : {str(duration)}\n')
 
-    unit.workingDone()
     print("*********** END OF " + char.name)
 
 mailSender.sendMail("[DNF] 기본사냥 완료", "-")
