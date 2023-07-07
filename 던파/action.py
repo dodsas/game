@@ -20,7 +20,7 @@ def uprint(unit: Unit, msg: str):
     # print with unit name f-string
     print(f'[{unit.name}] {msg}')
 
-char=Unit("무녀뚜")
+char=Unit("보리파")
 
 def waitToHome():
     imageFinder.wait('스케쥴러', maxWait=7, error=True, threshold=0.97)
@@ -126,23 +126,29 @@ def 캐릭터선택(char:Unit):
     
     pyautogui.sleep(3)
 
+# action(Clicker('캐릭_소울뚜', threshold=0.70), onlyOneTime=True) 
+# Clicker('캐릭_소울뚜', threshold=0.82).action(printFail=True) 
+
 def 캐릭터선택2():
     char = unit.selected
 
     action(Clicker('캐릭_선택', threshold=0.97))
-    time.sleep(1)
+    time.sleep(3)
     imageFinder.clickDirect(1352, 522)
+    # pyautogui.sleep(1)
     for i in range(100):
         # if imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False) :
-        if action(Clicker('캐릭_' + char.name, threshold=0.86), onlyOneTime=True) :
+        # if action(Clicker('캐릭_' + char.name, threshold=0.82), onlyOneTime=True) :
+        if Clicker('캐릭_' + char.name, threshold=0.78).action(printFail=True) :
             break
+        pyautogui.sleep(0.5)
         pyautogui.scroll(70000)
         # pyautogui.scroll(40000)
         # pyautogui.scroll(-25000)
         # pyautogui.scroll(-10000)
-        pyautogui.sleep(0.5)
 
     action(Clicker('캐릭_게임시작'))
+    pyautogui.sleep(1)
     action(Founder('스케쥴러'))
 
 def 산등최초입장():
@@ -156,7 +162,7 @@ def 산등최초입장2():
     action(Clicker('입장_최초맵선택'))
     action(Clicker('입장_설산'))
     action(Clicker('모험난이도'))
-    action(Clicker('산등성이', threshold=0.99))
+    action(Clicker('산등성이', threshold=0.97))
     action(Clicker('전투시작'))
 
 def 산등지옥재도전(): 
@@ -275,7 +281,7 @@ def 산등노가다2():
     while(True):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
-        action(Founder('산등', threshold=0.95))
+        action(Founder('산등', threshold=0.93))
         robot.pressKey(str(char.buffIndex), sleep=0.1, duration=0.1)
         action(Direct(1887, 467))
         #time.sleep(0.15)
@@ -318,8 +324,9 @@ def 산등노가다2():
 
             if(findGoldCard == False and Clicker('산등_골카', screenShot=screenShot).action()):
                 time.sleep(0.5)
-                Clicker('산등_일카', screenShot=screenShot, threshold=0.985).action()
-                # robot.pressKey('ESC', duration=0.1)
+                Presser('1').action()
+                Clicker('산등_결과', screenShot=screenShot, threshold=0.985).action()
+                Clicker('산등_결과', screenShot=screenShot, threshold=0.985).action()
                 findGoldCard=True
 
             if (Founder('down', screenShot=screenShot).action()):
@@ -381,6 +388,12 @@ def 산등노가다2():
 # unit.select(char.name)
 # 산등노가다2()
 
+def 우편함():
+    action(Clicker('우편함'))
+    action(Clicker('우편함_일괄수령'), canSkip=True)
+    action(Clicker('확인'), canSkip=True)
+    action(Clicker('뒤로가기'))
+
 def 즐찾구매():
     # # 즐찾상점
     # robot.pressKey('s', sleep=4)
@@ -412,21 +425,25 @@ def 신비상점구매2():
     action(Clicker('상점_신비'))
     # action(Clicker('신비상점입장'))
 
-    pyautogui.sleep(3) 
+    pyautogui.sleep(4) 
     buyList = []
-    buyList.append('상점_신비천')
-    buyList.append('상점_신비뼈')
-    buyList.append('상점_신비철')
-    buyList.append('상점_신비')
-    buyList.append('상점_신비연석')
+    # buyList.append('상점_신비천')
+    # buyList.append('상점_신비뼈')
+    # buyList.append('상점_신비철')
+    # buyList.append('상점_신비')
+    # buyList.append('상점_신비연석')
+    # buyList.append('상점_신비가죽')
+    buyList.append('상점_열쇠')
     buyList.append('상점_신비라코')
-    buyList.append('상점_신비가죽')
+    buyList.append('상점_신비라코2')
     buyList.append('상점_신비원소')
     buyList.append('상점_신비경화제')
     buyList.append('상점_신비다이야')
 
     if(unit.selected.신비전체구매 == True):
         buyList.append('상점_신비칼박')
+        buyList.append('상점_신비칼박2')
+        buyList.append('상점_신비칼박3')
     # else:
         # buyList.append('상점_신비테라')
         # buyList.append('상점_신비테라2')
@@ -434,16 +451,22 @@ def 신비상점구매2():
     imageFinderBulk.findAndClick('신비로그_' + char.name, buyList)
 
     if action(Clicker('구매하기', threshold=0.8), canSkip=True):
-        action(Clicker('구입'), canSkip=True)
+        action(Clicker('구입', threshold=0.8), canSkip=True)
         # action(Clicker('확인'))
+
+    if action(Founder('신비상점_소지금액부족'), canSkip=True, onlyOneTime=True):
+        action(Presser('ESC'))
+        time.sleep(1)
 
     # if(Founder('신비_소지금액부족').action()):
         # action(Clicker('확인'))
         # action(Presser('ESC'))
     
+    # time.sleep(2)
     action(Clicker('뒤로가기', threshold=0.98))
     # time.sleep(2)
     action(Founder('스케쥴러'))
+    # time.sleep(2)
 
 # 신비상점구매2()
 
@@ -493,7 +516,7 @@ def 서조(char:Unit):
         # imageFinder_bk.waitAndClick('서조입장', threshold=0.95)
         for i in range(200):
             # print(i)
-
+            imageFinder.findAndClick('확인', sleep=0, threshold=0.81, error=False)
             # when first i
             if(i == 0):
                 keyboard2.pressKey(str(char.buffIndex), sleep=0, duration=0.2)
