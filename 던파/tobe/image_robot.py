@@ -26,7 +26,11 @@ class Founder(Actionable):
         self.screenShot = screenShot
         self.errorMode = errorMode
 
-    def action(self, printFail=False, printOk=True, screenShot=None):
+    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
+        self.fallbackMessage = ''
+        if isFallback:
+            self.fallbackMessage = 'F_'
+
         if screenShot is not None:
             self.screenShot = screenShot
         if self.screenShot is None:
@@ -35,13 +39,13 @@ class Founder(Actionable):
         pt, score = image_finder.find(self.imageName, screenShot=self.screenShot, threshold=self.threshold)
         if pt is None:
             if printFail:
-                dun_print.printf(self.imageName, 'NOT_FOUND', f'{score:.4f}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}NOT_FOUND', f'{score:.4f}')
             if self.errorMode:
                 dun_print.errorf(self.imageName)
             return False
         else: 
             if printOk:
-                dun_print.printf(self.imageName, 'FOUND', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}FOUND', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
             return True
     
     def fallback(self, screenShot=None):
@@ -58,14 +62,18 @@ class Clicker(Actionable):
         self.screenShot = screenShot
         self.errorMode = errorMode
 
-    def action(self, printFail=False, printOk=True, screenShot=None):
+    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
+        self.fallbackMessage = ''
+        if isFallback:
+            self.fallbackMessage = 'F_'
+
         if screenShot is not None:
             self.screenShot = screenShot
 
         pt, score = image_finder.find(self.imageName, screenShot=self.screenShot, threshold=self.threshold)
         if pt is None:
             if printFail:
-                dun_print.printf(self.imageName, 'NOT_CLICK', f'{score:.4f}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}NOT_CLICK', f'{score:.4f}')
             if self.errorMode:
                 dun_print.errorf(self.imageName)
             return False
@@ -73,20 +81,21 @@ class Clicker(Actionable):
             time.sleep(0.5)
             image_clicker.click(pt)
             if printOk:
-                dun_print.printf(self.imageName, 'CLICK', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}CLICK', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
             time.sleep(0.5)
             return True
     
     def fallback(self, screenShot=None):
         # time.sleep(0.3)
-        self.action(printFail=True, printOk=True, screenShot=screenShot)
+        self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)
 
     def name(self):
         return self.imageName
 
 class Presser(Actionable):
-    def __init__(self, key: str):
+    def __init__(self, key: str, fallbackSkip=False):
         self.key = key 
+        self.fallbackSkip = fallbackSkip
 
     def action(self, printFail=False, printOk=True, screenShot=None):
         if screenShot is not None:
@@ -100,7 +109,8 @@ class Presser(Actionable):
 
     def fallback(self, screenShot=None):
         time.sleep(0.5)
-        self.action(printFail=True, printOk=True, screenShot=screenShot)     
+        if self.fallbackSkip is False:
+            self.action(printFail=True, printOk=True, screenShot=screenShot)     
 
     def name(self):
         return self.key
@@ -123,7 +133,7 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None):
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -144,7 +154,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
         if loopCount == g_fallbackCount:
             currAction.action(printFail=True, screenShot=screenShot)
             dun_print.errorf(currAction.name())
-        if currAction.action(screenShot=screenShot) is True:
+        if currAction.action(printFail=True, screenShot=screenShot) is True:
             isOk = True
             break
         if onlyOneTime:
@@ -152,7 +162,7 @@ def action(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=
         else:
             time.sleep(0.1)
             loopCount += 1
-            if g_prevAction is not None:
+            if g_prevAction is not None and fallbackSkip is False:
                 screenShot = image_finder.getScreenShotToGray(currAction.name())
                 g_prevAction.fallback(screenShot=screenShot)
             screenShot = None

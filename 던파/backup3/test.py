@@ -16,5 +16,5 @@ from image_robot import *
 # action(Clicker('뒤로가기'))
 # action(Founder('스케쥴러'))
 
-action(Founder('산등성이'))
+do(Founder('산등성이'))
 # action(Direct(1704,446))

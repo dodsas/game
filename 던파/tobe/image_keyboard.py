@@ -13,6 +13,7 @@ def press(key: str, sleep: float = 2, duration: float = 1):
         'w': 13,
         'e': 14,
         'r': 15,
+        'i': 34,
         '1': 18,
         '2': 19,
         '3': 20,

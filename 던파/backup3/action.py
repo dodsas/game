@@ -132,7 +132,7 @@ def 캐릭터선택(char:Unit):
 def 캐릭터선택2():
     char = unit.selected
 
-    action(Clicker('캐릭_선택', threshold=0.97))
+    do(Clicker('캐릭_선택', threshold=0.97))
     time.sleep(2)
     imageFinder.clickDirect(1352, 522)
     # pyautogui.sleep(1)
@@ -147,8 +147,8 @@ def 캐릭터선택2():
         # pyautogui.scroll(-25000)
         # pyautogui.scroll(-10000)
 
-    action(Clicker('캐릭_게임시작'))
-    action(Founder('스케쥴러'))
+    do(Clicker('캐릭_게임시작'))
+    do(Founder('스케쥴러'))
 
 def 산등최초입장():
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.97)
@@ -158,11 +158,11 @@ def 산등최초입장():
     imageFinder.waitAndClick('전투시작', threshold=0.9, maxWait=20)
 
 def 산등최초입장2():
-    action(Clicker('입장_최초맵선택'))
-    action(Clicker('입장_설산'))
-    action(Clicker('모험난이도'))
-    action(Clicker('산등성이', threshold=0.99))
-    action(Clicker('전투시작'))
+    do(Clicker('입장_최초맵선택'))
+    do(Clicker('입장_설산'))
+    do(Clicker('모험난이도'))
+    do(Clicker('산등성이', threshold=0.99))
+    do(Clicker('전투시작'))
 
 def 산등지옥재도전(): 
     pyautogui.press("ESC")
@@ -280,12 +280,12 @@ def 산등노가다2():
     while(True):
         j+=1
         uprint(char, "산등 노가다 진행중 : " + str(j) + "/" + str(loopCount))
-        action(Founder('산등', threshold=0.93))
+        do(Founder('산등', threshold=0.93))
         robot.pressKey(str(char.buffIndex), sleep=0.1, duration=0.1)
-        action(Direct(1887, 467))
+        do(Direct(1887, 467))
         #time.sleep(0.15)
         bossFounder=Founder('맵_보스')
-        action(bossFounder)
+        do(bossFounder)
         # time.sleep(0.2)
         pyautogui.keyUp('x')
         time.sleep(0.1)
@@ -354,12 +354,12 @@ def 산등노가다2():
                 time.sleep(3.5)
                 pyautogui.keyUp('x')
 
-                if(action(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
+                if(do(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                     imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
                     robot.pressKey('ESC', sleep=4)
 
-                if(action(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93), onlyOneTime=True)):
-                    action(Clicker('판매'))
+                if(do(Clicker('재도전_초과', screenShot=screenShot, threshold=0.93), onlyOneTime=True)):
+                    do(Clicker('판매'))
                     imageFinder.waitAndClick('판매확인', maxWait=10, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
                     imageFinder.waitAndClick('확인', maxWait=3, threshold=0.91, error=False)
@@ -379,7 +379,7 @@ def 산등노가다2():
             return
 
         robot.pressKey('F6')
-        if(action(Founder('피로도부족'), canSkip=True)):
+        if(do(Founder('피로도부족'), canSkip=True)):
             pyautogui.keyUp('x')
             waitToHomeWithKey('F8')
             break 
@@ -388,10 +388,10 @@ def 산등노가다2():
 # 산등노가다2()
 
 def 우편함():
-    action(Clicker('우편함'))
-    action(Clicker('우편함_일괄수령'), canSkip=True)
-    action(Clicker('확인'), canSkip=True)
-    action(Clicker('뒤로가기'))
+    do(Clicker('우편함'))
+    do(Clicker('우편함_일괄수령'), canSkip=True)
+    do(Clicker('확인'), canSkip=True)
+    do(Clicker('뒤로가기'))
 
 # 우편함()
 
@@ -408,22 +408,22 @@ def 즐찾구매():
     # # waitToHome()
     # # imageFinder.pressAndWait('ESC', '스케쥴러')
     # waitToHomeWithKey('ESC')
-    action(Clicker('상점', threshold=0.78))
-    action(Clicker('상점_상점'))
+    do(Clicker('상점', threshold=0.78))
+    do(Clicker('상점_상점'))
 
     # 자질구리한 팝업 스킵
     screenshot = image_finder.getScreenShotToGray()
     Clicker('구매하기_오늘그만보기', screenShot=screenshot).action(printFail=True)
 
-    action(Clicker('상점_관심상품'), canSkip=True)
-    if action(Clicker('구매하기')):
-        action(Clicker('확인'), canSkip=True)
-    action(Clicker('뒤로가기'))
-    action(Founder('스케쥴러'))
+    do(Clicker('상점_관심상품'), canSkip=True)
+    if do(Clicker('구매하기')):
+        do(Clicker('확인'), canSkip=True)
+    do(Clicker('뒤로가기'))
+    do(Founder('스케쥴러'))
 
 def 신비상점구매2():
-    action(Clicker('상점', threshold=0.78))
-    action(Clicker('상점_신비'))
+    do(Clicker('상점', threshold=0.78))
+    do(Clicker('상점_신비'))
     # action(Clicker('신비상점입장'))
 
     pyautogui.sleep(3) 
@@ -447,21 +447,21 @@ def 신비상점구매2():
     
     imageFinderBulk.findAndClick('신비로그_' + char.name, buyList)
 
-    if action(Clicker('구매하기', threshold=0.8), canSkip=True):
-        action(Clicker('구입', threshold=0.8), canSkip=True)
+    if do(Clicker('구매하기', threshold=0.8), canSkip=True):
+        do(Clicker('구입', threshold=0.8), canSkip=True)
         # action(Clicker('확인'))
 
-    if action(Founder('신비상점_소지금액부족'), canSkip=True, onlyOneTime=True):
-        action(Presser('ESC'))
+    if do(Founder('신비상점_소지금액부족'), canSkip=True, onlyOneTime=True):
+        do(Presser('ESC'))
         time.sleep(1)
 
     # if(Founder('신비_소지금액부족').action()):
         # action(Clicker('확인'))
         # action(Presser('ESC'))
     
-    action(Clicker('뒤로가기', threshold=0.98))
+    do(Clicker('뒤로가기', threshold=0.98))
     # time.sleep(2)
-    action(Founder('스케쥴러'))
+    do(Founder('스케쥴러'))
 
 # 신비상점구매2()
 

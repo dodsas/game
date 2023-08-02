@@ -30,16 +30,16 @@ for key in map:
     startTime = time.time()
 
     action.캐릭터선택2()
-    if (char.산등노가다 and char.loopCount != 0):
-        action.산등최초입장2()
-        action.산등노가다2()
-        unit.workingDone()
-        action.수리및보관()
-    else:
-        unit.workingDone()
+    # if (char.산등노가다 and char.loopCount != 0):
+    #     action.산등최초입장2()
+    #     action.산등노가다2()
+    #     unit.workingDone()
+    #     action.수리및보관()
+    # else:
+    #     unit.workingDone()
 
     # action.즐찾구매()
-    action.아티팩트판매()
+    # action.아티팩트판매()
     action.우편함()
 
     # save startTime as minutes
@@ -52,3 +52,13 @@ mailSender.sendMail("[DNF] 기본사냥 완료", "-")
 f.close()
 
 os.system('rm -rf ..*screenshot*png*')
+
+# unit.select('보리메이지')
+# action.산등최초입장2()
+# action.산등노가다2()
+# unit.workingDone()
+# action.수리및보관()
+
+# # action.즐찾구매()
+# action.아티팩트판매()
+# action.우편함()

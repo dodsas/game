@@ -31,5 +31,3 @@ def sendMail(subject:str, text:str):
     smtp.login(username, password)
     smtp.sendmail(sender, receiver, msg.as_string())
     smtp.quit()
-
-sendMail('test', 'test')

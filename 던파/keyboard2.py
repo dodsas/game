@@ -21,6 +21,13 @@ def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
         '6': 22,
         '7': 26,
         '8': 28,
+        's': 1,
+        'd': 2,
+        'f': 3,
+        'g': 5,
+        'v': 9,
+        'b': 11,
+        't': 17,
     }
 
     # check keyMap contain key
@@ -35,6 +42,10 @@ def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
     keyboard.press(modifiedKey)
     time.sleep(duration)
     keyboard.release(modifiedKey)
+
+def pressKey2(key: str):
+    pressKey(key, 0, 0, False)
+
 
 # pressKey('f6')
 # show all keymap for keybarod module
