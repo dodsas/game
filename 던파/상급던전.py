@@ -60,13 +60,13 @@ map = {
     "보리꾸꾸": Unit("보리꾸꾸"),
     "보리뚜킥": Unit("보리뚜킥", loopCount=loop, sunganDone=True, epicDone=True),
     "건꾸꾸": Unit("건꾸꾸", 신비전체구매=False, loopCount=loop),
-    "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=loop, sunganDone=True, epicDone=True),
-    "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=13, epicDone=True),
-    "보리커": Unit("보리커", 신비전체구매=True, loopCount=13),
-    "소울뚜": Unit("소울뚜", loopCount=loop, sunganDone=True),
-    "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
-    "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
+    # "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=loop, sunganDone=True, epicDone=True),
+    # "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=13, epicDone=True),
+    # "보리커": Unit("보리커", 신비전체구매=True, loopCount=13),
+    # "소울뚜": Unit("소울뚜", loopCount=loop, sunganDone=True),
+    # "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
+    # "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
+    # "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
 
     # "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=loop),
     # "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
@@ -89,10 +89,10 @@ for key in map:
 
     do(Clicker('모험'))
     do(Clicker('모험_상급던전'))
-    # 반지상의하의보장팔찌목걸이()
-    무기반지어깨신발()
+    반지상의하의보장팔찌목걸이()
+    # 무기반지어깨신발()
     # 무기반지어깨신발30()
-    do(Clicker('상급던전_입장'))
+    do(Clicker('상급던전_입장', threshold=0.84))
     do(Founder('상급던전_입장완료'))
 
     while True:
@@ -132,6 +132,9 @@ for key in map:
                 pyautogui.keyDown('x')
                 time.sleep(3)
                 pyautogui.keyUp('x')
+                pyautogui.keyDown('right')
+                time.sleep(0.2)
+                pyautogui.keyUp('right')
                 pyautogui.keyDown('x')
                 time.sleep(3)
                 pyautogui.keyUp('x')
