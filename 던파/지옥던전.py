@@ -11,42 +11,9 @@ import mailSender
 import random
 import imageFinder
 import keyboard2
-
 import sys
 sys.path.append('tobe')
 from image_robot import * 
-
-def 반지상의하의보장팔찌목걸이():
-    do(Clicker('파워스테이션'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('파워스테이션_코레')) # 반지 상의 하의 보장 팔찌 목걸이
-
-def 반지상의하의보장팔찌목걸이30():
-    do(Clicker('파워스테이션'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('파워스테이션_코레30')) # 반지 상의 하의 보장 팔찌 목걸이
-
-def 무기반지어깨신발():
-    do(Clicker('파워스테이션'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('파워스테이션_푸르츠')) # 무기 반지 어깨 신발 
-
-def 무기반지어깨신발30():
-    do(Clicker('파워스테이션'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('파워스테이션_푸르츠30', threshold=0.7)) # 무기 반지 어깨 신발 
-
-def 무기():
-    do(Clicker('원데과학단지'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('상급던전_다음표시'))
-    do(Clicker('원데과학단지_옵티머스')) # 무기
 
 map = {
     # "보리성": Unit("보리성"),
@@ -56,8 +23,8 @@ map = {
     # "보리빵떡": Unit("보리빵떡"),
     # "보리메이지": Unit("보리메이지"),
 
-    "보리템플러": Unit("보리템플러"),
-    "보리뚜뚜": Unit("보리뚜뚜"),
+    # "보리템플러": Unit("보리템플러"),
+    # "보리뚜뚜": Unit("보리뚜뚜"),
     "무녀뚜": Unit("무녀뚜"),
     "런처꾸꾸": Unit("런처꾸꾸", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
     "보리술사": Unit("보리술사"),
@@ -79,7 +46,7 @@ map = {
     # "윈드꾸꾸": Unit("윈드꾸꾸"),
 }
 
-#map = unit.map
+# map = unit.map
 # map = { "보리뚜": Unit("보리뚜") }
 
 os.system('rm -rf imagesLog/*')
@@ -92,20 +59,19 @@ for key in map:
         action.캐릭터선택2()
 
     do(Clicker('모험'))
-    do(Clicker('모험_상급던전'))
-    # 반지상의하의보장팔찌목걸이()
-    # 무기반지어깨신발()
-    # 무기반지어깨신발30()
-    #globals()[char.s30]()
-    globals()[char.s10]()
-
-    do(Clicker('상급던전_입장', threshold=0.84))
+    do(Clicker('모험_의뢰'))
+    time.sleep(1)
+    do(Clicker('의뢰던전'))
+    do(Clicker('지옥선택'))
+    do(Clicker('입장가능지역으로이동'), canSkip=True)
+    do(Clicker('입장', threshold=0.75))
     do(Founder('상급던전_입장완료'))
 
     while True:
         do(Presser(str(char.buffIndex)))
         forLoop = 0
         findBoss = False
+        done=False
         # infinite loop
         while True:
             forLoop += 1
@@ -133,19 +99,54 @@ for key in map:
 
             screenShot = image_finder.getScreenShotToGray()
 
-            if(do(Founder('상급던전_완료'), screenShot=screenShot, onlyOneTime=True)):
-                do(Clicker('상급던전_완료'))
-                time.sleep(3)
+            if(do(Founder('지옥재도전하기'), screenShot=screenShot, onlyOneTime=True)):
                 pyautogui.keyDown('x')
-                time.sleep(3)
+                time.sleep(2.5)
                 pyautogui.keyUp('x')
+
                 pyautogui.keyDown('right')
                 time.sleep(0.2)
                 pyautogui.keyUp('right')
+
                 pyautogui.keyDown('x')
-                time.sleep(3)
+                time.sleep(2)
+                pyautogui.keyUp('x')
+
+                pyautogui.keyDown('left')
+                time.sleep(0.2)
+                pyautogui.keyUp('left')
+
+                pyautogui.keyDown('x')
+                time.sleep(2)
                 pyautogui.keyUp('x')
                 break 
+
+            if(do(Clicker('지옥파티피로도끝'), screenShot=screenShot, onlyOneTime=True)):
+                pyautogui.keyDown('x')
+                time.sleep(2.5)
+                pyautogui.keyUp('x')
+
+                pyautogui.keyDown('right')
+                time.sleep(0.2)
+                pyautogui.keyUp('right')
+
+                pyautogui.keyDown('x')
+                time.sleep(2)
+                pyautogui.keyUp('x')
+
+                pyautogui.keyDown('left')
+                time.sleep(0.2)
+                pyautogui.keyUp('left')
+
+                pyautogui.keyDown('x')
+                time.sleep(2)
+                pyautogui.keyUp('x')
+
+                pyautogui.keyDown('x')
+                time.sleep(2.5)
+                pyautogui.keyUp('x')
+                done=True
+                break
 
             if(do(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                 imageFinder.waitAndClick('장비수리확인', maxWait=3, error=False)
@@ -156,13 +157,34 @@ for key in map:
 
             if(forLoop > 125):
                 dun_print.errorf(char.name + " 상급던전 실패")
+        
+        if(done):
+            break
+  
+        do(Clicker('지옥재도전하기'), canSkip=True)
 
-        if(do(Clicker('상급던전_재도전'))):
-            time.sleep(1)
-            if(do(Founder('상급던전_피로도부족'), onlyOneTime=True, canSkip=True)):
-                keyboard2.pressKey2('f8')
-                break
+        if(do(Founder('상급던전_입장완료'), canSkip=True) is False):
+            pyautogui.keyDown('x')
+            time.sleep(5)
+            pyautogui.keyUp('x')
+
+            pyautogui.keyDown('right')
+            time.sleep(0.2)
+            pyautogui.keyUp('right')
+
+            pyautogui.keyDown('x')
+            time.sleep(5)
+            pyautogui.keyUp('x')
+
+            pyautogui.keyDown('left')
+            time.sleep(0.2)
+            pyautogui.keyUp('left')
+
+            pyautogui.keyDown('x')
+            time.sleep(5)
+            pyautogui.keyUp('x')
+            do(Clicker('지옥재도전하기'))
             do(Founder('상급던전_입장완료'))
 
-
-mailSender.sendMail("[DNF] 상던완료" , "-")
+    do(Clicker('뒤로가기'))
+mailSender.sendMail("[DNF] 지옥완료" , "-")

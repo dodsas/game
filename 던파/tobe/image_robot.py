@@ -167,6 +167,8 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
                 g_prevAction.fallback(screenShot=screenShot)
             screenShot = None
 
+    Clicker('확인', screenShot=screenShot).action(printFail=False)
+
     if canSkip == False :
         g_prevAction = currAction
     
