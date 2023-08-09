@@ -34,12 +34,12 @@ for key in map:
     #     action.산등최초입장2()
     #     action.산등노가다2()
     #     unit.workingDone()
-    #     action.수리및보관()
+    unit.workingDone()
+    action.수리및보관()
     # else:
-    #     unit.workingDone()
 
     # action.즐찾구매()
-    # action.아티팩트판매()
+    action.아티팩트판매()
     action.우편함()
 
     # save startTime as minutes

@@ -23,6 +23,13 @@ def 반지상의하의보장팔찌목걸이():
     do(Clicker('상급던전_다음표시'))
     do(Clicker('파워스테이션_코레')) # 반지 상의 하의 보장 팔찌 목걸이
 
+def 반지상의하의보장팔찌목걸이30():
+    do(Clicker('파워스테이션'))
+    do(Clicker('상급던전_다음표시'))
+    do(Clicker('상급던전_다음표시'))
+    do(Clicker('상급던전_다음표시'))
+    do(Clicker('파워스테이션_코레30')) # 반지 상의 하의 보장 팔찌 목걸이
+
 def 무기반지어깨신발():
     do(Clicker('파워스테이션'))
     do(Clicker('상급던전_다음표시'))
@@ -52,21 +59,21 @@ map = {
     # "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
     # "보리메이지": Unit("보리메이지", 신비전체구매=False, loopCount=loop),
 
-    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, loopCount=loop, epicDone=True),
-    "무녀뚜": Unit("무녀뚜", 신비전체구매=False, loopCount=loop, epicDone=True),
-    "런처꾸꾸": Unit("런처꾸꾸", 신비전체구매=True, loopCount=loop, sunganDone=True),
-    "보리술사": Unit("보리술사", loopCount=loop, sunganDone=True),
+    "보리템플러": Unit("보리템플러"),
+    "보리뚜뚜": Unit("보리뚜뚜"),
+    "무녀뚜": Unit("무녀뚜"),
+    "런처꾸꾸": Unit("런처꾸꾸", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
+    "보리술사": Unit("보리술사"),
     "보리꾸꾸": Unit("보리꾸꾸"),
-    "보리뚜킥": Unit("보리뚜킥", loopCount=loop, sunganDone=True, epicDone=True),
-    "건꾸꾸": Unit("건꾸꾸", 신비전체구매=False, loopCount=loop),
-    # "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=loop, sunganDone=True, epicDone=True),
-    # "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=13, epicDone=True),
-    # "보리커": Unit("보리커", 신비전체구매=True, loopCount=13),
-    # "소울뚜": Unit("소울뚜", loopCount=loop, sunganDone=True),
-    # "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
-    # "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
-    # "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
+    "보리뚜킥": Unit("보리뚜킥"),
+    "건꾸꾸": Unit("건꾸꾸", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
+    "보리핏": Unit("보리핏"),
+    "보리심판관": Unit("보리심판관"),
+    "보리커": Unit("보리커", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
+    "소울뚜": Unit("소울뚜", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
+    "보리뚜비": Unit("보리뚜비"),
+    "보리파": Unit("보리파"),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
 
     # "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=loop),
     # "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
@@ -89,9 +96,12 @@ for key in map:
 
     do(Clicker('모험'))
     do(Clicker('모험_상급던전'))
-    반지상의하의보장팔찌목걸이()
+    # 반지상의하의보장팔찌목걸이()
     # 무기반지어깨신발()
     # 무기반지어깨신발30()
+    #globals()[char.s30]()
+    globals()[char.s10]()
+
     do(Clicker('상급던전_입장', threshold=0.84))
     do(Founder('상급던전_입장완료'))
 

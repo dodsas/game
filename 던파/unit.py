@@ -21,6 +21,8 @@ class Unit:
     jsonString: str = None
     sunganDone: bool = False
     epicDone: bool = False
+    s10: str = '무기반지어깨신발'
+    s30: str = '무기반지어깨신발30'
 
     def __post_init__(self):
         if (self.jsonString != None):
