@@ -35,11 +35,11 @@ for key in map:
     #     action.산등노가다2()
     #     unit.workingDone()
     unit.workingDone()
-    action.수리및보관()
+    # action.수리및보관()
     # else:
 
-    # action.즐찾구매()
-    action.아티팩트판매()
+   # action.즐찾구매()
+   # action.아티팩트판매()
     action.우편함()
 
     # save startTime as minutes

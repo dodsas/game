@@ -66,26 +66,28 @@ def 수리및보관():
     imageFinder.waitAndClick('장비수리')
     imageFinder.waitAndClick('장비수리확인',maxWait=3, error=False)
     robot.pressKey('ESC', sleep=8)
+    time.sleep(1)
+    robot.pressKey('ESC', sleep=8)
 
-    # 해체
-    장비해체()
+    # # 해체
+    # 장비해체()
 
-    # 판매
-    imageFinder.waitAndClick('판매')
-    for i in range(2):
-        imageFinder.findAndClick('판매확인', sleep=1, error=False)
-        imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
-        imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
-    robot.pressKey('ESC', sleep=4)
+    # # 판매
+    # imageFinder.waitAndClick('판매')
+    # for i in range(2):
+    #     imageFinder.findAndClick('판매확인', sleep=1, error=False)
+    #     imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
+    #     imageFinder.findAndClick('확인', sleep=1, threshold=0.91, error=False)
+    # robot.pressKey('ESC', sleep=4)
 
-    # 보관
-    imageFinder.waitAndClick('금고')
-    imageFinder.waitAndClick('모험단금고')
-    imageFinder.waitAndClick('자동보관')
-    imageFinder.waitAndClick('확인', threshold=0.91, error=False)
-    # robot.pressKey('ESC')
-    # pyautogui.sleep(2)
-    waitToHomeWithKey('ESC')
+    # # 보관
+    # imageFinder.waitAndClick('금고')
+    # imageFinder.waitAndClick('모험단금고')
+    # imageFinder.waitAndClick('자동보관')
+    # imageFinder.waitAndClick('확인', threshold=0.91, error=False)
+    # # robot.pressKey('ESC')
+    # # pyautogui.sleep(2)
+    # waitToHomeWithKey('ESC')
 
 def 수리및보관2():
     do(Presser('i', fallbackSkip=True))
@@ -162,16 +164,20 @@ def 캐릭터선택(char:Unit):
 # Clicker('캐릭_소울뚜', threshold=0.82).action(printFail=True) 
 
 def 캐릭터선택2():
+    imgPathBackup = image_finder.imgPath
+    image_finder.imgPath = 'Images/'
+
     char = unit.selected
 
     do(Clicker('캐릭_선택', threshold=0.97))
     time.sleep(3)
+    do(Founder('캐릭_선택확인'))
     imageFinder.clickDirect(1352, 522)
     # pyautogui.sleep(1)
     for i in range(100):
         # if imageFinder.findAndClick('캐릭_' + char.name, threshold=0.86, sleep=0, error=False) :
         # if action(Clicker('캐릭_' + char.name, threshold=0.82), onlyOneTime=True) :
-        if Clicker('캐릭_' + char.name, threshold=0.78).action(printFail=True) :
+        if Clicker('캐릭_' + char.name, threshold=0.75).action(printFail=True) :
             break
         pyautogui.sleep(0.5)
         pyautogui.scroll(70000)
@@ -179,13 +185,15 @@ def 캐릭터선택2():
         # pyautogui.scroll(-25000)
         # pyautogui.scroll(-10000)
     
-    if(do(Founder('게임시작_이미접속중'), onlyOneTime=True, canSkip=True)):
+    if(do(Founder('게임시작_이미접속중', threshold=0.77), onlyOneTime=True, canSkip=True)):
         keyboard2.pressKey('ESC')
     else:
         do(Clicker('캐릭_게임시작'))
         pyautogui.sleep(1)
 
     do(Founder('스케쥴러'))
+
+    image_finder.imgPath = imgPathBackup
 
 def 산등최초입장():
     imageFinder.waitAndClick('입장_최초맵선택', threshold=0.97)
