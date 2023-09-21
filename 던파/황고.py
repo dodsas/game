@@ -20,12 +20,12 @@ from image_robot import *
 # import 기본사냥 
 loop=13
 map = {
-   #"보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop, epicDone=True),
-   # "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=12, sunganDone=False, epicDone=True),
-   # "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-  #  "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=loop, finalIndex='f', epicDone=True),
-   # "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-  #p  "보리메이지": Unit("보리메이지", 신비전체구매=False, loopCount=loop),
+   "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop, epicDone=True),
+   "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=12, sunganDone=False, epicDone=True),
+   "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
+   "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=loop, finalIndex='f', epicDone=True),
+   "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
+   "보리메이지": Unit("보리메이지", 신비전체구매=False, loopCount=loop),
 
     "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
     "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, loopCount=loop, epicDone=True),
@@ -60,7 +60,7 @@ for key in map:
 
     do(Clicker('스케쥴러'))
     do(Clicker('서던데일'))
-    do(Clicker('입장', threshold=0.85))
+    do(Clicker('입장', threshold=0.81))
 
     do(Founder('서던데일_입장확인'))
     do(Presser(str(char.buffIndex)))
@@ -104,7 +104,7 @@ for key in map:
     robot.pressKey('f7', sleep=2)
 
     do(Clicker('이계운석'))
-    do(Clicker('입장', threshold=0.85))
+    do(Clicker('입장', threshold=0.81))
 
     for i in range(200):
         if(i%30 == 0 and i != 0):
@@ -143,7 +143,7 @@ for key in map:
     robot.pressKey('f7', sleep=2)
 
     do(Clicker('황금고블'))
-    do(Clicker('입장', threshold=0.85))
+    do(Clicker('입장', threshold=0.81))
 
     for i in range(200):
         if(i%30 == 0 and i != 0):

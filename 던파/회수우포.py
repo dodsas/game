@@ -49,8 +49,8 @@ def upo(imageName):
 
 loop = 1
 mapInit = {
-    # "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop, epicDone=True),
-    # "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=12, sunganDone=False, epicDone=True),
+   # "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop, epicDone=True),
+ #   "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=12, sunganDone=False, epicDone=True),
     # "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
     # "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=loop, finalIndex='f', epicDone=True),
     # "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
@@ -67,11 +67,11 @@ mapInit = {
     # "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=13, epicDone=True),
     # "보리커": Unit("보리커", 신비전체구매=True, loopCount=13),
     # "소울뚜": Unit("소울뚜", loopCount=loop, sunganDone=True),
-    # "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
-    # "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
-    # "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
-    # "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=loop),
-    # "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
+    "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
+    "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
+    "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=loop),
+    "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
     "보리닉": Unit("보리닉", 신비전체구매=False, loopCount=loop),
     "인챈뚜": Unit("인챈뚜", 신비전체구매=False, loopCount=loop),
     "윈드꾸꾸": Unit("윈드꾸꾸", 신비전체구매=False, finalIndex='f', loopCount=loop, sunganDone=True, epicDone=True),

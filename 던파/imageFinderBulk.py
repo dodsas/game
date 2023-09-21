@@ -11,8 +11,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from robot import printf
 
-imgPath = 'Images/'
-imgGrayPath = 'ImagesGray/'
+# imgPath = 'Images/'
+imgPath2 = 'Image/신비상점/'
+imgGrayPath = 'imagesGray/'
 imgLogPath = 'ImagesLog/'
 
 removeX=1280
@@ -27,7 +28,7 @@ def convertToGray():
 
     os.system('rm -rf imagesGray/*')
 
-    os.chdir(imgPath)
+    os.chdir(imgPath2)
     for file in glob.glob("*.jpg"):
         # remove .jpg string
         imageName = file[:-4]
@@ -36,11 +37,12 @@ def convertToGray():
         template = cv2.imread(imageName+'.jpg', 0)
         templateRGB = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
         templateGray = cv2.cvtColor(templateRGB, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite('../'+imgGrayPath+imageName+'.png', templateGray)
+        print(imgGrayPath+imageName+'.png')
+        cv2.imwrite('../../' + imgGrayPath+imageName+'.png', templateGray)
 
     os.chdir('../')
 
-convertToGray()
+# convertToGray()
 
 def extractBackgroundImage():
     img = pyautogui.screenshot(region=(removeX, removeY, 1920, 700))
@@ -94,7 +96,7 @@ def findBulk(name: str, imageNmaeList: list):
     # for imageNameList
     for imageName in imageNmaeList:
         # found = isFound(bg, imageName, threshold=0.93)
-        found = isFound(bg, imageName, threshold=0.89)
+        found = isFound(bg, imageName, threshold=0.97)
         if(found != None):
             foundList.extend(found)
 

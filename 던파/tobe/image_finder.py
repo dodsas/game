@@ -47,6 +47,7 @@ def find(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
     if screenShot is None:
         screenShot = getScreenShotToGray()
 
+    print('***' + imgPath+imageName)
     template = cv2.imread(imgPath+imageName+'.jpg', 0)
     templateRGB = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
     templateGray = cv2.cvtColor(templateRGB, cv2.COLOR_BGR2GRAY)

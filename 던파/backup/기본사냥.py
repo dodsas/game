@@ -10,7 +10,7 @@ import imageFinderBulk
 import imageFinder
 import mailSender
 
-import 신비크리처
+import 신비상점
 # import 서조
 loop = 13  # 피로도남기 12 / 풀피로도 13
 map = {
