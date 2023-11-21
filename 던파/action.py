@@ -435,7 +435,7 @@ def 산등노가다2():
 def 우편함():
     do(Clicker('우편함'))
     do(Clicker('우편함_일괄수령'), canSkip=True)
-    do(Clicker('확인'), canSkip=True)
+    do(Clicker('확인'), onlyOneTime=True, canSkip=True)
     do(Clicker('뒤로가기'))
 
 def 즐찾구매():

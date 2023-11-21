@@ -39,13 +39,13 @@ map = {
 #    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
 #     "지짱보": Unit("지짱보"),
 #     "서큐버뚜": Unit("서큐버뚜"),
-    # "보리닉": Unit("보리닉"),
+    "보리닉": Unit("보리닉"),
     # "인챈뚜": Unit("인챈뚜"),
     # "윈드꾸꾸": Unit("윈드꾸꾸"),
 }
 
-map = unit.map
-map = { "보리뚜": Unit("보리뚜") }
+# map = unit.map
+# map = { "보리뚜": Unit("보리뚜") }
 
 os.system('rm -rf imagesLog/*')
 for key in map:

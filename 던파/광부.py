@@ -10,9 +10,9 @@ import imageFinder
 import mailSender
 
 # for 20 times
-for i in range(21):
+for i in range(100):
     while True:
-        for j in range(30):
+        for j in range(100):
             robot.pressKey('left', sleep=0, duration=0)
             robot.pressKey('right', sleep=0, duration=0)
 
@@ -25,3 +25,5 @@ for i in range(21):
             imageFinder.findAndClick('광산_다시하기', sleep=0, error=False)
             # imageFinder.waitAndClick('광산_채광시작', error=False)
             break
+
+mailSender.sendMail("[DNF] Mining 완료", "-")

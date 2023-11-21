@@ -21,6 +21,7 @@ class Unit:
     jsonString: str = None
     sunganDone: bool = False
     epicDone: bool = False
+    s: str = '무기목걸이어깨신발'
     s10: str = '무기목걸이어깨신발'
     s30: str = '무기목걸이어깨신발30'
 
@@ -98,34 +99,32 @@ fileName = f'result/char_{datetime.now().strftime("%Y%m%d")}.json'
 loop=13
 
 mapInit = {
-    "보리성": Unit("보리성", 신비전체구매=True, buffIndex=4, loopCount=loop, epicDone=True),
-    "보리뚜": Unit("보리뚜", 신비전체구매=True, loopCount=12, sunganDone=False, epicDone=True),
-    "보리세이더": Unit("보리세이더", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-    "베인뚜": Unit("베인뚜", 신비전체구매=True, loopCount=loop, finalIndex='f', epicDone=True),
-    "보리빵떡": Unit("보리빵떡", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-    "보리메이지": Unit("보리메이지", 신비전체구매=False, loopCount=loop),
-
-    "보리템플러": Unit("보리템플러", 신비전체구매=True, loopCount=loop, sunganDone=True, epicDone=True),
-    "보리뚜뚜": Unit("보리뚜뚜", 신비전체구매=True, loopCount=loop, epicDone=True),
-    "무녀뚜": Unit("무녀뚜", 신비전체구매=False, loopCount=loop, epicDone=True),
-    "런처꾸꾸": Unit("런처꾸꾸", 신비전체구매=True, loopCount=loop, sunganDone=True),
-    "보리술사": Unit("보리술사", loopCount=loop, sunganDone=True),
-    "보리꾸꾸": Unit("보리꾸꾸", 신비전체구매=True, buffIndex=6, loopCount=loop, sunganDone=True),
-    "보리뚜킥": Unit("보리뚜킥", loopCount=loop, sunganDone=True, epicDone=True),
-    "건꾸꾸": Unit("건꾸꾸", 신비전체구매=False, loopCount=loop),
-    "보리핏": Unit("보리핏", 신비전체구매=False, loopCount=loop, sunganDone=True, epicDone=True),
-    "보리심판관": Unit("보리심판관", 신비전체구매=False, loopCount=13, epicDone=True),
-    "보리커": Unit("보리커", 신비전체구매=True, loopCount=13),
-    "소울뚜": Unit("소울뚜", loopCount=loop, sunganDone=True),
-    "보리뚜비": Unit("보리뚜비", loopCount=loop, sunganDone=True),
-    "보리파": Unit("보리파", 신비전체구매=False, loopCount=loop, sunganDone=True),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸", loopCount=loop),
-
-    "지짱보": Unit("지짱보", 신비전체구매=False, loopCount=loop),
-    "서큐버뚜": Unit("서큐버뚜", 신비전체구매=False, loopCount=loop, finalIndex='3'),
-    "보리닉": Unit("보리닉", 신비전체구매=False, loopCount=loop),
-    "인챈뚜": Unit("인챈뚜", 신비전체구매=False, loopCount=loop),
-    "윈드꾸꾸": Unit("윈드꾸꾸", 신비전체구매=False, finalIndex='f', loopCount=loop, sunganDone=True, epicDone=True),
+    "보리성": Unit("보리성"),
+    "보리뚜": Unit("보리뚜", s='보장팔찌허리'),
+    "보리세이더": Unit("보리세이더", s='안톤상의어깨신발팔찌보장'),
+    "베인뚜": Unit("베인뚜"),
+    "보리빵떡": Unit("보리빵떡", s='보장팔찌허리'),
+    "보리뚜뚜": Unit("보리뚜뚜", s='안톤무기바지벨트목걸이반지'),
+    "보리템플러": Unit("보리템플러", s='반지상의하의보장팔찌벨트2'),
+    "무녀뚜": Unit("무녀뚜", s='안톤상의어깨신발팔찌보장'),
+    "인챈뚜": Unit("인챈뚜"),
+    "소울뚜": Unit("소울뚜", s='반지상의하의보장팔찌벨트2'),
+    "런처꾸꾸": Unit("런처꾸꾸", s='무기목걸이어깨신발2'),
+    "보리술사": Unit("보리술사", s='반지상의하의보장팔찌벨트2'),
+    "보리커": Unit("보리커", s='무기목걸이어깨신발2'),
+    "보리꾸꾸": Unit("보리꾸꾸", s='무기목걸이어깨신발2'),
+    "건꾸꾸": Unit("건꾸꾸", s='무기목걸이어깨신발2'),
+    "보리뚜킥": Unit("보리뚜킥", s='무기목걸이어깨신발2'),
+    "보리핏": Unit("보리핏", s='반지상의하의보장팔찌벨트2'),
+    "보리심판관": Unit("보리심판관", s='반지상의하의보장팔찌벨트2'),
+    "보리파": Unit("보리파", s='반지상의하의보장팔찌벨트2'),
+    "보리뚜비": Unit("보리뚜비", s='반지상의하의보장팔찌벨트2'),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", s='무기목걸이어깨신발2'),
+    "보리메이지": Unit("보리메이지", s='반지상의하의보장팔찌벨트'),
+    "지짱보": Unit("지짱보", s='반지상의하의보장팔찌벨트2'),
+    "서큐버뚜": Unit("서큐버뚜", s='반지상의하의보장팔찌벨트2'),
+    "보리닉": Unit("보리닉"),
+    "윈드꾸꾸": Unit("윈드꾸꾸"),
 }
 map = mapInit
 # update()

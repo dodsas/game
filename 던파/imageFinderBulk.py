@@ -96,7 +96,7 @@ def findBulk(name: str, imageNmaeList: list):
     # for imageNameList
     for imageName in imageNmaeList:
         # found = isFound(bg, imageName, threshold=0.93)
-        found = isFound(bg, imageName, threshold=0.97)
+        found = isFound(bg, imageName, threshold=0.91)
         if(found != None):
             foundList.extend(found)
 
