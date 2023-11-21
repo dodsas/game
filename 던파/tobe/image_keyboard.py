@@ -13,7 +13,6 @@ def press(key: str, sleep: float = 2, duration: float = 1):
         'w': 13,
         'e': 14,
         'r': 15,
-        'i': 34,
         '1': 18,
         '2': 19,
         '3': 20,
@@ -22,6 +21,13 @@ def press(key: str, sleep: float = 2, duration: float = 1):
         '6': 22,
         '7': 26,
         '8': 28,
+        's': 1,
+        'd': 2,
+        'f': 3,
+        'g': 5,
+        'v': 9,
+        'b': 11,
+        't': 17,
     }
 
     # check keyMap contain key

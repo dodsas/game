@@ -39,7 +39,7 @@ class Founder(Actionable):
         pt, score = image_finder.find(self.imageName, screenShot=self.screenShot, threshold=self.threshold)
         if pt is None:
             if printFail:
-                dun_print.printf(self.imageName, f'{self.fallbackMessage}NOT_FOUND', f'{score:.4f}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}N_FOUND', f'{score:.4f}')
             if self.errorMode:
                 dun_print.errorf(self.imageName)
             return False
@@ -73,7 +73,7 @@ class Clicker(Actionable):
         pt, score = image_finder.find(self.imageName, screenShot=self.screenShot, threshold=self.threshold)
         if pt is None:
             if printFail:
-                dun_print.printf(self.imageName, f'{self.fallbackMessage}NOT_CLICK', f'{score:.4f}')
+                dun_print.printf(self.imageName, f'{self.fallbackMessage}N_CLICK', f'{score:.4f}')
             if self.errorMode:
                 dun_print.errorf(self.imageName)
             return False
@@ -133,7 +133,7 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False):
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -146,7 +146,8 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
         if screenShot is None :
             screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
-        Clicker('확인', screenShot=screenShot).action(printFail=False)
+        if okSkip is False :
+           Clicker('확인', screenShot=screenShot).action(printFail=False)
 
         if canSkip and loopCount == g_skipCount:
             currAction.action(printFail=True, screenShot=screenShot)

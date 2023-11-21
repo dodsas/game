@@ -36,7 +36,7 @@ for key in map:
     #     action.산등최초입장2()
     #     action.산등노가다2()
     #     unit.workingDone()
-    # unit.workingDone()
+    unit.workingDone()
     do(Clicker('모험', threshold=0.8))
     # time.sleep(3)
     # robot.pressKey('i')
