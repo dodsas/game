@@ -32,11 +32,9 @@ for key in map:
     startTime = time.time()
 
     action.캐릭터선택2()
-    # if (char.산등노가다 and char.loopCount != 0):
-    #     action.산등최초입장2()
-    #     action.산등노가다2()
-    #     unit.workingDone()
+
     unit.workingDone()
+
     do(Clicker('모험', threshold=0.8))
     # time.sleep(3)
     # robot.pressKey('i')
@@ -45,9 +43,9 @@ for key in map:
     # else:
 
    # action.즐찾구매()
-   # action.아티팩트판매()
     action.우편함()
-    do(Clicker('인벤토리', threshold=0.85))
+    action.아티팩트판매()
+    do(Clicker('인벤토리', threshold=0.70))
     do(Clicker('장비수리'))
     do(Clicker('장비수리확인'), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
@@ -55,16 +53,28 @@ for key in map:
 
     do(Clicker('판매'))
     do(Clicker('판매2'))
-    do(Clicker('확인'), onlyOneTime=True)
-    do(Clicker('확인'), onlyOneTime=True)
+    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('x', threshold=0.83))
+
+    do(Clicker('판매'))
+    do(Clicker('판매2'))
+    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.85), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
 
     do(Clicker('해체'))
     do(Clicker('해체체크'), onlyOneTime=True)
     do(Clicker('해체2'))
-    do(Clicker('확인'), onlyOneTime=True)
-    do(Clicker('확인'), onlyOneTime=True)
+    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.85), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
+
+    # 금고보관
+    do(Clicker('금고'))
+    do(Clicker('모험단금고'))
+    do(Clicker('자동보관'))
+    do(Clicker('확인', 0.85), onlyOneTime=True)
 
     do(Clicker('뒤로가기'))
 
