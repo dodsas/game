@@ -34,15 +34,15 @@ def convertToGray():
         imageName = file[:-4]
         print(imageName)
 
-        template = cv2.imread(imageName+'.jpg', 0)
-        templateRGB = cv2.cvtColor(template, cv2.COLOR_BGR2RGB)
-        templateGray = cv2.cvtColor(templateRGB, cv2.COLOR_BGR2GRAY)
+        template2 = cv2.imread(imageName+'.jpg', 0)
+        templateRGB2 = cv2.cvtColor(template2, cv2.COLOR_BGR2RGB)
+        templateGray2 = cv2.cvtColor(templateRGB2, cv2.COLOR_BGR2GRAY)
         print(imgGrayPath+imageName+'.png')
-        cv2.imwrite('../../' + imgGrayPath+imageName+'.png', templateGray)
+        cv2.imwrite('../../' + imgGrayPath+imageName+'.png', templateGray2)
 
-    os.chdir('../')
+    os.chdir('../../')
 
-# convertToGray()
+convertToGray()
 
 def extractBackgroundImage():
     img = pyautogui.screenshot(region=(removeX, removeY, 1920, 700))
