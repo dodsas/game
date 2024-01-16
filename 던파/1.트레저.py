@@ -18,43 +18,21 @@ from image_robot import *
 image_finder.imgPath = 'Image/트레저/'
 
 map = {
-    # "보리성": Unit("보리성"),
-    # "보리뚜": Unit("보리뚜"),
-    # "보리세이더": Unit("보리세이더"),
-    # "베인뚜": Unit("베인뚜"),
-    # "보리빵떡": Unit("보리빵떡"),
-
-  # "보리메이지": Unit("보리메이지"),
-#     "보리템플러": Unit("보리템플러"),
-#    "보리뚜뚜": Unit("보리뚜뚜"),
-#    "무녀뚜": Unit("무녀뚜"),
-#    "런처꾸꾸": Unit("런처꾸꾸", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
-#   "보리술사": Unit("보리술사"),
-#   "보리꾸꾸": Unit("보리꾸꾸"),
-#   "보리뚜킥": Unit("보리뚜킥"),
-#    "건꾸꾸": Unit("건꾸꾸", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
-#    "보리핏": Unit("보리핏"),
-#    "보리심판관": Unit("보리심판관"),
-#    "보리커": Unit("보리커", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
-#    "소울뚜": Unit("소울뚜", s10='반지상의하의보장팔찌목걸이', s30='반지상의하의보장팔찌목걸이30'),
-#    "보리뚜비": Unit("보리뚜비"),
-#    "보리파": Unit("보리파"),
-#    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
-#     "지짱보": Unit("지짱보"),
-#     "서큐버뚜": Unit("서큐버뚜"),
-    # "보리닉": Unit("보리닉"),
-    "인챈뚜": Unit("인챈뚜"),
-
-    # "윈드꾸꾸": Unit("윈드꾸꾸"),
+    "보리성": Unit("보리성", s='안톤무기바지벨트목걸이반지', buffIndex=4),
+    "보리빵떡": Unit("보리빵떡", s='안톤상의어깨신발팔찌보장'),
+    "베인뚜": Unit("베인뚜", s='안톤무기바지벨트목걸이반지'),
+    # "보리뚜": Unit("보리뚜", s='안톤상의어깨신발팔찌보장'),
+    "보리세이더": Unit("보리세이더", s='안톤무기바지벨트목걸이반지'),
 }
 
-map = unit.map
-map = { "보리뚜": Unit("보리뚜") }
+# map = unit.map
+# map = { "보리뚜": Unit("보리뚜") }
 
 def selectMap(i):
     if(i != 1):
         screenShot = image_finder.getScreenShotToGray()
 
+        do(Clicker('맵_에픽_마결'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_레어_스카디'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_유니크_스카디'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_에픽_스카디'), screenShot=screenShot, onlyOneTime=True)
@@ -64,9 +42,10 @@ def selectMap(i):
         do(Clicker('맵_에픽_초대장'), screenShot=screenShot, onlyOneTime=True)
 
         do(Clicker('맵_레어_골드'), screenShot=screenShot, onlyOneTime=True)
-        do(Clicker('맵_유니크_변환석'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_유니크_골드'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_에픽_골드'), screenShot=screenShot, onlyOneTime=True)
+
+        do(Clicker('맵_유니크_변환석'), screenShot=screenShot, onlyOneTime=True)
         do(Clicker('맵_에픽_변환석'), screenShot=screenShot, onlyOneTime=True)
 
         do(Clicker('맵_레어_라코'), screenShot=screenShot, onlyOneTime=True)
@@ -95,12 +74,12 @@ for key in map:
     if(len(map) != 1):
         action.캐릭터선택2()
 
-    # do(Clicker('모험'))
-    # do(Clicker('의뢰'))
-    # do(Clicker('트레저'))
-    # do(Clicker('입장'))
+    do(Clicker('모험'))
+    do(Clicker('의뢰'))
+    do(Clicker('트레저'))
+    do(Clicker('입장'))
 
-    i=1
+    i=0
     while True:
         i=i+1
         selectMap(i)
@@ -147,6 +126,7 @@ for key in map:
                 time.sleep(4)
                 break 
 
+        time.sleep(2)
         if(do(Founder('SELECT'), canSkip=True) is False):
             pyautogui.keyDown('x')
             time.sleep(3)
@@ -158,6 +138,8 @@ for key in map:
             time.sleep(3)
             pyautogui.keyUp('x')
             do(Clicker('마을로가기'))
+            do(Clicker('x'))
+            do(Clicker('뒤로가기'))
             break
 
         #     if(do(Clicker('재도전_수리', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
@@ -180,3 +162,5 @@ for key in map:
         #         break
 
         #     do(Founder('상급던전_입장완료'))
+
+mailSender.sendMail("[DNF] 트레져 완료" , "-")
