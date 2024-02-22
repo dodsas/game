@@ -169,7 +169,7 @@ def 캐릭터선택2():
 
     char = unit.selected
 
-    do(Clicker('캐릭_선택', threshold=0.97))
+    do(Clicker('캐릭_선택', threshold=0.94))
     time.sleep(3)
     do(Founder('캐릭_선택확인'))
     imageFinder.clickDirect(1352, 522)
@@ -188,7 +188,7 @@ def 캐릭터선택2():
     if(do(Founder('게임시작_이미접속중', threshold=0.77), onlyOneTime=True, canSkip=True)):
         keyboard2.pressKey('ESC')
     else:
-        do(Clicker('캐릭_게임시작'))
+        do(Clicker('캐릭_게임시작', threshold=0.80))
         pyautogui.sleep(1)
 
     do(Founder('스케쥴러'))

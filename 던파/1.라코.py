@@ -20,37 +20,37 @@ from image_robot import *
 image_finder.imgPath = 'Image/라코/'
 
 # maxLoop=11
-# maxLoop=5
 maxLoop=99
+#maxLoop=5
 map = {
-    # "보리빵떡": Unit("보리빵떡", s='안톤상의어깨신발팔찌보장'),
     # "보리성": Unit("보리성", s='안톤무기바지벨트목걸이반지', buffIndex=4),
-    # "베인뚜": Unit("베인뚜", s='안톤무기바지벨트목걸이반지'),
-    # "보리뚜": Unit("보리뚜", s='안톤상의어깨신발팔찌보장'),
+    # "베인뚜": Unit("베인뚜", s='안톤상의어깨신발팔찌보장'),
+    # "보리빵떡": Unit("보리빵떡", s='안톤상의어깨신발팔찌보장'),
+    # "보리뚜": Unit("보리뚜", s='안톤무기바지벨트목걸이반지'),
     # "보리세이더": Unit("보리세이더", s='안톤무기바지벨트목걸이반지'),
     # "보리뚜뚜": Unit("보리뚜뚜", s='안톤상의어깨신발팔찌보장'),
     # "보리템플러": Unit("보리템플러", s='안톤상의어깨신발팔찌보장'),
     # "무녀뚜": Unit("무녀뚜", s='안톤무기바지벨트목걸이반지'),
 
-#       "인챈뚜": Unit("인챈뚜", s='반지상의하의보장팔찌벨트2'),
-#     "소울뚜": Unit("소울뚜", s='반지상의하의보장팔찌벨트2'),
-# #    "지짱보": Unit("지짱보", s='반지상의하의보장팔찌벨트2'),
-#    "보리술사": Unit("보리술사", s='반지상의하의보장팔찌벨트2'),
-#    "런처꾸꾸": Unit("런처꾸꾸", s='무기목걸이어깨신발2'),
-#     "보리뚜킥": Unit("보리뚜킥", s='무기목걸이어깨신발2'),
-#    "건꾸꾸": Unit("건꾸꾸", s='무기목걸이어깨신발2'),
-#     "보리꾸꾸": Unit("보리꾸꾸", s='무기목걸이어깨신발2'),
-#      "보리핏": Unit("보리핏", s='반지상의하의보장팔찌벨트2'),
-#     "보리심판관": Unit("보리심판관", s='반지상의하의보장팔찌벨트2'),
-#      "보리커": Unit("보리커", s='무기목걸이어깨신발2'),
-#      "보리파": Unit("보리파", s='반지상의하의보장팔찌벨트2'),
-#      "보리뚜비": Unit("보리뚜비", s='반지상의하의보장팔찌벨트2'),
-#      "웨펀꾸꾸": Unit("웨펀꾸꾸", s='무기목걸이어깨신발2'),
-#      "보리메이지": Unit("보리메이지", s='반지상의하의보장팔찌벨트2'),
-#      "서큐버뚜": Unit("서큐버뚜", s='반지상의하의보장팔찌벨트2'),
-     "보리닉": Unit("보리닉"),
-     "윈드꾸꾸": Unit("윈드꾸꾸"),
-    # "강한보리": Unit("강한보리"),
+     "인챈뚜": Unit("인챈뚜", s='반지상의하의보장팔찌벨트2'),
+     "소울뚜": Unit("소울뚜", s='반지상의하의보장팔찌벨트2'),
+     "지짱보": Unit("지짱보", s='반지상의하의보장팔찌벨트2'),
+     ## "강한보리": Unit("강한보리"),
+     "보리술사": Unit("보리술사", s='반지상의하의보장팔찌벨트2'),
+     "런처꾸꾸": Unit("런처꾸꾸", s='무기목걸이어깨신발2'),
+     "건꾸꾸": Unit("건꾸꾸", s='무기목걸이어깨신발2'),
+     "보리뚜킥": Unit("보리뚜킥", s='무기목걸이어깨신발2'),
+     "보리꾸꾸": Unit("보리꾸꾸", s='무기목걸이어깨신발2'),
+      "보리핏": Unit("보리핏", s='반지상의하의보장팔찌벨트2'),
+     "보리심판관": Unit("보리심판관", s='반지상의하의보장팔찌벨트2'),
+     "보리뚜비": Unit("보리뚜비", s='반지상의하의보장팔찌벨트2'),
+     "보리메이지": Unit("보리메이지", s='반지상의하의보장팔찌벨트2'),
+    "보리파": Unit("보리파", s='반지상의하의보장팔찌벨트2'),
+    "보리커": Unit("보리커", s='무기목걸이어깨신발2'),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", s='무기목걸이어깨신발2'),
+    "서큐버뚜": Unit("서큐버뚜", s='반지상의하의보장팔찌벨트2'),
+    "윈드꾸꾸": Unit("윈드꾸꾸"),
+    "보리닉": Unit("보리닉"),
 }
 
 # map = unit.map
@@ -113,7 +113,7 @@ for key in map:
 
             screenShot = image_finder.getScreenShotToGray()
 
-            if(do(Clicker('골카', threshold=0.82), onlyOneTime=True, screenShot=screenShot)):
+            if(do(Clicker('골카', threshold=0.78), onlyOneTime=True, screenShot=screenShot)):
                 keyboard2.pressKey2('5')
                 do(Clicker('reward'), onlyOneTime=True) 
                 pyautogui.keyDown('left')
@@ -149,11 +149,13 @@ for key in map:
         pyautogui.keyUp('x')
         if (do(Founder('재도전', threshold=0.85))):
             dun_print.printf("사냥완료카운트", str(forLoop))
+            time.sleep(2)
             if (loop >= maxLoop):
                 keyboard2.pressKey2('f8')
-                break
-            do(Clicker('재도전', threshold=0.85))
+                break 
             time.sleep(1)
+            do(Clicker('재도전', threshold=0.85), okSkip=True)
+            time.sleep(2)
             screenShot = image_finder.getScreenShotToGray()
             if (do(Founder('상급던전_피로도부족', threshold=0.85), screenShot=screenShot, onlyOneTime=True)):
                 keyboard2.pressKey2('f8')

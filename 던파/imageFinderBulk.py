@@ -92,7 +92,7 @@ def findBulk(name: str, imageNmaeList: list):
     foundList = []
 
     bg = extractBackgroundImage()
-    saveDebugImage(f'{name}', bg)
+    # saveDebugImage(f'{name}', bg)
     # for imageNameList
     for imageName in imageNmaeList:
         # found = isFound(bg, imageName, threshold=0.93)

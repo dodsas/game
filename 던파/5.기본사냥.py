@@ -33,7 +33,6 @@ for key in map:
 
     action.캐릭터선택2()
 
-    unit.workingDone()
 
     do(Clicker('모험', threshold=0.8))
     # time.sleep(3)
@@ -53,31 +52,32 @@ for key in map:
 
     do(Clicker('판매'))
     do(Clicker('판매2'))
-    do(Clicker('확인', 0.85), onlyOneTime=True)
-    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
 
     do(Clicker('판매'))
     do(Clicker('판매2'))
-    do(Clicker('확인', 0.85), onlyOneTime=True)
-    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
 
     do(Clicker('해체'))
     do(Clicker('해체체크'), onlyOneTime=True)
     do(Clicker('해체2'))
-    do(Clicker('확인', 0.85), onlyOneTime=True)
-    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
     do(Clicker('x', threshold=0.83))
 
     # 금고보관
-    do(Clicker('금고'))
+    do(Clicker('금고', 0.81))
     do(Clicker('모험단금고'))
     do(Clicker('자동보관'))
-    do(Clicker('확인', 0.85), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True)
 
     do(Clicker('뒤로가기'))
 
+    unit.workingDone()
 
 
     # save startTime as minutes

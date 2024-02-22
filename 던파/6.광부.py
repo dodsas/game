@@ -10,7 +10,7 @@ import imageFinder
 import mailSender
 
 # for 20 times
-for i in range(99):
+for i in range(50):
     while True:
         for j in range(20):
             robot.pressKey('left', sleep=0, duration=0)
