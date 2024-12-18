@@ -45,12 +45,13 @@ def convertToGray():
 convertToGray()
 
 def extractBackgroundImage():
-    img = pyautogui.screenshot(region=(removeX, removeY, 1920, 700))
-    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    # img = pyautogui.screenshot(region=(removeX, removeY, 1920, 700))
+    img2 = pyautogui.screenshot(region=(1280, 300, 640, 700))
+    img2 = cv2.cvtColor(np.array(img2), cv2.COLOR_RGB2BGR)
     # imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     # gray = cv2.cvtColor(imgRGB, cv2.COLOR_BGR2GRAY)
-    #cv2.imwrite(imgLogPath+'_바탕화면.png', gray)
-    return img
+    # cv2.imwrite(imgLogPath+'_바탕화면.png', gray)
+    return img2
 
 
 # return type is list
@@ -92,7 +93,7 @@ def findBulk(name: str, imageNmaeList: list):
     foundList = []
 
     bg = extractBackgroundImage()
-    # saveDebugImage(f'{name}', bg)
+    saveDebugImage(f'{name}', bg)
     # for imageNameList
     for imageName in imageNmaeList:
         # found = isFound(bg, imageName, threshold=0.93)

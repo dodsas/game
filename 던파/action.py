@@ -188,9 +188,11 @@ def 캐릭터선택2():
     if(do(Founder('게임시작_이미접속중', threshold=0.77), onlyOneTime=True, canSkip=True)):
         keyboard2.pressKey('ESC')
     else:
+        pyautogui.sleep(1)
         do(Clicker('캐릭_게임시작', threshold=0.80))
         pyautogui.sleep(1)
 
+    time.sleep(2)
     do(Founder('스케쥴러'))
 
     image_finder.imgPath = imgPathBackup
@@ -433,7 +435,7 @@ def 산등노가다2():
 # 산등노가다2()
 
 def 우편함():
-    do(Clicker('우편함'))
+    do(Clicker('우편함', threshold=0.9)    )
     do(Clicker('우편함_일괄수령'), canSkip=True)
     do(Clicker('확인'), onlyOneTime=True, canSkip=True)
     do(Clicker('뒤로가기'))
@@ -657,8 +659,11 @@ def 서조2():
     waitToHomeWithKey('ESC')
 
 def 아티팩트판매():
-    imageFinder.pressAndWaitAndClick('ESC', '크리처')
-    imageFinder.waitAndClick('크리처_아티팩트')
+    do(Presser('ESC'))
+    do(Clicker('크리처'))
+    # imageFinder.pressAndWaitAndClick('ESC', '크리처')
+    do(Clicker('크리처_아티팩트'))
+    # imageFinder.waitAndClick('크리처_아티팩트')
     imageFinder.waitAndClick('장비해체', maxWait=3, error=False)
     imageFinder.waitAndClick('크리처_장비해체클릭', maxWait=3, error=False)
     if(imageFinder.isFound('확인', sleep=4) != None):
@@ -667,7 +672,8 @@ def 아티팩트판매():
     robot.pressKey('ESC') 
     # robot.pressKey('ESC', sleep=5) # 최초분해 따아앙뜨는거 5초
     # robot.pressKey('ESC') # 최초분해 따아앙뜨는거 5초 안기다려도 가짐
-    waitToHomeWithKey('ESC')
+    # waitToHomeWithKey('ESC')
+    do(Clicker('뒤로가기'))
 
 # 크리처()
 # sampleUnit = Unit("보리핏", 3, 'w', False)

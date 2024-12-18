@@ -142,6 +142,7 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
     isOk = False
     # dun_print.printf(currAction.name(), 'START')
 
+    time.sleep(0.5)
     while True:
         if screenShot is None :
             screenShot = image_finder.getScreenShotToGray(currAction.name())
@@ -167,6 +168,7 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
                 screenShot = image_finder.getScreenShotToGray(currAction.name())
                 g_prevAction.fallback(screenShot=screenShot)
             screenShot = None
+            # time.sleep(0.5)
 
     # Clicker('확인', screenShot=screenShot).action(printFail=False)
 

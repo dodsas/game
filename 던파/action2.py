@@ -44,19 +44,20 @@ def 카드합성():
 
     time.sleep(2)
     do(Clicker('투입선택여부'), onlyOneTime=True)
+    do(Clicker('레어'))
     do(Clicker('찐합성'))
     do(Clicker('합성경고'), canSkip=True, okSkip=True)
-    do(Clicker('합성결과'))
+    do(Clicker('합성결과', threshold=0.83))
 
-    _카드반복합성()
-    do(Clicker('언커먼'))
-    _카드반복합성()
-    do(Clicker('레어'))
+    # _카드반복합성()
+    # do(Clicker('언커먼'))
+    # _카드반복합성()
+    # do(Clicker('레어'))
     _카드반복합성()
 
     do(Clicker('x'))
-    do(Clicker('뒤로가기'))
-    do(Clicker('뒤로가기'))
+    do(Clicker('뒤로가기'), okSkip=True)
+    # do(Clicker('뒤로가기'), okSkip=True)
     do(Founder('스케쥴러'))
     dun_print.printf(f'카드합성완료')
 
@@ -85,12 +86,12 @@ def 캐릭터선택2():
         if Clicker('캐릭_' + char.name, threshold=0.75).action(printFail=True) :
             break
         pyautogui.sleep(0.5)
-        pyautogui.scroll(70000)
+        pyautogui.scroll(20000)
     
     if(do(Founder('게임시작_이미접속중', threshold=0.77), onlyOneTime=True, canSkip=True)):
         do(Presser('ESC', fallbackSkip=True))
     else:
-        do(Clicker('캐릭_게임시작'))
+        do(Clicker('캐릭_게임시작', threshold=0.80))
         pyautogui.sleep(1)
 
     do(Founder('스케쥴러'))
