@@ -14,8 +14,8 @@ import random
 import imageFinder
 import keyboard2
 import sys
-sys.path.append('tobe')
-from image_robot import * 
+
+from tobe import * 
 
 # image_finder.imgPath = 'Image/강림로터스/'
 

@@ -1,6 +1,4 @@
-import sys
-sys.path.append('tobe')
-from image_robot import * 
+from tobe import * 
 
 from dataclasses import dataclass
 import json

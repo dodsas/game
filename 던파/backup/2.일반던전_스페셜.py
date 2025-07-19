@@ -14,32 +14,51 @@ import random
 import imageFinder
 import keyboard2
 import sys
+
 from tobe import * 
 
-maxLoop=20
+# image_finder.imgPath = 'Image/강림로터스/'
+
+maxLoop=10
 # maxLoop=2
+# maxLoop=1
 
 map = {
-    # "베인뚜": Unit("베인뚜", s='master'),
-    "보리성": Unit("보리성", buffIndex=4, s='master'),
-    "보리빵떡": Unit("보리빵떡", s='master'),
-    "지짱보": Unit("지짱보", s='master'),
-    "강한보리": Unit("강한보리", s='master'),
+   "베인뚜": Unit("베인뚜", s='master'),
+    # "보리성": Unit("보리성", buffIndex=4, s='master'),
+   "보리빵떡": Unit("보리빵떡", s='master'),
+   "지짱보": Unit("지짱보", s='master'),
+   "강한보리": Unit("강한보리", s='master'),
     "보리뚜": Unit("보리뚜", s='master'),
-    "보리세이더": Unit("보리세이더", s='master'),
-    "보리뚜뚜": Unit("보리뚜뚜"),
-    "보리템플러": Unit("보리템플러", s='master'),
-    "인챈뚜": Unit("인챈뚜"),
-    "무녀뚜": Unit("무녀뚜"),
-    "소울뚜": Unit("소울뚜"),
-    "런처꾸꾸": Unit("런처꾸꾸", s='master'),
-    "보리꾸꾸": Unit("보리꾸꾸", s='master'),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸", s='master'),
+   "보리세이더": Unit("보리세이더", s='master'),
 
+    "보리템플러": Unit("보리템플러", b='제국'),
+#     "보리뚜뚜": Unit("보리뚜뚜", b='제국'),
+#    "인챈뚜": Unit("인챈뚜"), 
+#    "무녀뚜": Unit("무녀뚜", b='제국'),
+#     "소울뚜": Unit("소울뚜"),
+
+    # "런처꾸꾸": Unit("런처꾸꾸"), #--
+#      "보리꾸꾸": Unit("보리꾸꾸"), #--
+#     "웨펀꾸꾸": Unit("웨펀꾸꾸"), #--
+#    "보리뚜킥": Unit("보리뚜킥"),
+#    "보리술사": Unit("보리술사"),
+#     "보리메이지": Unit("보리메이지"),
+#     "보리핏": Unit("보리핏"),
+#     "건꾸꾸": Unit("건꾸꾸"),
+#     "서큐버뚜": Unit("서큐버뚜"),
+#     "보리커": Unit("보리커"),
+#     "보리심판관": Unit("보리심판관"),
+#     "보리파": Unit("보리파"),
+#     "보리뚜비": Unit("보리뚜비"),
+#     "윈드꾸꾸": Unit("윈드꾸꾸"),
+#     "보리닉": Unit("보리닉"),
+#     "보리뱅": Unit("보리뱅"),
+
+    # "보리왕": Unit("보리왕"),
+    # "보리샷": Unit("보리샷"),
+    # "보리치료사": Unit("보리치료사"),
 }
-
-# map = unit.map
-# map = { "보리뚜": Unit("보리뚜") }
 
 def zupzup(direction) :
     pyautogui.keyDown('x')
@@ -56,20 +75,23 @@ def zupzup(direction) :
 
 def retry(loopCount):
     if(loopCount >= maxLoop):
-        if(do(Clicker('마을로가기', threshold=0.90))):
-            time.sleep(2)
-            if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True)):
-                zupzup('right')
-                zupzup('left')
-                zupzup('right')
-                # do(Clicker('마을로가기', threshold=0.90))
-            return True
+        return True
+        # if(do(Clicker('마을로가기', threshold=0.90))):
+        #     time.sleep(2)
+        #     if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True)):
+        #         zupzup('right')
+        #         zupzup('left')
+        #         zupzup('right')
+        #         # do(Clicker('마을로가기', threshold=0.90))
+        #     return True
     do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
     time.sleep(2) 
     if(do(Founder('피로도가부족합니다'), onlyOneTime=True, canSkip=True)):
         # if(do(Clicker('마을로가기', threshold=0.90))):
         return True
     return False
+# map = unit.map
+# map = { "보리뚜": Unit("보리뚜") }
 
 os.system('rm -rf imagesLog/*')
 for key in map:
@@ -95,7 +117,7 @@ for key in map:
     # time.sleep(60)
 
     # do(Clicker('패기물처리장그림'))
-    do(Clicker('글라시알'), canSkip=True)
+    do(Clicker('흑룡해적'))
     # 난이도조절 
     do(Clicker('expert'), canSkip=True)
     if(char.s == 'master'):
@@ -157,7 +179,8 @@ for key in map:
 
             # if (findBoss is False and do(Founder('빛나는밀림보스', threshold=0.9), onlyOneTime=True)):
             # if (findBoss is False and do(Founder('폐기물처리장보스', threshold=0.9), onlyOneTime=True)):
-            if (findBoss is False and do(Founder('글라시엘보스', threshold=0.9), onlyOneTime=True)):
+            # if (findBoss is False and do(Founder('글라시엘보스', threshold=0.9), onlyOneTime=True)):
+            if (findBoss is False and do(Founder('흑룡보스', threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
                 findBoss = True
 
@@ -184,7 +207,6 @@ for key in map:
                 break 
             if (forLoop % 20 == 0):
                 Clicker('부활', screenShot=screenShot, threshold=0.75).action()
-                mailSender.sendMail("[DNF] die " + char.name, "-")
     
             if (forLoop > 120):
                 dun_print.errorf(char.name + " 상급던전 실패")

@@ -1,10 +1,10 @@
 from enum import Enum
 import time
-import image_finder
-import image_clicker
-import dun_print
+from . import image_finder
+from . import image_clicker  
+from . import dun_print
 import cv2
-import image_keyboard
+from . import image_keyboard
 
 # g_fallbackCount = 70
 g_fallbackCount = 30
@@ -50,7 +50,7 @@ class Founder(Actionable):
     
     def fallback(self, screenShot=None):
         # time.sleep(0.1)
-        self.action(printFail=True, printOk=True, screenShot=screenShot)
+        self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)
 
     def name(self):
         return self.imageName
@@ -97,20 +97,21 @@ class Presser(Actionable):
         self.key = key 
         self.fallbackSkip = fallbackSkip
 
-    def action(self, printFail=False, printOk=True, screenShot=None):
+    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
         if screenShot is not None:
             self.screenShot = screenShot
 
+        fallbackMessage = 'F_' if isFallback else ''
         image_keyboard.press(self.key, sleep=0, duration=0.01)
         if printOk:
-            dun_print.printf('키입력', 'KEY_PRESS', self.key)
+            dun_print.printf('키입력', f'{fallbackMessage}KEY_PRESS', self.key)
         time.sleep(0.1)
         return True
 
     def fallback(self, screenShot=None):
         time.sleep(0.5)
         if self.fallbackSkip is False:
-            self.action(printFail=True, printOk=True, screenShot=screenShot)     
+            self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)     
 
     def name(self):
         return self.key
@@ -120,15 +121,16 @@ class Direct(Actionable):
         self.x = x
         self.y = y 
 
-    def action(self, printFail=False, printOk=True, screenShot=None):
+    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
         image_clicker.clickDirect(self.x, self.y)
         if printOk:
-            dun_print.printf('클릭', 'DIRECT', str(self.x) + " " + str(self.y))
+            fallbackMessage = 'F_' if isFallback else ''
+            dun_print.printf('클릭', f'{fallbackMessage}DIRECT', str(self.x) + " " + str(self.y))
         return True
 
     def fallback(self, screenShot=None):
         # time.sleep(0.2)
-        self.action(printFail=True, printOk=True, screenShot=screenShot)
+        self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)
 
     def name(self):
         return str(self.x) + " " + str(self.y)
@@ -148,7 +150,7 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
             screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
         if okSkip is False :
-           Clicker('확인', screenShot=screenShot).action(printFail=printFail2)
+           Clicker('확인', screenShot=screenShot).action(printFail=False, printOk=False)
 
         if canSkip and loopCount == g_skipCount:
             currAction.action(printFail=printFail2, screenShot=screenShot)

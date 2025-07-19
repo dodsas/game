@@ -14,8 +14,7 @@ import keyboard2
 import sys
 import imageFinderBulk
 
-sys.path.append('tobe')
-from image_robot import * 
+from tobe import * 
 
 image_finder.imgPath = 'Image/신비상점/'
 # imageFinderBulk.imgPath = 'Image/신비상점/'
