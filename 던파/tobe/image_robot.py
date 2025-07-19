@@ -133,7 +133,7 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False):
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -142,21 +142,21 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
     isOk = False
     # dun_print.printf(currAction.name(), 'START')
 
-    time.sleep(0.5)
+    time.sleep(delay)
     while True:
         if screenShot is None :
             screenShot = image_finder.getScreenShotToGray(currAction.name())
         # skip
         if okSkip is False :
-           Clicker('확인', screenShot=screenShot).action(printFail=False)
+           Clicker('확인', screenShot=screenShot).action(printFail=printFail2)
 
         if canSkip and loopCount == g_skipCount:
-            currAction.action(printFail=True, screenShot=screenShot)
+            currAction.action(printFail=printFail2, screenShot=screenShot)
             break
         if loopCount == g_fallbackCount:
-            currAction.action(printFail=True, screenShot=screenShot)
+            currAction.action(printFail=printFail2, screenShot=screenShot)
             dun_print.errorf(currAction.name())
-        if currAction.action(printFail=True, screenShot=screenShot) is True:
+        if currAction.action(printFail=printFail2, screenShot=screenShot) is True:
             isOk = True
             break
         if onlyOneTime:

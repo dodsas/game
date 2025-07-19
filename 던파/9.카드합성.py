@@ -53,7 +53,7 @@ map = {
 }
 
 # map = unit.map
-# map = { "보리뚜": Unit("보리뚜") }
+map = { "보리뚜": Unit("보리뚜") }
 
 os.system('rm -rf imagesLog/*')
 for key in map:

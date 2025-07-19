@@ -16,44 +16,43 @@ import keyboard2
 import sys
 sys.path.append('tobe')
 from image_robot import * 
-
-# image_finder.imgPath = 'Image/강림로터스/'
+#image_finder.imgPath = 'Image/강림로터스/'
 
 maxLoop=20
 # maxLoop=2
 # maxLoop=1
 
 map = {
-   # "베인뚜": Unit("베인뚜", s='master'),
-    #"보리성": Unit("보리성", buffIndex=4, s='master'),
-   # "보리빵떡": Unit("보리빵떡", s='master'),
-    # "지짱보": Unit("지짱보", s='master'),
-   # "강한보리": Unit("강한보리", s='master'),
-   #  "보리뚜": Unit("보리뚜", s='master'),
-   # "보리세이더": Unit("보리세이더", s='master'),
-#     "보리템플러": Unit("보리템플러", b='제국'),
-#     "보리뚜뚜": Unit("보리뚜뚜", b='제국'),
-#    "인챈뚜": Unit("인챈뚜"), 
-    
-#    "무녀뚜": Unit("무녀뚜", b='제국'),
-#     "소울뚜": Unit("소울뚜"),
 
-    # "런처꾸꾸": Unit("런처꾸꾸"), #--
-     "보리꾸꾸": Unit("보리꾸꾸"), #--
-    "웨펀꾸꾸": Unit("웨펀꾸꾸"), #--
-   "보리뚜킥": Unit("보리뚜킥"),
-   "보리술사": Unit("보리술사"),
-    "보리메이지": Unit("보리메이지"),
-    "보리핏": Unit("보리핏"),
-    "건꾸꾸": Unit("건꾸꾸"),
-    "서큐버뚜": Unit("서큐버뚜"),
-    "보리커": Unit("보리커"),
-    "보리심판관": Unit("보리심판관"),
-    "보리파": Unit("보리파"),
-    "보리뚜비": Unit("보리뚜비"),
-    "윈드꾸꾸": Unit("윈드꾸꾸"),
-    "보리닉": Unit("보리닉"),
-    "보리뱅": Unit("보리뱅"),
+    # "베인뚜": Unit("베인뚜", s='master'),
+    # "보리성": Unit("보리성", buffIndex=4, s='master'),
+    # "보리빵떡": Unit("보리빵떡", s='master'),
+    # "지짱보": Unit("지짱보", s='master'),
+    # "강한보리": Unit("강한보리", s='master'),
+    # "보리뚜": Unit("보리뚜", s='master'),
+    # "보리세이더": Unit("보리세이더", s='master'),
+
+    "보리뚜뚜": Unit("보리뚜뚜"),
+    "보리템플러": Unit("보리템플러", s='master'),
+    "인챈뚜": Unit("인챈뚜"),
+    "무녀뚜": Unit("무녀뚜"),
+    "소울뚜": Unit("소울뚜"),
+    "런처꾸꾸": Unit("런처꾸꾸", s='master'),
+    "보리꾸꾸": Unit("보리꾸꾸", s='master'),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", s='master'),
+#    "보리뚜킥": Unit("보리뚜킥"),
+#    "보리술사": Unit("보리술사"),
+#     "보리메이지": Unit("보리메이지"),
+#     "보리핏": Unit("보리핏"),
+#     "건꾸꾸": Unit("건꾸꾸"),
+#     "서큐버뚜": Unit("서큐버뚜"),
+#     "보리커": Unit("보리커"),
+#     "보리심판관": Unit("보리심판관"),
+#     "보리파": Unit("보리파"),
+#     "보리뚜비": Unit("보리뚜비"),
+#     "윈드꾸꾸": Unit("윈드꾸꾸"),
+#     "보리닉": Unit("보리닉"),
+#     "보리뱅": Unit("보리뱅"),
 
     # "보리왕": Unit("보리왕"),
     # "보리샷": Unit("보리샷"),
@@ -108,13 +107,15 @@ for key in map:
     image_clicker.clickDirect(1494, 608)
     pyautogui.scroll(-400000)
     time.sleep(1)
-    do(Clicker('모험보상지젤연구소'))
+    # do(Clicker('모험보상지젤연구소'))
+    do(Clicker('흑룡해적그림'))
     do(Clicker('지역이동'))
 
     time.sleep(20)
     # time.sleep(60)
 
-    do(Clicker('패기물처리장그림'))
+    # do(Clicker('패기물처리장그림'))
+    do(Clicker('글라시알'), canSkip=True)
     # 난이도조절 
     do(Clicker('expert'), canSkip=True)
     if(char.s == 'master'):
@@ -175,7 +176,8 @@ for key in map:
 
 
             # if (findBoss is False and do(Founder('빛나는밀림보스', threshold=0.9), onlyOneTime=True)):
-            if (findBoss is False and do(Founder('폐기물처리장보스', threshold=0.9), onlyOneTime=True)):
+            # if (findBoss is False and do(Founder('폐기물처리장보스', threshold=0.9), onlyOneTime=True)):
+            if (findBoss is False and do(Founder('글라시엘보스', threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
                 findBoss = True
 
@@ -202,6 +204,7 @@ for key in map:
                 break 
             if (forLoop % 20 == 0):
                 Clicker('부활', screenShot=screenShot, threshold=0.75).action()
+                mailSender.sendMail("[DNF] die " + char.name, "-")
     
             if (forLoop > 120):
                 dun_print.errorf(char.name + " 상급던전 실패")
