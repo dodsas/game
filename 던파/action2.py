@@ -92,6 +92,5 @@ def 캐릭터선택2():
         do(Clicker('캐릭_게임시작', threshold=0.80))
         pyautogui.sleep(1)
 
-    dun_print.printf("*** before 스케쥴러 ")
     do(Founder('스케쥴러'))
-    dun_print.printf("*** after 스케쥴러 ")
+    time.sleep(2)

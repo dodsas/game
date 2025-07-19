@@ -20,7 +20,7 @@ maxLoop=20
 # maxLoop=2
 
 map = {
-    # "베인뚜": Unit("베인뚜", s='master'),
+    "베인뚜": Unit("베인뚜", s='master'),
     "보리성": Unit("보리성", buffIndex=4, s='master'),
     "보리빵떡": Unit("보리빵떡", s='master'),
     "지짱보": Unit("지짱보", s='master'),
@@ -78,9 +78,8 @@ for key in map:
 
     if(len(map) != 1):
         action2.캐릭터선택2()
-    time.sleep(2)
-    if(do(Founder('피로도소모', threshold=0.95), canSkip=True) or do(Founder('피로도소모2', threshold=0.95), canSkip=True)):
-       continue 
+    if(do(Founder('피로도소모'))):
+        continue
 
     do(Clicker('모험'))
     do(Clicker('모험보상'))

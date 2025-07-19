@@ -3,19 +3,24 @@ from tkinter import simpledialog, messagebox
 import subprocess
 import os
 import time
+import pyautogui
 
 class ImageCaptureToolApp:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Image Capture Tool")
-        self.root.geometry("400x300")
+        self.root.title("Image Capture Tool with Mouse Tracker")
+        self.root.geometry("400x350")
         
         # images 폴더 경로 확인 및 생성
         self.images_folder = os.path.join(os.path.dirname(__file__), 'images')
         if not os.path.exists(self.images_folder):
             os.makedirs(self.images_folder)
         
+        # 마우스 위치 추적을 위한 변수
+        self.mouse_tracking = False
+        
         self.setup_ui()
+        self.start_mouse_tracking()
         
     def setup_ui(self):
         title_label = tk.Label(self.root, text="이미지 캡처 도구", font=("Arial", 14, "bold"))
@@ -23,6 +28,16 @@ class ImageCaptureToolApp:
         
         info_label = tk.Label(self.root, text="macOS 내장 스크린샷 도구를 사용하여\n영역을 선택하고 이미지를 저장합니다", font=("Arial", 10))
         info_label.pack(pady=5)
+        
+        # 마우스 좌표 표시 프레임
+        mouse_frame = tk.Frame(self.root, relief="sunken", borderwidth=2, bg="lightgray")
+        mouse_frame.pack(pady=10, padx=20, fill="x")
+        
+        mouse_title = tk.Label(mouse_frame, text="실시간 마우스 좌표", font=("Arial", 11, "bold"), bg="lightgray")
+        mouse_title.pack(pady=2)
+        
+        self.mouse_label = tk.Label(mouse_frame, text="X: 0, Y: 0", font=("Arial", 12, "bold"), fg="red", bg="lightgray")
+        self.mouse_label.pack(pady=5)
         
         # 파일명 입력 필드 추가
         filename_label = tk.Label(self.root, text="저장할 파일명을 입력하세요:", font=("Arial", 11, "bold"))
@@ -50,7 +65,7 @@ class ImageCaptureToolApp:
                                  height=2)
         capture_button.pack(pady=15)
         
-        instruction_label = tk.Label(self.root, text="1. 파일명 입력\n2. 버튼 클릭\n3. 영역 드래그 선택", 
+        instruction_label = tk.Label(self.root, text="1. 파일명 입력\n2. 버튼 클릭\n3. 영역 드래그 선택\n(마우스 좌표가 실시간으로 표시됩니다)", 
                                    font=("Arial", 9), 
                                    fg="gray")
         instruction_label.pack(pady=5)
@@ -106,9 +121,29 @@ class ImageCaptureToolApp:
             messagebox.showwarning("시간 초과", "스크린샷 시간이 초과되었습니다.")
         except Exception as e:
             messagebox.showerror("오류", f"스크린샷 중 오류가 발생했습니다:\n{str(e)}")
-        
+    
+    def start_mouse_tracking(self):
+        """마우스 위치 추적 시작"""
+        self.mouse_tracking = True
+        self.update_mouse_position()
+    
+    def update_mouse_position(self):
+        """마우스 위치를 실시간으로 업데이트"""
+        if self.mouse_tracking:
+            try:
+                x, y = pyautogui.position()
+                self.mouse_label.config(text=f"X: {x}, Y: {y}")
+            except Exception:
+                self.mouse_label.config(text="X: -, Y: -")
+            
+            # 100ms마다 업데이트
+            self.root.after(100, self.update_mouse_position)
+    
     def run(self):
-        self.root.mainloop()
+        try:
+            self.root.mainloop()
+        finally:
+            self.mouse_tracking = False
 
 if __name__ == "__main__":
     app = ImageCaptureToolApp()

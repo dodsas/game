@@ -4,7 +4,11 @@
       "Bash(python3:*)",
       "Bash(brew install:*)",
       "Bash(git pull:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(ls:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
