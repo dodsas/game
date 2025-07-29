@@ -23,17 +23,17 @@ f = open(f'result/result_{datetime.now().strftime("%Y%m%d")}.txt', "a")
 map = unit.map
 # map = {  "보리성": unit.Unit("보리성", s='안톤무기바지벨트목걸이반지', buffIndex=4), }
 map = {
-   "베인뚜": Unit("베인뚜", s='master'),
-   "보리성": Unit("보리성", buffIndex=4, s='master'),
-  "보리빵떡": Unit("보리빵떡", s='master'),
-   "지짱보": Unit("지짱보", s='master'),
-  "강한보리": Unit("강한보리", s='master'),
-   "보리뚜": Unit("보리뚜", s='master'),
-  "보리세이더": Unit("보리세이더", s='master'),
-   "보리템플러": Unit("보리템플러", b='제국'),
-   "보리뚜뚜": Unit("보리뚜뚜", b='제국'),
+   "베인뚜": Unit("베인뚜"),
+   "보리성": Unit("보리성", buffIndex=4),
+  "보리빵떡": Unit("보리빵떡"),
+   "지짱보": Unit("지짱보"),
+  "강한보리": Unit("강한보리"),
+   "보리뚜": Unit("보리뚜"),
+  "보리세이더": Unit("보리세이더"),
+   "보리템플러": Unit("보리템플러"),
+   "보리뚜뚜": Unit("보리뚜뚜"),
   "인챈뚜": Unit("인챈뚜"), 
-  "무녀뚜": Unit("무녀뚜", b='제국'),
+  "무녀뚜": Unit("무녀뚜"),
    "소울뚜": Unit("소울뚜"),
 
    "런처꾸꾸": Unit("런처꾸꾸"), #--

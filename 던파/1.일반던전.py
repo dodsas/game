@@ -20,21 +20,21 @@ maxLoop=20
 # maxLoop=2
 
 map = {
-    "베인뚜": Unit("베인뚜", s='master'),
-    "보리성": Unit("보리성", buffIndex=4, s='master'),
-    "보리빵떡": Unit("보리빵떡", s='master'),
-    "지짱보": Unit("지짱보", s='master'),
-    "강한보리": Unit("강한보리", s='master'),
-    "보리뚜": Unit("보리뚜", s='master'),
-    "보리세이더": Unit("보리세이더", s='master'),
-    "보리템플러": Unit("보리템플러", s='master'),
+    "베인뚜": Unit("베인뚜"),
+    "보리성": Unit("보리성", buffIndex=4),
+    "보리빵떡": Unit("보리빵떡"),
+    "지짱보": Unit("지짱보"),
+    "강한보리": Unit("강한보리"),
+    "보리뚜": Unit("보리뚜"),
+    "보리세이더": Unit("보리세이더"),
+    "보리템플러": Unit("보리템플러"),
     "보리뚜뚜": Unit("보리뚜뚜"),
     "무녀뚜": Unit("무녀뚜"),
     "인챈뚜": Unit("인챈뚜"),
     "소울뚜": Unit("소울뚜"),
-    "런처꾸꾸": Unit("런처꾸꾸", s='master'),
-    "보리꾸꾸": Unit("보리꾸꾸", s='master'),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸", s='master'),
+    "런처꾸꾸": Unit("런처꾸꾸"),
+    "보리꾸꾸": Unit("보리꾸꾸"),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
 }
 
 # map = unit.map
@@ -97,8 +97,6 @@ for key in map:
     do(Clicker('글라시알'))
     # 난이도조절 
     do(Clicker('expert'), canSkip=True)
-    if(char.s == 'master'):
-        do(Clicker('폐기물마스터'), canSkip=True)
 
     do(Clicker('일던입장', threshold=0.85))
 

@@ -56,11 +56,12 @@ class Founder(Actionable):
         return self.imageName
 
 class Clicker(Actionable):
-    def __init__(self, imageName: str, threshold: float=0.90, screenShot: cv2.Mat=None, errorMode=False):
+    def __init__(self, imageName: str, threshold: float=0.90, screenShot: cv2.Mat=None, errorMode=False, fallbackDelay: float=0):
         self.imageName = imageName 
         self.threshold = threshold 
         self.screenShot = screenShot
         self.errorMode = errorMode
+        self.fallbackDelay = fallbackDelay
 
     def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
         self.fallbackMessage = ''
@@ -86,7 +87,7 @@ class Clicker(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        time.sleep(0.3)
+        time.sleep(self.fallbackDelay)
         self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)
 
     def name(self):
