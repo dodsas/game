@@ -1,7 +1,9 @@
+import os
+os.environ['TK_SILENCE_DEPRECATION'] = '1'
+
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 import subprocess
-import os
 import time
 import pyautogui
 
@@ -10,6 +12,11 @@ class ImageCaptureToolApp:
         self.root = tk.Tk()
         self.root.title("Image Capture Tool with Mouse Tracker")
         self.root.geometry("400x350")
+        
+        # macOS에서 GUI가 보이도록 강제로 앞으로 가져오기
+        self.root.lift()
+        self.root.attributes('-topmost', True)
+        self.root.after_idle(lambda: self.root.attributes('-topmost', False))
         
         # images 폴더 경로 확인 및 생성
         self.images_folder = os.path.join(os.path.dirname(__file__), 'images')

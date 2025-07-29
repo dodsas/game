@@ -433,7 +433,7 @@ def 산등노가다2():
 # 산등노가다2()
 
 def 우편함():
-    do(Clicker('우편함', threshold=0.9))
+    do(Clicker('우편함', threshold=0.80))
     do(Direct(1306, 480))
     do(Clicker('우편함_일괄수령'), canSkip=True)
     do(Clicker('확인'), onlyOneTime=True, canSkip=True)

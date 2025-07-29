@@ -56,7 +56,7 @@ def 카드합성():
     do(Clicker('x'))
     do(Clicker('뒤로가기'), okSkip=True)
     # do(Clicker('뒤로가기'), okSkip=True)
-    do(Founder('스케쥴러'))
+    do(Founder('스케쥴러'), customFallbackCount=50)
     dun_print.printf(f'카드합성완료')
 
 def _카드반복합성():
@@ -90,7 +90,7 @@ def 캐릭터선택2():
         do(Presser('ESC', fallbackSkip=True))
     else:
         do(Clicker('캐릭_게임시작', threshold=0.80))
-        pyautogui.sleep(1)
+        pyautogui.sleep(2.5)
 
-    do(Founder('스케쥴러'))
+    do(Founder('스케쥴러'), customFallbackCount=80)
     time.sleep(2)

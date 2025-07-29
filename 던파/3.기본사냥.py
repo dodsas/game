@@ -3,6 +3,7 @@ import pyautogui
 import robot
 import time
 import action
+import action2
 import unit
 import os
 from datetime import datetime
@@ -56,7 +57,7 @@ for key in map:
 
     startTime = time.time()
 
-    action.캐릭터선택2()
+    action2.캐릭터선택2()
 
 
     do(Clicker('모험', threshold=0.8))
@@ -67,7 +68,7 @@ for key in map:
     # else:
 
    # action.즐찾구매()
-    action.우편함()
+    # action.우편함()
     # action.아티팩트판매()
     time.sleep(2)
     do(Clicker('인벤토리', threshold=0.70))

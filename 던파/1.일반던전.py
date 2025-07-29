@@ -27,15 +27,14 @@ map = {
     "강한보리": Unit("강한보리", s='master'),
     "보리뚜": Unit("보리뚜", s='master'),
     "보리세이더": Unit("보리세이더", s='master'),
-    "보리뚜뚜": Unit("보리뚜뚜"),
     "보리템플러": Unit("보리템플러", s='master'),
-    "인챈뚜": Unit("인챈뚜"),
+    "보리뚜뚜": Unit("보리뚜뚜"),
     "무녀뚜": Unit("무녀뚜"),
+    "인챈뚜": Unit("인챈뚜"),
     "소울뚜": Unit("소울뚜"),
     "런처꾸꾸": Unit("런처꾸꾸", s='master'),
     "보리꾸꾸": Unit("보리꾸꾸", s='master'),
     "웨펀꾸꾸": Unit("웨펀꾸꾸", s='master'),
-
 }
 
 # map = unit.map
@@ -78,7 +77,7 @@ for key in map:
 
     if(len(map) != 1):
         action2.캐릭터선택2()
-    if(do(Founder('피로도소모'))):
+    if(do(Founder('피로도소모'), onlyOneTime=True, canSkip=True)):
         continue
 
     do(Clicker('모험'))
@@ -94,7 +93,8 @@ for key in map:
     # time.sleep(60)
 
     # do(Clicker('패기물처리장그림'))
-    do(Clicker('글라시알'), canSkip=True)
+    # do(Clicker('글라시알'), canSkip=True)
+    do(Clicker('글라시알'))
     # 난이도조절 
     do(Clicker('expert'), canSkip=True)
     if(char.s == 'master'):

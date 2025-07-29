@@ -7,7 +7,7 @@ import cv2
 from . import image_keyboard
 
 # g_fallbackCount = 70
-g_fallbackCount = 30
+g_fallbackCount = 35
 g_skipCount = 5
 g_prevAction = None
 
@@ -86,7 +86,7 @@ class Clicker(Actionable):
             return True
     
     def fallback(self, screenShot=None):
-        # time.sleep(0.3)
+        time.sleep(0.3)
         self.action(printFail=True, printOk=True, screenShot=screenShot, isFallback=True)
 
     def name(self):
@@ -135,11 +135,14 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True):
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
 
+    # 커스텀 폴백 카운트 사용 (특정 액션에 대해서만)
+    fallbackCount = customFallbackCount if customFallbackCount is not None else g_fallbackCount
+    
     loopCount = 0
     isOk = False
     # dun_print.printf(currAction.name(), 'START')
@@ -155,9 +158,9 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
         if canSkip and loopCount == g_skipCount:
             currAction.action(printFail=printFail2, screenShot=screenShot)
             break
-        if loopCount == g_fallbackCount:
-            currAction.action(printFail=printFail2, screenShot=screenShot)
+        if loopCount == fallbackCount:
             dun_print.errorf(currAction.name())
+            break
         if currAction.action(printFail=printFail2, screenShot=screenShot) is True:
             isOk = True
             break

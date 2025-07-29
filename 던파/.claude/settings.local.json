@@ -8,7 +8,8 @@
       "Bash(source:*)",
       "Bash(pip install:*)",
       "Bash(ls:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

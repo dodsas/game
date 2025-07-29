@@ -21,9 +21,9 @@ from tobe import *
 
 
 map = {
-    # "보리치료사": Unit("보리치료사"),
+    "보리치료사": Unit("보리치료사"),
     "맥보리": Unit("맥보리"),
-    "건꾸꾸": Unit("건꾸꾸", s='안톤상의어깨신발팔찌보장'),
+    "건꾸꾸": Unit("건꾸꾸", s='안톤상의어깨신발팔보장'),
     "보리핏": Unit("보리핏", s='안톤상의어깨신발팔찌보장'),
     "보리뚜킥": Unit("보리뚜킥", s='안톤상의어깨신발팔찌보장'),
     "보리술사": Unit("보리술사", s='안톤상의어깨신발팔찌보장'),
@@ -36,11 +36,58 @@ map = {
     "윈드꾸꾸": Unit("윈드꾸꾸"),
     "보리뱅": Unit("보리뱅"),
     "보리닉": Unit("보리닉"),
-    "보리왕": Unit("보리왕"),
-    "보리샷": Unit("보리샷"),
+    # "보리왕": Unit("보리왕"),
+    # "보리샷": Unit("보리샷"),
 }
 
 maxLoop=10
+
+def after():
+    # action.우편함()
+
+    time.sleep(2)
+    do(Clicker('인벤토리', threshold=0.70))
+    do(Clicker('장비수리'))
+    do(Clicker('장비수리확인'), onlyOneTime=True)
+    time.sleep(1)
+    do(Clicker('x', threshold=0.83))
+
+    # 판매
+    do(Clicker('판매'))
+    do(Clicker('판매노말해제'), onlyOneTime=True)
+    do(Clicker('판매에픽해제'), onlyOneTime=True)
+    # do(Clicker('판매유니크해제'), onlyOneTime=True)
+    do(Clicker('판매2'))
+    if(do(Founder('알림', threshold=0.76), onlyOneTime=True, okSkip=True)):
+        do(Clicker('알림취소', threshold=0.86))
+    do(Clicker('확인', 0.81), onlyOneTime=True, okSkip=True)
+    time.sleep(1)
+    do(Clicker('x', threshold=0.83), fallbackSkip=True)
+
+    do(Clicker('판매'))
+    do(Clicker('판매2'))
+    if(do(Founder('알림', threshold=0.76), onlyOneTime=True, okSkip=True)):
+        do(Clicker('알림취소', threshold=0.86))
+    do(Clicker('확인', 0.81), onlyOneTime=True, okSkip=True)
+    time.sleep(1)
+    do(Clicker('x', threshold=0.83), fallbackSkip=True)
+
+    do(Clicker('해체', threshold=0.85))
+    do(Clicker('판매노말선택'), onlyOneTime=True)
+    # do(Clicker('판매에픽선택'), onlyOneTime=True)
+    do(Clicker('판매에픽해제'), onlyOneTime=True)
+    do(Clicker('해체2', 0.83))
+    # do(Clicker('확인', 0.81), onlyOneTime=True)
+    do(Clicker('확인', 0.81), onlyOneTime=True, okSkip=True)
+    do(Clicker('x', threshold=0.83))
+
+    # 금고보관
+    do(Clicker('금고', 0.81))
+    do(Clicker('모험단금고'))
+    do(Clicker('자동보관'))
+    do(Clicker('확인', 0.81), onlyOneTime=True)
+
+    do(Clicker('뒤로가기'))
 
 def zupzup(direction) :
     pyautogui.keyDown('x')
@@ -133,17 +180,7 @@ for key in map:
                     time.sleep(2)
                 if (forLoop > 120):
                     pyautogui.keyUp('x')
-                # keyboard2.pressKey2('r')
-                # keyboard2.pressKey2('s')
-                # keyboard2.pressKey2('d')
-                # keyboard2.pressKey2('f')
-                # keyboard2.pressKey2('g')
-                # keyboard2.pressKey2('t')
-                # keyboard2.pressKey2('b')
-                # keyboard2.pressKey2('v')
-                # keyboard2.pressKey2('q')
-                # keyboard2.pressKey2('w')
-                # keyboard2.pressKey2('e')
+
 
             if (findBoss is False and do(Founder('비하이브2_보스', threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
@@ -152,14 +189,18 @@ for key in map:
 
             screenShot = image_finder.getScreenShotToGray()
 
+            if(do(Founder('비작리워드'), screenShot=screenShot, onlyOneTime=True)):
+                do(Clicker('비작리워드클릭'), canSkip=True)
+
             if(do(Founder('던전재도전하기'), screenShot=screenShot, onlyOneTime=True) or 
                do(Founder('비작클리어'), screenShot=screenShot, onlyOneTime=True) 
             ):
-                do(Clicker('비작확인')) #check
+                do(Clicker('비작확인'), canSkip=True) #check
                 zupzup('right')
 
                 if(retry(loop)):
-                    do(Clicker('마을로가기', threshold=0.85)) #check
+                    dun_print.printf('go to home 1')
+                    do(Clicker('마을로가기', threshold=0.85), canSkip=True) #check
                     endLoop = True 
                     break
 
@@ -170,6 +211,7 @@ for key in map:
 
                     print('zupzup end')
                     if(retry(loop) or do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)):
+                        dun_print.printf('go to home 2')
                         do(Clicker('마을로가기', threshold=0.85))
                         endLoop = True 
                         break
@@ -180,7 +222,8 @@ for key in map:
             if (forLoop > 120):
                 dun_print.errorf(char.name + "던전 실패")
                 break
-
+    
+    after()
     # 마무리
     # do(Clicker('뒤로가기'))
     # do(Clicker('나가기'))
