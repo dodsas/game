@@ -21,12 +21,12 @@ from tobe import *
 
 
 map = {
-     "보리치료사": Unit("보리치료사"),
-     "맥보리": Unit("맥보리"),
-     "건꾸꾸": Unit("건꾸꾸"),
-     "보리핏": Unit("보리핏"),
-     "보리뚜킥": Unit("보리뚜킥"),
-     "보리술사": Unit("보리술사"),
+    "보리치료사": Unit("보리치료사"),
+    "맥보리": Unit("맥보리"),
+    "건꾸꾸": Unit("건꾸꾸"),
+    "보리핏": Unit("보리핏"),
+    "보리뚜킥": Unit("보리뚜킥"),
+    "보리술사": Unit("보리술사"),
     "보리파": Unit("보리파"),
     "보리심판관": Unit("보리심판관"),
     "보리뚜비": Unit("보리뚜비"),
@@ -75,7 +75,7 @@ def after():
     do(Clicker('해체', threshold=0.85))
     do(Clicker('판매노말선택'), onlyOneTime=True)
     # do(Clicker('판매에픽선택'), onlyOneTime=True)
-    do(Clicker('판매에픽해제'), onlyOneTime=True)
+    # do(Clicker('판매에픽해제'), onlyOneTime=True)
     do(Clicker('해체2', 0.83))
     # do(Clicker('확인', 0.81), onlyOneTime=True)
     do(Clicker('확인', 0.81), onlyOneTime=True, okSkip=True)
@@ -112,12 +112,37 @@ def retry(loopCount):
                 zupzup('right')
                 # do(Clicker('마을로가기', threshold=0.90))
             return True
-    do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
+    #do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
     time.sleep(2) 
     if(do(Founder('피로도가부족합니다'), onlyOneTime=True, canSkip=True)):
         # if(do(Clicker('마을로가기', threshold=0.90))):
         return True
     return False
+
+def handle_dungeon_clear_with_retry(loop, max_retry_attempts=5):
+    """던전 클리어 후 재도전 로직을 최대 5번 시도"""
+    do(Clicker('비작확인'), canSkip=True)
+    
+    for attempt in range(max_retry_attempts):
+        dun_print.printf(f'재도전 시도 {attempt + 1}/{max_retry_attempts}')
+        zupzup('right')
+        zupzup('left')
+        zupzup('right')
+        
+        do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
+        time.sleep(2) 
+        if(do(Founder('피로도가부족합니다'), onlyOneTime=True, canSkip=True)):
+            do(Clicker('마을로가기', threshold=0.90))
+            time.sleep(4) 
+            if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True) == False ):
+                return True
+
+        if(do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True) == False):
+            return False 
+
+    # 모든 시도 실패 시 마을로 가기
+    dun_print.printf('모든 재도전 시도 실패, 마을로 이동')
+    do(Clicker('마을로가기', threshold=0.85))
 
 os.system('rm -rf imagesLog/*')
 for key in map:
@@ -194,26 +219,9 @@ for key in map:
             if(do(Founder('던전재도전하기'), screenShot=screenShot, onlyOneTime=True) or 
                do(Founder('비작클리어'), screenShot=screenShot, onlyOneTime=True) 
             ):
-                do(Clicker('비작확인'), canSkip=True) #check
-                zupzup('right')
-
-                if(retry(loop)):
-                    dun_print.printf('go to home 1')
-                    do(Clicker('마을로가기', threshold=0.85), canSkip=True) #check
-                    endLoop = True 
+                if handle_dungeon_clear_with_retry(loop):
+                    endLoop = True
                     break
-
-                if(do(Founder('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)):
-                    zupzup('right')
-                    zupzup('left')
-                    zupzup('right')
-
-                    print('zupzup end')
-                    if(retry(loop) or do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)):
-                        dun_print.printf('go to home 2')
-                        do(Clicker('마을로가기', threshold=0.85))
-                        endLoop = True 
-                        break
                 break 
             if (forLoop % 20 == 0):
                 Clicker('부활', screenShot=screenShot, threshold=0.75).action()
