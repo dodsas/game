@@ -21,23 +21,38 @@ from tobe import *
 
 
 map = {
-    "보리치료사": Unit("보리치료사"),
-    "맥보리": Unit("맥보리"),
-    "건꾸꾸": Unit("건꾸꾸"),
-    "보리핏": Unit("보리핏"),
-    "보리뚜킥": Unit("보리뚜킥"),
-    "보리술사": Unit("보리술사"),
-    "보리파": Unit("보리파"),
-    "보리심판관": Unit("보리심판관"),
-    "보리뚜비": Unit("보리뚜비"),
-    "보리메이지": Unit("보리메이지"),
-    "서큐버뚜": Unit("서큐버뚜"),
-    "보리커": Unit("보리커"),
-    "윈드꾸꾸": Unit("윈드꾸꾸"),
-    "보리뱅": Unit("보리뱅"),
-    "보리닉": Unit("보리닉"),
-    # "보리왕": Unit("보리왕"),
-    # "보리샷": Unit("보리샷"),
+    #"베인뚜": Unit("베인뚜"),
+    #"보리성": Unit("보리성", buffIndex=4),
+    #"보리빵떡": Unit("보리빵떡"),
+    #"지짱보": Unit("지짱보"),
+    #"강한보리": Unit("강한보리"),
+    "보리뚜": Unit("보리뚜"),
+    "보리세이더": Unit("보리세이더"),
+    "보리템플러": Unit("보리템플러"),
+    "보리뚜뚜": Unit("보리뚜뚜"),
+    "무녀뚜": Unit("무녀뚜"),
+    "인챈뚜": Unit("인챈뚜"),
+    "소울뚜": Unit("소울뚜"),
+    "런처꾸꾸": Unit("런처꾸꾸"),
+    "보리꾸꾸": Unit("보리꾸꾸"),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
+    "보리치료사": Unit("보리치료사", attackMode=True, plan='b'),
+    "맥보리": Unit("맥보리", attackMode=True, plan='b'),
+    "건꾸꾸": Unit("건꾸꾸", attackMode=True, plan='b'),
+    "보리핏": Unit("보리핏", attackMode=True, plan='b'),
+    "보리뚜킥": Unit("보리뚜킥", attackMode=True, plan='b'),
+    "보리술사": Unit("보리술사", attackMode=True, plan='b'),
+    "보리파": Unit("보리파", attackMode=True, plan='b'),
+    "보리심판관": Unit("보리심판관", attackMode=True, plan='b'),
+    "보리뚜비": Unit("보리뚜비", attackMode=True, plan='b'),
+    "보리메이지": Unit("보리메이지", attackMode=True, plan='b'),
+    "서큐버뚜": Unit("서큐버뚜", attackMode=True, plan='b'),
+    "보리커": Unit("보리커", attackMode=True, plan='b'),
+    "윈드꾸꾸": Unit("윈드꾸꾸", attackMode=True, plan='b'),
+    "보리뱅": Unit("보리뱅", attackMode=True, plan='b'),
+    "보리닉": Unit("보리닉", attackMode=True, plan='b'),
+    "보리왕": Unit("보리왕", plan='b'),
+    "보리샷": Unit("보리샷", attackMode=True, plan='b'),
 }
 
 maxLoop=10
@@ -109,7 +124,7 @@ def retry(loopCount):
             if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True)):
                 zupzup('right')
                 zupzup('left')
-                zupzup('right')
+                # zupzup('right')
                 # do(Clicker('마을로가기', threshold=0.90))
             return True
     #do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
@@ -119,7 +134,41 @@ def retry(loopCount):
         return True
     return False
 
-def handle_dungeon_clear_with_retry(loop, max_retry_attempts=5):
+def b():
+    """비하이브 던전 입장 시퀀스"""
+    do(Clicker('모험'))
+    do(Clicker('비밀작전'))
+    do(Clicker('비밀작전입장', threshold=0.85))
+    time.sleep(2)
+    do(Clicker('모험'))
+    time.sleep(1)
+    do(Clicker('비밀작전', fallbackDelay=0.5))
+    do(Direct(1465, 684)) # 비하이브
+    do(Clicker('비하이브2'))
+    do(Clicker('비하이브2_입장'))
+
+def n():
+    """일반던전 입장 시퀀스"""
+    do(Clicker('모험'))
+    do(Clicker('모험보상'))
+    image_clicker.clickDirect(1494, 608)
+    pyautogui.scroll(-400000)
+    time.sleep(1)
+    # do(Clicker('모험보상지젤연구소'))
+    do(Clicker('흑룡해적그림'))
+    do(Clicker('지역이동'))
+
+    time.sleep(20)
+    # time.sleep(60)
+
+    # do(Clicker('패기물처리장그림'))
+    # do(Clicker('글라시알'), canSkip=True)
+    do(Clicker('글라시알'))
+    # 난이도조절 
+    do(Clicker('expert'), canSkip=True)
+    do(Clicker('일던입장', threshold=0.85))
+
+def handle_dungeon_clear_with_retry(loop, max_retry_attempts=8):
     """던전 클리어 후 재도전 로직을 최대 5번 시도"""
     do(Clicker('비작확인'), canSkip=True)
     
@@ -154,15 +203,12 @@ for key in map:
     if(do(Founder('피로도소모'), onlyOneTime=True, canSkip=True)):
         continue
 
-    do(Clicker('모험'))
-    do(Clicker('비밀작전'))
-    do(Clicker('비밀작전입장', threshold=0.85))
-
-    do(Clicker('모험'))
-    do(Clicker('비밀작전', fallbackDelay=0.5))
-    do(Direct(1465, 684)) # 비하이브
-    do(Clicker('비하이브2'))
-    do(Clicker('비하이브2_입장'))
+    # char.plan에 따른 던전 입장 계획 실행
+    plan_function = globals().get(char.plan)
+    if plan_function and callable(plan_function):
+        plan_function()
+    else:
+        dun_print.errorf(f"Unknown plan: {char.plan}")
 
     endLoop = False
     loop = 0
@@ -193,20 +239,37 @@ for key in map:
             attackLoop = 2
             if findBoss:
                 attackLoop = 2
+            
             for i in range(attackLoop):
                 if (findBoss is True):
                     keyboard2.pressKey2('5')
                     keyboard2.pressKey2(char.finalIndex)
+                
                 pyautogui.keyDown('x')
                 if (findBoss):
                     time.sleep(1.0)
                 else:
                     time.sleep(2)
-                if (forLoop > 120):
+                # attackMode에 따른 공격 방식 분기
+                if char.attackMode is False: 
+                    pyautogui.keyUp('x')
+                    keyboard2.pressKey2('r')
+                    keyboard2.pressKey2('s')
+                    keyboard2.pressKey2('d')
+                    keyboard2.pressKey2('f')
+                    keyboard2.pressKey2('g')
+                    keyboard2.pressKey2('t')
+                    keyboard2.pressKey2('b')
+                    keyboard2.pressKey2('v')
+                    keyboard2.pressKey2('q')
+                    keyboard2.pressKey2('w')
+                    keyboard2.pressKey2('e')
+                
+                if (forLoop > 30):
                     pyautogui.keyUp('x')
 
-
-            if (findBoss is False and do(Founder('비하이브2_보스', threshold=0.9), onlyOneTime=True)):
+            # if (findBoss is False and do(Founder('비하이브2_보스', threshold=0.9), onlyOneTime=True)):
+            if (findBoss is False and do(Founder('보스발견', threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
                 do(Presser(str(char.finalIndex)))
                 findBoss = True
@@ -223,9 +286,9 @@ for key in map:
                     endLoop = True
                     break
                 break 
-            if (forLoop % 20 == 0):
-                Clicker('부활', screenShot=screenShot, threshold=0.75).action()
-                mailSender.sendMail("[DNF] die " + char.name, "-")
+            if (forLoop % 5 == 0):
+                if(do(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
+                    mailSender.sendMail("[DNF] die " + char.name, "-")
             if (forLoop > 120):
                 dun_print.errorf(char.name + "던전 실패")
                 break

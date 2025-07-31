@@ -19,6 +19,8 @@ class Unit:
     jsonString: str = None
     sunganDone: bool = False
     epicDone: bool = False
+    attackMode: bool = False  # False: 스킬모드, True: 평타모드
+    plan: str = 'n'  # 던전 입장 계획 (기본값: n)
 
     def __post_init__(self):
         if (self.jsonString != None):
