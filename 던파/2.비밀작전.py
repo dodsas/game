@@ -21,17 +21,17 @@ from tobe import *
 
 
 map = {
-    #"베인뚜": Unit("베인뚜"),
-    #"보리성": Unit("보리성", buffIndex=4),
-    #"보리빵떡": Unit("보리빵떡"),
-    #"지짱보": Unit("지짱보"),
-    #"강한보리": Unit("강한보리"),
+    "베인뚜": Unit("베인뚜"),
+    "보리성": Unit("보리성", buffIndex=4),
+    "보리빵떡": Unit("보리빵떡"),
+    "지짱보": Unit("지짱보"),
+    "강한보리": Unit("강한보리"),
     "보리뚜": Unit("보리뚜"),
     "보리세이더": Unit("보리세이더"),
     "보리템플러": Unit("보리템플러"),
     "보리뚜뚜": Unit("보리뚜뚜"),
-    "무녀뚜": Unit("무녀뚜"),
     "인챈뚜": Unit("인챈뚜"),
+    "무녀뚜": Unit("무녀뚜"),
     "소울뚜": Unit("소울뚜"),
     "런처꾸꾸": Unit("런처꾸꾸"),
     "보리꾸꾸": Unit("보리꾸꾸"),
@@ -106,7 +106,7 @@ def after():
 
 def zupzup(direction) :
     pyautogui.keyDown('x')
-    time.sleep(3)
+    time.sleep(2)
     pyautogui.keyUp('x')
     pyautogui.keyDown(direction)
     # pyautogui.keyDown('right')
@@ -114,38 +114,37 @@ def zupzup(direction) :
     pyautogui.keyUp(direction)
     # pyautogui.keyUp('right')
     pyautogui.keyDown('x')
-    time.sleep(3)
+    time.sleep(2)
     pyautogui.keyUp('x')
-
-def retry(loopCount):
-    if(loopCount >= maxLoop):
-        if(do(Clicker('마을로가기', threshold=0.90))):
-            time.sleep(2)
-            if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True)):
-                zupzup('right')
-                zupzup('left')
-                # zupzup('right')
-                # do(Clicker('마을로가기', threshold=0.90))
-            return True
-    #do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
-    time.sleep(2) 
-    if(do(Founder('피로도가부족합니다'), onlyOneTime=True, canSkip=True)):
-        # if(do(Clicker('마을로가기', threshold=0.90))):
-        return True
-    return False
 
 def b():
     """비하이브 던전 입장 시퀀스"""
     do(Clicker('모험'))
     do(Clicker('비밀작전'))
     do(Clicker('비밀작전입장', threshold=0.85))
-    time.sleep(2)
-    do(Clicker('모험'))
-    time.sleep(1)
-    do(Clicker('비밀작전', fallbackDelay=0.5))
+    
+    secret_mission_found = False
+    max_attempts = 10
+    
+    do(Founder('모험'))
+
+    for attempt in range(max_attempts):
+        do(Direct(1860, 772))
+        time.sleep(3)
+        if do(Founder('비밀작전', threshold=0.85), onlyOneTime=True):
+            secret_mission_found = True
+            break
+    if not secret_mission_found:
+        return False
+
+    do(Clicker('비밀작전', threshold=0.85))
     do(Direct(1465, 684)) # 비하이브
     do(Clicker('비하이브2'))
     do(Clicker('비하이브2_입장'))
+    time.sleep(3)
+    if(do(Founder('비하이브2_입장'))):
+        return False
+    return True
 
 def n():
     """일반던전 입장 시퀀스"""
@@ -166,9 +165,25 @@ def n():
     do(Clicker('글라시알'))
     # 난이도조절 
     do(Clicker('expert'), canSkip=True)
+    do(Clicker('master'), canSkip=True)
     do(Clicker('일던입장', threshold=0.85))
+    return True
 
-def handle_dungeon_clear_with_retry(loop, max_retry_attempts=8):
+def skill_combo():
+    """스킬 콤보 함수 - 여러 스킬키를 순차적으로 누름"""
+    keyboard2.pressKey2('r')
+    keyboard2.pressKey2('s')
+    keyboard2.pressKey2('d')
+    keyboard2.pressKey2('f')
+    keyboard2.pressKey2('g')
+    keyboard2.pressKey2('t')
+    keyboard2.pressKey2('b')
+    keyboard2.pressKey2('v')
+    keyboard2.pressKey2('q')
+    keyboard2.pressKey2('w')
+    keyboard2.pressKey2('e')
+
+def handle_dungeon_clear_with_retry(loop, max_retry_attempts=10):
     """던전 클리어 후 재도전 로직을 최대 5번 시도"""
     do(Clicker('비작확인'), canSkip=True)
     
@@ -176,7 +191,6 @@ def handle_dungeon_clear_with_retry(loop, max_retry_attempts=8):
         dun_print.printf(f'재도전 시도 {attempt + 1}/{max_retry_attempts}')
         zupzup('right')
         zupzup('left')
-        zupzup('right')
         
         do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
         time.sleep(2) 
@@ -192,23 +206,35 @@ def handle_dungeon_clear_with_retry(loop, max_retry_attempts=8):
     # 모든 시도 실패 시 마을로 가기
     dun_print.printf('모든 재도전 시도 실패, 마을로 이동')
     do(Clicker('마을로가기', threshold=0.85))
+    return True
 
 os.system('rm -rf imagesLog/*')
 for key in map:
     unit.select(key)
     char = map[key]
 
-    if(len(map) != 1):
-        action2.캐릭터선택2()
-    if(do(Founder('피로도소모'), onlyOneTime=True, canSkip=True)):
+    if(unit.selected.workingDone):
         continue
 
-    # char.plan에 따른 던전 입장 계획 실행
+    if(len(map) != 1):
+        action2.캐릭터선택2()
+    if(do(Founder('피로도소모', threshold=0.85), onlyOneTime=True, canSkip=True) or 
+       do(Founder('피로도소모2', threshold=0.85), onlyOneTime=True, canSkip=True) or
+       do(Founder('피로도소모3', threshold=0.85), onlyOneTime=True, canSkip=True)):
+        unit.workingDone()
+        continue
+
     plan_function = globals().get(char.plan)
     if plan_function and callable(plan_function):
-        plan_function()
+        result = plan_function()
+        if result is False:
+            error_message = f'{char.name} - plan {char.plan} 입장 실패'
+            mailSender.sendMail("[DNF] 비밀작전 ", error_message)
+            unit.workingDone()
+            continue 
     else:
-        dun_print.errorf(f"Unknown plan: {char.plan}")
+        mailSender.sendMail("[DNF] 비밀작전 - 알수없는 플렌")
+        sys.exit(1)
 
     endLoop = False
     loop = 0
@@ -217,11 +243,14 @@ for key in map:
         if(endLoop is True):
             break
         do(Founder('입장완료'))
-        
-        dun_print.printf('요이땅')
 
         # 사냥
         do(Presser(str(char.buffIndex)))
+        if(char.name == '소울뚜'):
+            robot.pressKey('3', sleep=0.1, duration=0)
+            robot.pressKey('3', sleep=0.1, duration=0)
+            robot.pressKey('3', sleep=0.1, duration=0)
+            robot.pressKey('3', sleep=0.1, duration=0)
         if(char.name == '보리성'):
             time.sleep(0.2)
             pyautogui.keyDown('3')
@@ -253,28 +282,21 @@ for key in map:
                 # attackMode에 따른 공격 방식 분기
                 if char.attackMode is False: 
                     pyautogui.keyUp('x')
-                    keyboard2.pressKey2('r')
-                    keyboard2.pressKey2('s')
-                    keyboard2.pressKey2('d')
-                    keyboard2.pressKey2('f')
-                    keyboard2.pressKey2('g')
-                    keyboard2.pressKey2('t')
-                    keyboard2.pressKey2('b')
-                    keyboard2.pressKey2('v')
-                    keyboard2.pressKey2('q')
-                    keyboard2.pressKey2('w')
-                    keyboard2.pressKey2('e')
+                    skill_combo()
+                    pyautogui.keyDown('x')
                 
                 if (forLoop > 30):
                     pyautogui.keyUp('x')
 
-            # if (findBoss is False and do(Founder('비하이브2_보스', threshold=0.9), onlyOneTime=True)):
-            if (findBoss is False and do(Founder('보스발견', threshold=0.9), onlyOneTime=True)):
+            # plan에 따른 보스 감지 이미지 분기
+            boss_image = '비하이브2_보스' if char.plan == 'b' else '글라보스'
+            if (findBoss is False and do(Founder(boss_image, threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
-                do(Presser(str(char.finalIndex)))
+                do(Presser(str(5)))
                 findBoss = True
 
             screenShot = image_finder.getScreenShotToGray()
+            pyautogui.keyDown('x')
 
             if(do(Founder('비작리워드'), screenShot=screenShot, onlyOneTime=True)):
                 do(Clicker('비작리워드클릭'), canSkip=True)
@@ -286,14 +308,28 @@ for key in map:
                     endLoop = True
                     break
                 break 
-            if (forLoop % 5 == 0):
-                if(do(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
-                    mailSender.sendMail("[DNF] die " + char.name, "-")
+            pyautogui.keyDown('x')
+            # if (forLoop % 5 == 0):
+            if(do(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
+                time.sleep(1)
+                skill_combo()
+                skill_combo()
+                skill_combo()
+                skill_combo()
+                pyautogui.keyUp('x') 
+                pyautogui.keyDown('x') 
+                mailSender.sendMail("[DNF] die " + char.name, "-")
+
             if (forLoop > 120):
                 dun_print.errorf(char.name + "던전 실패")
                 break
     
     after()
+    
+    # workingDone 설정 - 작업 완료 표시
+    unit.workingDone()
+    dun_print.printf(f'{char.name} - 작업 완료!')
+    
     # 마무리
     # do(Clicker('뒤로가기'))
     # do(Clicker('나가기'))
