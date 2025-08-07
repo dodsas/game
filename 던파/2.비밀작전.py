@@ -21,24 +21,24 @@ from tobe import *
 
 
 map = {
-    "베인뚜": Unit("베인뚜"),
+    "베인뚜": Unit("베인뚜", attackMode='True', plan='z'),
     "보리성": Unit("보리성", buffIndex=4),
-    "보리빵떡": Unit("보리빵떡"),
-    "지짱보": Unit("지짱보"),
-    "강한보리": Unit("강한보리"),
-    "보리뚜": Unit("보리뚜"),
-    "보리세이더": Unit("보리세이더"),
-    "보리템플러": Unit("보리템플러"),
-    "보리뚜뚜": Unit("보리뚜뚜"),
-    "인챈뚜": Unit("인챈뚜"),
-    "무녀뚜": Unit("무녀뚜"),
-    "소울뚜": Unit("소울뚜"),
+     "보리빵떡": Unit("보리빵떡"),
+     "지짱보": Unit("지짱보", attackMode='True', plan='z'),
+     "강한보리": Unit("강한보리"),
+     "보리뚜": Unit("보리뚜"),
+     "보리세이더": Unit("보리세이더", attackMode='True', plan='z'),
+    "보리템플러": Unit("보리템플러", attackMode='True', plan='z'),
+    "보리뚜뚜": Unit("보리뚜뚜", attackMode=True, plan='z'),
+    "인챈뚜": Unit("인챈뚜", attackMode=True, plan='z'),
+    "무녀뚜": Unit("무녀뚜", attackMode=True, plan='z'),
+    "소울뚜": Unit("소울뚜", attackMode=True, plan='z'),
     "런처꾸꾸": Unit("런처꾸꾸"),
     "보리꾸꾸": Unit("보리꾸꾸"),
     "웨펀꾸꾸": Unit("웨펀꾸꾸"),
-    "보리치료사": Unit("보리치료사", attackMode=True, plan='b'),
-    "맥보리": Unit("맥보리", attackMode=True, plan='b'),
-    "건꾸꾸": Unit("건꾸꾸", attackMode=True, plan='b'),
+    "보리치료사": Unit("보리치료사", attackMode=True, plan='z'),
+    "맥보리": Unit("맥보리", attackMode=True, plan='z'),
+    "건꾸꾸": Unit("건꾸꾸", attackMode=True, plan='z'),
     "보리핏": Unit("보리핏", attackMode=True, plan='b'),
     "보리뚜킥": Unit("보리뚜킥", attackMode=True, plan='b'),
     "보리술사": Unit("보리술사", attackMode=True, plan='b'),
@@ -89,7 +89,7 @@ def after():
 
     do(Clicker('해체', threshold=0.85))
     do(Clicker('판매노말선택'), onlyOneTime=True)
-    # do(Clicker('판매에픽선택'), onlyOneTime=True)
+    do(Clicker('판매에픽선택'), onlyOneTime=True)
     # do(Clicker('판매에픽해제'), onlyOneTime=True)
     do(Clicker('해체2', 0.83))
     # do(Clicker('확인', 0.81), onlyOneTime=True)
@@ -126,7 +126,7 @@ def b():
     secret_mission_found = False
     max_attempts = 10
     
-    do(Founder('모험'))
+    do(Founder('모험', threshold=0.85))
 
     for attempt in range(max_attempts):
         do(Direct(1860, 772))
@@ -142,7 +142,36 @@ def b():
     do(Clicker('비하이브2'))
     do(Clicker('비하이브2_입장'))
     time.sleep(3)
-    if(do(Founder('비하이브2_입장'))):
+    if(do(Founder('비하이브2_입장'), onlyOneTime=True)):
+        return False
+    return True
+
+def z():
+    """제국 던전 입장 시퀀스"""
+    do(Clicker('모험'))
+    do(Clicker('비밀작전'))
+    do(Clicker('비밀작전입장', threshold=0.85))
+    
+    secret_mission_found = False
+    max_attempts = 10
+    
+    do(Founder('모험', threshold=0.85))
+
+    for attempt in range(max_attempts):
+        do(Direct(1860, 772))
+        time.sleep(3)
+        if do(Founder('비밀작전', threshold=0.85), onlyOneTime=True):
+            secret_mission_found = True
+            break
+    if not secret_mission_found:
+        return False
+
+    do(Clicker('비밀작전', threshold=0.85))
+    do(Direct(1570, 546)) # 비하이브
+    do(Clicker('z4'))
+    do(Clicker('비하이브2_입장'))
+    time.sleep(3)
+    if(do(Founder('비하이브2_입장'), onlyOneTime=True)):
         return False
     return True
 
@@ -169,8 +198,13 @@ def n():
     do(Clicker('일던입장', threshold=0.85))
     return True
 
-def skill_combo():
+def skill_combo(findBoss=False, char=None):
     """스킬 콤보 함수 - 여러 스킬키를 순차적으로 누름"""
+    # 보스를 찾았으면 보스 스킬 사용
+    if findBoss is True and char is not None:
+        keyboard2.pressKey2('5')
+        keyboard2.pressKey2(char.finalIndex)
+    
     keyboard2.pressKey2('r')
     keyboard2.pressKey2('s')
     keyboard2.pressKey2('d')
@@ -218,7 +252,7 @@ for key in map:
 
     if(len(map) != 1):
         action2.캐릭터선택2()
-    if(do(Founder('피로도소모', threshold=0.85), onlyOneTime=True, canSkip=True) or 
+    if(do(Founder('피로도소모', threshold=0.80), onlyOneTime=True, canSkip=True) or 
        do(Founder('피로도소모2', threshold=0.85), onlyOneTime=True, canSkip=True) or
        do(Founder('피로도소모3', threshold=0.85), onlyOneTime=True, canSkip=True)):
         unit.workingDone()
@@ -270,26 +304,32 @@ for key in map:
                 attackLoop = 2
             
             for i in range(attackLoop):
-                if (findBoss is True):
-                    keyboard2.pressKey2('5')
-                    keyboard2.pressKey2(char.finalIndex)
-                
                 pyautogui.keyDown('x')
                 if (findBoss):
+                    keyboard2.pressKey2('5')
+                    keyboard2.pressKey2(char.finalIndex)
                     time.sleep(1.0)
                 else:
                     time.sleep(2)
                 # attackMode에 따른 공격 방식 분기
                 if char.attackMode is False: 
                     pyautogui.keyUp('x')
-                    skill_combo()
+                    skill_combo(findBoss, char)
                     pyautogui.keyDown('x')
                 
                 if (forLoop > 30):
                     pyautogui.keyUp('x')
 
+            pyautogui.keyUp('x')
+
             # plan에 따른 보스 감지 이미지 분기
-            boss_image = '비하이브2_보스' if char.plan == 'b' else '글라보스'
+            if char.plan == 'b':
+                boss_image = '비하이브2_보스'
+            elif char.plan == 'z':
+                boss_image = 'z4boss'
+            else:
+                boss_image = '글라보스'
+            
             if (findBoss is False and do(Founder(boss_image, threshold=0.9), onlyOneTime=True)):
                 do(Presser(str(char.finalIndex)))
                 do(Presser(str(5)))
@@ -312,10 +352,10 @@ for key in map:
             # if (forLoop % 5 == 0):
             if(do(Clicker('부활', screenShot=screenShot, threshold=0.75), onlyOneTime=True)):
                 time.sleep(1)
-                skill_combo()
-                skill_combo()
-                skill_combo()
-                skill_combo()
+                skill_combo(findBoss, char)
+                skill_combo(findBoss, char)
+                skill_combo(findBoss, char)
+                skill_combo(findBoss, char)
                 pyautogui.keyUp('x') 
                 pyautogui.keyDown('x') 
                 mailSender.sendMail("[DNF] die " + char.name, "-")

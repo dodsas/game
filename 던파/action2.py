@@ -94,3 +94,15 @@ def 캐릭터선택2():
 
     do(Founder('스케쥴러'), customFallbackCount=80)
     time.sleep(2)
+
+@log_before_and_after
+def 즐겨찾기구매():
+    image_finder.imgPath = 'Images/'
+    
+    do(Clicker('store'))
+    do(Clicker('exchange'))
+    do(Clicker('favorite'))
+    do(Clicker('buy'))
+    do(Clicker('ok'), onlyOneTime=True)
+    do(Clicker('ok'), onlyOneTime=True)
+    do(Clicker('뒤로가기'))

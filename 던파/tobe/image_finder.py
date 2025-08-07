@@ -31,10 +31,17 @@ pyautogui.FAILSAFE = False
 
 def getScreenShotToGray(name:str = None):
     # payutogui half screenshot
-    img = pyautogui.screenshot(region=(removeX, removeY, width, heigth))
-    img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-    imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    gray = cv2.cvtColor(imgRGB, cv2.COLOR_BGR2GRAY)
+    try:
+        img = pyautogui.screenshot(region=(removeX, removeY, width, heigth))
+        img_array = np.array(img)
+        img = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        gray = cv2.cvtColor(imgRGB, cv2.COLOR_BGR2GRAY)
+    except Exception as e:
+        print(f"스크린샷 오류: {e}")
+        print("화면 녹화 권한을 확인해주세요 (시스템 환경설정 > 보안 및 개인정보보호 > 화면 녹화)")
+        # 빈 이미지 반환
+        gray = np.zeros((heigth, width), dtype=np.uint8)
 
     if name is not None:
         cv2.imwrite(imgLogPath+name+'_바탕화면.png', gray)
