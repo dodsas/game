@@ -25,8 +25,8 @@ map = {
     "보리성": Unit("보리성", buffIndex=4),
      "보리빵떡": Unit("보리빵떡"),
      "지짱보": Unit("지짱보", attackMode='True', plan='z'),
-     "강한보리": Unit("강한보리"),
-     "보리뚜": Unit("보리뚜"),
+     "강한보리": Unit("강한보리", attackMode='True', plan='z'),
+     "보리뚜": Unit("보리뚜", attackMode='True', plan='z'),
      "보리세이더": Unit("보리세이더", attackMode='True', plan='z'),
     "보리템플러": Unit("보리템플러", attackMode='True', plan='z'),
     "보리뚜뚜": Unit("보리뚜뚜", attackMode=True, plan='z'),
@@ -57,8 +57,8 @@ map = {
 
 maxLoop=10
 
-def after():
-    # action.우편함()
+def after(char):
+    action.우편함()
 
     time.sleep(2)
     do(Clicker('인벤토리', threshold=0.70))
@@ -89,8 +89,11 @@ def after():
 
     do(Clicker('해체', threshold=0.85))
     do(Clicker('판매노말선택'), onlyOneTime=True)
-    do(Clicker('판매에픽선택'), onlyOneTime=True)
-    # do(Clicker('판매에픽해제'), onlyOneTime=True)
+    # plan에 따른 에픽 아이템 처리 분기
+    if char.plan == 'n':
+        do(Clicker('해체에픽해제'), onlyOneTime=True)
+    else:
+        do(Clicker('해체에픽선택'), onlyOneTime=True)
     do(Clicker('해체2', 0.83))
     # do(Clicker('확인', 0.81), onlyOneTime=True)
     do(Clicker('확인', 0.81), onlyOneTime=True, okSkip=True)
@@ -198,6 +201,26 @@ def n():
     do(Clicker('일던입장', threshold=0.85))
     return True
 
+def detect_boss(char, findBoss):
+    """보스 감지 및 보스 스킬 사용"""
+    if findBoss:
+        return findBoss
+    
+    # plan에 따른 보스 감지 이미지 분기
+    if char.plan == 'b':
+        boss_image = '비하이브2_보스'
+    elif char.plan == 'z':
+        boss_image = 'z4boss'
+    else:
+        boss_image = '글라보스'
+    
+    if do(Founder(boss_image, threshold=0.9), onlyOneTime=True):
+        do(Presser(str(char.finalIndex)))
+        do(Presser(str(5)))
+        return True
+    
+    return False
+
 def skill_combo(findBoss=False, char=None):
     """스킬 콤보 함수 - 여러 스킬키를 순차적으로 누름"""
     # 보스를 찾았으면 보스 스킬 사용
@@ -242,6 +265,18 @@ def handle_dungeon_clear_with_retry(loop, max_retry_attempts=10):
     do(Clicker('마을로가기', threshold=0.85))
     return True
 
+def login():
+    if do(Founder('gamestart'), canSkip=True, onlyOneTime=True) :
+        do(Direct(1598, 439))
+    if do(Clicker('gamestart'), canSkip=True, onlyOneTime=True) :
+        time.sleep(20)
+        if(do(Founder('main'))):
+            do(Direct(1600, 615))
+        do(Clicker('gamestart2'))
+        do(Founder('스케쥴러'), customFallbackCount=80)
+
+login()
+
 os.system('rm -rf imagesLog/*')
 for key in map:
     unit.select(key)
@@ -251,10 +286,15 @@ for key in map:
         continue
 
     if(len(map) != 1):
-        action2.캐릭터선택2()
+        try:
+            action2.캐릭터선택2()
+        except Exception as e:
+            dun_print.errorf(f'캐릭터선택2 실패: {e}')
+            login()
+            action2.캐릭터선택2()
     if(do(Founder('피로도소모', threshold=0.80), onlyOneTime=True, canSkip=True) or 
-       do(Founder('피로도소모2', threshold=0.85), onlyOneTime=True, canSkip=True) or
-       do(Founder('피로도소모3', threshold=0.85), onlyOneTime=True, canSkip=True)):
+       do(Founder('피로도소모2', threshold=0.83), onlyOneTime=True, canSkip=True) or
+       do(Founder('피로도소모3', threshold=0.83), onlyOneTime=True, canSkip=True)):
         unit.workingDone()
         continue
 
@@ -279,19 +319,7 @@ for key in map:
         do(Founder('입장완료'))
 
         # 사냥
-        do(Presser(str(char.buffIndex)))
-        if(char.name == '소울뚜'):
-            robot.pressKey('3', sleep=0.1, duration=0)
-            robot.pressKey('3', sleep=0.1, duration=0)
-            robot.pressKey('3', sleep=0.1, duration=0)
-            robot.pressKey('3', sleep=0.1, duration=0)
-        if(char.name == '보리성'):
-            time.sleep(0.2)
-            pyautogui.keyDown('3')
-            time.sleep(0.1)
-            pyautogui.keyDown('up')
-            pyautogui.keyUp('up')
-            pyautogui.keyUp('3')
+        action2.캐릭터버프(char)
 
         forLoop = 0
         findBoss = False
@@ -302,7 +330,7 @@ for key in map:
             attackLoop = 2
             if findBoss:
                 attackLoop = 2
-            
+            findBoss = detect_boss(char, findBoss) 
             for i in range(attackLoop):
                 pyautogui.keyDown('x')
                 if (findBoss):
@@ -321,19 +349,6 @@ for key in map:
                     pyautogui.keyUp('x')
 
             pyautogui.keyUp('x')
-
-            # plan에 따른 보스 감지 이미지 분기
-            if char.plan == 'b':
-                boss_image = '비하이브2_보스'
-            elif char.plan == 'z':
-                boss_image = 'z4boss'
-            else:
-                boss_image = '글라보스'
-            
-            if (findBoss is False and do(Founder(boss_image, threshold=0.9), onlyOneTime=True)):
-                do(Presser(str(char.finalIndex)))
-                do(Presser(str(5)))
-                findBoss = True
 
             screenShot = image_finder.getScreenShotToGray()
             pyautogui.keyDown('x')
@@ -364,7 +379,7 @@ for key in map:
                 dun_print.errorf(char.name + "던전 실패")
                 break
     
-    after()
+    after(char)
     
     # workingDone 설정 - 작업 완료 표시
     unit.workingDone()

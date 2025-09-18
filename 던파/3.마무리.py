@@ -21,21 +21,21 @@ from tobe import *
 
 
 map = {
-    # "베인뚜": Unit("베인뚜", attackMode='True', plan='z'),
-    # "보리성": Unit("보리성", buffIndex=4),
-    #  "보리빵떡": Unit("보리빵떡"),
-    #  "지짱보": Unit("지짱보", attackMode='True', plan='z'),
-    #  "강한보리": Unit("강한보리"),
-    #  "보리뚜": Unit("보리뚜"),
-    #  "보리세이더": Unit("보리세이더", attackMode='True', plan='z'),
-    # "보리템플러": Unit("보리템플러", attackMode='True', plan='z'),
-    # "보리뚜뚜": Unit("보리뚜뚜", attackMode=True, plan='z'),
-    # "인챈뚜": Unit("인챈뚜", attackMode=True, plan='z'),
-    # "무녀뚜": Unit("무녀뚜", attackMode=True, plan='z'),
-    # "소울뚜": Unit("소울뚜", attackMode=True, plan='z'),
-    # "런처꾸꾸": Unit("런처꾸꾸"),
-    # "보리꾸꾸": Unit("보리꾸꾸"),
-    # "웨펀꾸꾸": Unit("웨펀꾸꾸"),
+    "베인뚜": Unit("베인뚜", attackMode='True', plan='z'),
+    "보리성": Unit("보리성", buffIndex=4),
+    "보리빵떡": Unit("보리빵떡"),
+    "지짱보": Unit("지짱보", attackMode='True', plan='z'),
+    "강한보리": Unit("강한보리"),
+    "보리뚜": Unit("보리뚜"),
+    "보리세이더": Unit("보리세이더", attackMode='True', plan='z'),
+    "보리템플러": Unit("보리템플러", attackMode='True', plan='z'),
+    "보리뚜뚜": Unit("보리뚜뚜", attackMode=True, plan='z'),
+    "인챈뚜": Unit("인챈뚜", attackMode=True, plan='z'),
+    "무녀뚜": Unit("무녀뚜", attackMode=True, plan='z'),
+    "소울뚜": Unit("소울뚜", attackMode=True, plan='z'),
+    "런처꾸꾸": Unit("런처꾸꾸"),
+    "보리꾸꾸": Unit("보리꾸꾸"),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
     "보리치료사": Unit("보리치료사", attackMode=True, plan='z'),
     "맥보리": Unit("맥보리", attackMode=True, plan='z'),
     "건꾸꾸": Unit("건꾸꾸", attackMode=True, plan='z'),
@@ -67,10 +67,16 @@ for key in map:
     # action2.즐겨찾기구매()
     do(Clicker('모험'))
     do(Clicker('업적'))
-    do(Clicker('일괄받기'))
+    do(Clicker('일괄받기'), canSkip=True)
     do(Clicker('ok'), onlyOneTime=True)
     do(Clicker('뒤로가기'))
 
+    do(Clicker('store'))
+    do(Clicker('exchange'))
+    do(Clicker('favorite'))
+    do(Clicker('buy'), canSkip=True)
+    do(Clicker('buyok'), canSkip=True)
+    do(Clicker('뒤로가기'))
     
 mailSender.sendMail("[DNF] 비밀작전 완료" , "-")
 

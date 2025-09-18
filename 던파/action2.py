@@ -106,3 +106,21 @@ def 즐겨찾기구매():
     do(Clicker('ok'), onlyOneTime=True)
     do(Clicker('ok'), onlyOneTime=True)
     do(Clicker('뒤로가기'))
+
+@log_before_and_after
+def 캐릭터버프(char):
+    """캐릭터별 버프 적용"""
+    do(Presser(str(char.buffIndex)))
+    
+    if(char.name == '소울뚜'):
+        robot.pressKey('3', sleep=0.1, duration=0)
+        robot.pressKey('3', sleep=0.1, duration=0)
+        robot.pressKey('3', sleep=0.1, duration=0)
+        robot.pressKey('3', sleep=0.1, duration=0)
+    elif(char.name == '보리성'):
+        time.sleep(0.2)
+        pyautogui.keyDown('3')
+        time.sleep(0.1)
+        pyautogui.keyDown('up')
+        pyautogui.keyUp('up')
+        pyautogui.keyUp('3')
