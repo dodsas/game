@@ -26,7 +26,7 @@ class Founder(Actionable):
         self.screenShot = screenShot
         self.errorMode = errorMode
 
-    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False):
+    def action(self, printFail=False, printOk=True, screenShot=None, isFallback=False, returnPosition=False):
         self.fallbackMessage = ''
         if isFallback:
             self.fallbackMessage = 'F_'
@@ -42,11 +42,11 @@ class Founder(Actionable):
                 dun_print.printf(self.imageName, f'{self.fallbackMessage}N_FOUND', f'{score:.4f}')
             if self.errorMode:
                 dun_print.errorf(self.imageName)
-            return False
+            return (False, None) if returnPosition else False
         else: 
             if printOk:
                 dun_print.printf(self.imageName, f'{self.fallbackMessage}FOUND', f'{score:.4f}', f'x:{pt[0]} y:{pt[1]}')
-            return True
+            return (True, pt) if returnPosition else True
     
     def fallback(self, screenShot=None):
         # time.sleep(0.1)
@@ -136,7 +136,7 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None):
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None, returnPosition=False):
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -146,6 +146,7 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
     
     loopCount = 0
     isOk = False
+    position = None
     # dun_print.printf(currAction.name(), 'START')
 
     time.sleep(delay)
@@ -157,14 +158,31 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
            Clicker('확인', screenShot=screenShot).action(printFail=False, printOk=False)
 
         if canSkip and loopCount == g_skipCount:
-            currAction.action(printFail=printFail2, screenShot=screenShot)
+            if returnPosition and isinstance(currAction, Founder):
+                result = currAction.action(printFail=printFail2, screenShot=screenShot, returnPosition=True)
+                isOk = result[0] if isinstance(result, tuple) else result
+                position = result[1] if isinstance(result, tuple) else None
+            else:
+                currAction.action(printFail=printFail2, screenShot=screenShot)
             break
         if loopCount == fallbackCount:
             dun_print.errorf(currAction.name())
             break
-        if currAction.action(printFail=printFail2, screenShot=screenShot) is True:
-            isOk = True
-            break
+        
+        if returnPosition and isinstance(currAction, Founder):
+            result = currAction.action(printFail=printFail2, screenShot=screenShot, returnPosition=True)
+            if isinstance(result, tuple):
+                isOk = result[0]
+                position = result[1]
+            else:
+                isOk = result
+            if isOk:
+                break
+        else:
+            if currAction.action(printFail=printFail2, screenShot=screenShot) is True:
+                isOk = True
+                break
+                
         if onlyOneTime:
             break
         else:
@@ -183,6 +201,8 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
     
     # time.sleep(0.2)
 
+    if returnPosition and isinstance(currAction, Founder):
+        return (isOk, position)
     return isOk
 
 # action(Clicker('상점', threshold=0.78))
