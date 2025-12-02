@@ -41,7 +41,12 @@ def find():
         do(Clicker('7buy'))
         do(Founder('7refresh'))
         time.sleep(0.5)
-
+    found, pos = do(Founder('7medal2', threshold=0.95), onlyOneTime=True, returnPosition=True, delay=0)
+    if found and pos is not None:
+        do(Direct(1852, pos[1]))
+        do(Clicker('7buy'))
+        do(Founder('7refresh'))
+        time.sleep(0.5)
 os.system('rm -rf imagesLog/*')
 
 do(Direct(1663, 655))

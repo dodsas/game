@@ -19,13 +19,12 @@ from tobe import *
 
 # image_finder.imgPath = 'Image/강림로터스/'
 
-
 map = {
-    "베인뚜": Unit("베인뚜", attackMode='True', plan='z'),
-    "보리성": Unit("보리성", buffIndex=4),
-     "보리빵떡": Unit("보리빵떡"),
-     "지짱보": Unit("지짱보", attackMode='True', plan='z'),
-     "강한보리": Unit("강한보리", attackMode='True', plan='z'),
+     "베인뚜": Unit("베인뚜", attackMode='True', plan='z'),
+     "보리성": Unit("보리성", buffIndex=4, plan='z'),
+      "보리빵떡": Unit("보리빵떡", plan='z'),
+      "지짱보": Unit("지짱보", attackMode='True', plan='z'),
+      "강한보리": Unit("강한보리", attackMode='True', plan='z'),
      "보리뚜": Unit("보리뚜", attackMode='True', plan='z'),
      "보리세이더": Unit("보리세이더", attackMode='True', plan='z'),
     "보리템플러": Unit("보리템플러", attackMode='True', plan='z'),
@@ -33,9 +32,9 @@ map = {
     "인챈뚜": Unit("인챈뚜", attackMode=True, plan='z'),
     "무녀뚜": Unit("무녀뚜", attackMode=True, plan='z'),
     "소울뚜": Unit("소울뚜", attackMode=True, plan='z'),
-    "런처꾸꾸": Unit("런처꾸꾸"),
-    "보리꾸꾸": Unit("보리꾸꾸"),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
+    "런처꾸꾸": Unit("런처꾸꾸", plan='z'),
+    "보리꾸꾸": Unit("보리꾸꾸", plan='z'),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", plan='z'),
     "보리치료사": Unit("보리치료사", attackMode=True, plan='z'),
     "맥보리": Unit("맥보리", attackMode=True, plan='z'),
     "건꾸꾸": Unit("건꾸꾸", attackMode=True, plan='z'),
@@ -58,7 +57,7 @@ map = {
 maxLoop=10
 
 def after(char):
-    action.우편함()
+    # action.우편함()
 
     time.sleep(2)
     do(Clicker('인벤토리', threshold=0.70))
@@ -70,7 +69,7 @@ def after(char):
     # 판매
     do(Clicker('판매'))
     do(Clicker('판매노말해제'), onlyOneTime=True)
-    do(Clicker('판매에픽해제'), onlyOneTime=True)
+    # do(Clicker('판매에픽해제'), onlyOneTime=True)
     # do(Clicker('판매유니크해제'), onlyOneTime=True)
     do(Clicker('판매2'))
     if(do(Founder('알림', threshold=0.76), onlyOneTime=True, okSkip=True)):
@@ -123,7 +122,7 @@ def zupzup(direction) :
 def b():
     """비하이브 던전 입장 시퀀스"""
     do(Clicker('모험'))
-    do(Clicker('비밀작전'))
+    do(Clicker('비밀작전', threshold=0.88))
     do(Clicker('비밀작전입장', threshold=0.85))
     
     secret_mission_found = False
@@ -152,7 +151,8 @@ def b():
 def z():
     """제국 던전 입장 시퀀스"""
     do(Clicker('모험'))
-    do(Clicker('비밀작전'))
+    time.sleep(2)
+    do(Clicker('비밀작전', threshold=0.88))
     do(Clicker('비밀작전입장', threshold=0.85))
     
     secret_mission_found = False
@@ -183,7 +183,7 @@ def n():
     do(Clicker('모험'))
     do(Clicker('모험보상'))
     image_clicker.clickDirect(1494, 608)
-    pyautogui.scroll(-400000)
+    pyautogui.scroll(400000)
     time.sleep(1)
     # do(Clicker('모험보상지젤연구소'))
     do(Clicker('흑룡해적그림'))
@@ -294,6 +294,8 @@ for key in map:
             action2.캐릭터선택2()
     if(do(Founder('피로도소모', threshold=0.80), onlyOneTime=True, canSkip=True) or 
        do(Founder('피로도소모2', threshold=0.83), onlyOneTime=True, canSkip=True) or
+       do(Founder('피로도소모4', threshold=0.83), onlyOneTime=True, canSkip=True) or
+       do(Founder('피로도소모5', threshold=0.83), onlyOneTime=True, canSkip=True) or
        do(Founder('피로도소모3', threshold=0.83), onlyOneTime=True, canSkip=True)):
         unit.workingDone()
         continue

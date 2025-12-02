@@ -21,6 +21,7 @@ class Unit:
     epicDone: bool = False
     attackMode: bool = False  # False: 스킬모드, True: 평타모드
     plan: str = 'n'  # 던전 입장 계획 (기본값: n)
+    level: str = 'N'  # 레벨 (기본값: N)
 
     def __post_init__(self):
         if (self.jsonString != None):
@@ -96,43 +97,44 @@ fileName = f'result/char_{datetime.now().strftime("%Y%m%d")}.json'
 loop=13
 
 mapInit = {
-    "베인뚜": Unit("베인뚜"),
-    "보리성": Unit("보리성", buffIndex=4),
-    "보리빵떡": Unit("보리빵떡"),
-    "지짱보": Unit("지짱보"),
-    "강한보리": Unit("강한보리"),
-    "보리뚜": Unit("보리뚜"),
-    "보리세이더": Unit("보리세이더"),
-    "보리뚜뚜": Unit("보리뚜뚜"),
-    "보리템플러": Unit("보리템플러"),
-    "인챈뚜": Unit("인챈뚜"),
-    "무녀뚜": Unit("무녀뚜"),
-    "소울뚜": Unit("소울뚜"),
-    "런처꾸꾸": Unit("런처꾸꾸"),
-    "보리꾸꾸": Unit("보리꾸꾸"),
-    "웨펀꾸꾸": Unit("웨펀꾸꾸"),
+    "베인뚜": Unit("베인뚜", level='E'),
+    "보리성": Unit("보리성", buffIndex=4, level='E'),
+    "보리빵떡": Unit("보리빵떡", level='E'),
+    "지짱보": Unit("지짱보", level='E'),
+    "강한보리": Unit("강한보리", level='E'),
+    "보리뚜": Unit("보리뚜", level='E'),
+    "보리세이더": Unit("보리세이더", level='E'),
+    "보리뚜뚜": Unit("보리뚜뚜", level='E'),
 
-    "보리치료사": Unit("보리치료사"),
-    "맥보리": Unit("맥보리"),
-    "건꾸꾸": Unit("건꾸꾸"),
+    "보리템플러": Unit("보리템플러", level='E'),
+    "인챈뚜": Unit("인챈뚜", level='E'),
+    "무녀뚜": Unit("무녀뚜", level='E'),
+    "소울뚜": Unit("소울뚜", level='E'),
+    "보리치료사": Unit("보리치료사", level='E'),
 
-    "보리핏": Unit("보리핏"),
-    "보리뚜킥": Unit("보리뚜킥"),
-    "보리술사": Unit("보리술사"),
+    "런처꾸꾸": Unit("런처꾸꾸", level='E'),
+    "보리꾸꾸": Unit("보리꾸꾸", level='E'),
+    "웨펀꾸꾸": Unit("웨펀꾸꾸", level='E'),
 
-    "보리파": Unit("보리파"),
-    "보리심판관": Unit("보리심판관"),
-    "보리뚜비": Unit("보리뚜비"),
-    "보리메이지": Unit("보리메이지"),
-    "서큐버뚜": Unit("서큐버뚜"),
+    "블레이뚜": Unit("블레이뚜", level='E'),
+    "불보리뚜": Unit("불보리뚜", level='E'),
 
-    "보리커": Unit("보리커"),
-
-    "윈드꾸꾸": Unit("윈드꾸꾸"),
-    "보리뱅": Unit("보리뱅"),
-    "보리닉": Unit("보리닉"),
-    "보리왕": Unit("보리왕"),
-    "보리샷": Unit("보리샷"),
+    "맥보리": Unit("맥보리", level='E'),
+    "건꾸꾸": Unit("건꾸꾸", level='E'),
+    "보리핏": Unit("보리핏", level='E'),
+    "보리뚜킥": Unit("보리뚜킥", level='E'),
+    "보리술사": Unit("보리술사", level='E'),
+    "보리파": Unit("보리파", level='E'),
+    "보리심판관": Unit("보리심판관", level='E'),
+    "보리뚜비": Unit("보리뚜비", level='E'),
+    "보리메이지": Unit("보리메이지", level='E'),
+    "서큐버뚜": Unit("서큐버뚜", level='E'),
+    "보리커": Unit("보리커", level='E'),
+    "윈드꾸꾸": Unit("윈드꾸꾸", level='E'),
+    "보리뱅": Unit("보리뱅", level='E'),
+    "보리닉": Unit("보리닉", level='E'),
+    "보리왕": Unit("보리왕", level='E'),
+    "보리샷": Unit("보리샷", level='E'),
 }
 map = mapInit
 # update()
