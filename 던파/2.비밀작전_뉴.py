@@ -20,45 +20,43 @@ from tobe import *
 # image_finder.imgPath = 'Image/강림로터스/'
 
 map = {
-    # "베인뚜": Unit("베인뚜", attackMode='True', plan='h', level='E'),
-    # "보리성": Unit("보리성", buffIndex=4, plan='h', level='E'),
-    "보리빵떡": Unit("보리빵떡", plan='z', level='E'),
-    "지짱보": Unit("지짱보", plan='z', level='E'),
-    "강한보리": Unit("강한보리", plan='z', level='E'),
-
+    "베인뚜": Unit("베인뚜", attackMode='True', plan='h', level='M'),
+    "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
+    "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
+    "지짱보": Unit("지짱보", plan='r', level='M'),
+    "강한보리": Unit("강한보리", plan='r', level='M'),
     "보리뚜": Unit("보리뚜", plan='s', level='M'),
     "보리세이더": Unit("보리세이더", plan='s', level='M'),
-    "보리뚜뚜": Unit("보리뚜뚜", attackMode=True, plan='s', level='E'),
+    "보리뚜뚜": Unit("보리뚜뚜", attackMode=False, plan='s', level='M'),
     "보리템플러": Unit("보리템플러", attackMode=False, plan='s', level='E'),
     "인챈뚜": Unit("인챈뚜", attackMode=False, plan='s', level='E'),
     "무녀뚜": Unit("무녀뚜", attackMode=False, plan='s', level='E'),
     "소울뚜": Unit("소울뚜", attackMode=False, plan='s', level='E'),
-    "보리치료사": Unit("보리치료사", attackMode=False, plan='s', level='N'),
+    "보리치료사": Unit("보리치료사", attackMode=False, plan='s', level='E'),
     "런처꾸꾸": Unit("런처꾸꾸", attackMode=False, plan='d', level='E'),
     "보리꾸꾸": Unit("보리꾸꾸", attackMode=False, plan='d', level='E'),
     "웨펀꾸꾸": Unit("웨펀꾸꾸", attackMode=False, plan='d', level='E'),
     "블레이뚜": Unit("블레이뚜", attackMode=False, plan='d', level='E'),
-    "불보리뚜": Unit("불보리뚜", attackMode=False, plan='d', level='N'),
+    "불보리뚜": Unit("불보리뚜", attackMode=False, plan='d', level='E'),
     "맥보리": Unit("맥보리", attackMode=False, plan='d', level='E'),
-    "건꾸꾸": Unit("건꾸꾸", attackMode=False, plan='d', level='N'),
-    "보리핏": Unit("보리핏", attackMode=False, plan='d', level='N'),
+    "건꾸꾸": Unit("건꾸꾸", attackMode=False, plan='d', level='E'),
+    "보리핏": Unit("보리핏", attackMode=False, plan='d', level='E'),
     "보리뚜킥": Unit("보리뚜킥", attackMode=False, plan='d', level='E'),
     "보리술사": Unit("보리술사", attackMode=False, plan='d', level='E'),
-    "보리파": Unit("보리파", attackMode=False, plan='d', level='N'),
+    "보리파": Unit("보리파", attackMode=False, plan='d', level='E'),
     "보리심판관": Unit("보리심판관", attackMode=False, plan='d', level='E'),
     "보리뚜비": Unit("보리뚜비", attackMode=False, plan='d', level='E'),
     "보리메이지": Unit("보리메이지", attackMode=False, plan='d', level='E'),
     "서큐버뚜": Unit("서큐버뚜", attackMode=False, plan='d', level='E'),
     "보리커": Unit("보리커", attackMode=False, plan='d', level='E'),
-    "윈드꾸꾸": Unit("윈드꾸꾸", attackMode=False, plan='d', level='N'),
-    "보리뱅": Unit("보리뱅", attackMode=False, plan='d', level='N'),
+    "윈드꾸꾸": Unit("윈드꾸꾸", attackMode=False, plan='d', level='E'),
+    "보리뱅": Unit("보리뱅", attackMode=False, plan='d', level='E'),
     "보리닉": Unit("보리닉", attackMode=False, plan='d', level='E'),
-    "보리왕": Unit("보리왕", attackMode=False, plan='d', level='N'),
+    "보리왕": Unit("보리왕", attackMode=False, plan='d', level='E'),
     "보리샷": Unit("보리샷", attackMode=False, plan='d', level='N'),
 }
 
 maxLoop=10
-
 def after(char):
     # action.우편함()
 
@@ -93,8 +91,8 @@ def after(char):
     do(Clicker('모험단금고'))
     do(Clicker('자동보관'))
     do(Clicker('확인', 0.81), onlyOneTime=True)
-
     do(Clicker('뒤로가기'))
+
 def zupzup(direction) :
     pyautogui.keyDown('x')
     time.sleep(2)
@@ -154,14 +152,7 @@ def d(char):
     do(Clicker('의뢰파밍샐러'))
     do(Clicker('의뢰파밍샐러화로'))
 
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    if(char.level == 'E'):
-        do(Direct(1886, 735), delay=1)
-    if(char.level == 'M'):
-        do(Direct(1886, 735), delay=1)
-        do(Direct(1886, 735), delay=1)
+    select_difficulty(char)
     do(Clicker('일던입장', threshold=0.85))
     return True
 
@@ -174,34 +165,21 @@ def k(char):
     do(Clicker('의뢰king'))
     do(Founder('의뢰kingcheck'))
 
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    if(char.level == 'E'):
-        do(Direct(1886, 735), delay=1)
-    if(char.level == 'M'):
-        do(Direct(1886, 735), delay=1)
-        do(Direct(1886, 735), delay=1)
+    select_difficulty(char)
     do(Clicker('일던입장', threshold=0.85))
     return True
 
-def d(char):
+# giant / dart ssoja
+def r(char):
     """일반던전 입장 시퀀스"""
     do(Clicker('모험'))
 
     do(Clicker('의뢰'))
     do(Clicker('의뢰파밍'))
-    do(Clicker('의뢰파밍샐러'))
-    do(Clicker('의뢰파밍샐러화로'))
+    do(Clicker('의뢰ruke'))
+    do(Founder('의뢰kingcheck'))
 
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    if(char.level == 'E'):
-        do(Direct(1886, 735), delay=1)
-    if(char.level == 'M'):
-        do(Direct(1886, 735), delay=1)
-        do(Direct(1886, 735), delay=1)
+    select_difficulty(char)
     do(Clicker('일던입장', threshold=0.85))
     return True
 
@@ -214,13 +192,20 @@ def s(char):
     do(Clicker('의뢰파밍강철'))
     do(Clicker('의뢰파밍강철체크'))
 
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    do(Direct(1700, 737), delay=1)
-    if(char.level == 'E'):
-        do(Direct(1886, 735), delay=1)
+    select_difficulty(char)
     do(Clicker('일던입장', threshold=0.85))
     return True
+
+def select_difficulty(char):
+    """난이도 선택 시퀀스"""
+    do(Direct(1700, 737), delay=1)
+    do(Direct(1700, 737), delay=1)
+    do(Direct(1700, 737), delay=1)
+    if char.level == 'E':
+        do(Direct(1886, 735), delay=1)
+    elif char.level == 'M':
+        do(Direct(1886, 735), delay=1)
+        do(Direct(1886, 735), delay=1)
 
 def detect_boss(char, findBoss):
     """보스 감지 및 보스 스킬 사용"""
@@ -236,6 +221,10 @@ def detect_boss(char, findBoss):
         boss_image = 's4boss'
     elif char.plan == 'd':
         boss_image = 'd4boss'
+    elif char.plan == 'k':
+        boss_image = 'k4boss'
+    elif char.plan == 'r':
+        boss_image = 'r4boss'
     else:
         boss_image = '글라보스'
     
@@ -300,7 +289,7 @@ def login():
         do(Clicker('gamestart2'))
         do(Founder('스케쥴러'), customFallbackCount=80)
 
-login()
+# login()
 
 os.system('rm -rf imagesLog/*')
 for key in map:
@@ -415,6 +404,9 @@ for key in map:
                 dun_print.errorf(char.name + "던전 실패")
                 break
     
+    if(char.plan == 'h'):
+        do(Presser('esc'))
+
     after(char)
     
     # workingDone 설정 - 작업 완료 표시

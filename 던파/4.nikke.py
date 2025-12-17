@@ -73,12 +73,12 @@ def getCacheShop() :
 # battle ground
 def battleGround() :
     print("[*] Battle ground...")
-    do(Direct(1481, 711), delay=1)
-    do(Direct(1613, 775), delay=6)
-    do(Direct(1657, 733), delay=1)
-    do(Direct(1657, 733), delay=1)
-    do(Direct(1605, 733), delay=3)
-    do(Direct(1635, 733), delay=1)
+    do(Direct(1481, 711), delay=2)
+    do(Direct(1613, 775), delay=7)
+    do(Direct(1657, 733), delay=2)
+    do(Direct(1657, 733), delay=2)
+    do(Direct(1605, 733), delay=4)
+    do(Direct(1635, 733), delay=2)
     back()
     back()
     checkHome()
@@ -156,15 +156,14 @@ def getReward() :
 # def event():
 
 
-battleGround()
-getHuntingPoint()
-friendship()
-presentToNikke()
-battle()
+# battleGround()
+# getHuntingPoint()
+# friendship()
+# presentToNikke()
+battle() # << this point to start
 getReward()
 getCacheShop()
-# benner('n_benner1')
-
-# benner('n_benner2')
+benner('n_benner1')
+benner('n_benner2')
 # event()
 # soloRaid()

@@ -4,8 +4,7 @@ import robot
 import time
 import action
 import action2
-from unit import Unit
-from unit import select
+from unit import Unit, select, map
 import unit
 import os
 from datetime import datetime

@@ -203,9 +203,9 @@ def event():
     back()
 
 # event()
-# shop()
-# battle()
-# holy()
+shop()
+battle()
+holy()
 area()
 guild()
 pet()

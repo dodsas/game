@@ -74,7 +74,7 @@ def 캐릭터선택2():
     image_finder.imgPath = 'Images/'
     char = unit.selected
 
-    do(Clicker('캐릭_선택', threshold=0.97))
+    do(Clicker('캐릭_선택', threshold=0.95))
     time.sleep(3)
     do(Founder('캐릭_선택확인'))
 
