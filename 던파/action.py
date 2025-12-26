@@ -433,7 +433,7 @@ def 산등노가다2():
 # 산등노가다2()
 
 def 우편함():
-    do(Clicker('우편함', threshold=0.88))
+    do(Clicker('우편함', threshold=0.81))
     # time.sleep(2)
     # do(Direct(1855, 453))
     time.sleep(1)

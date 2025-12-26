@@ -156,10 +156,10 @@ def getReward() :
 # def event():
 
 
-# battleGround()
-# getHuntingPoint()
-# friendship()
-# presentToNikke()
+battleGround()
+getHuntingPoint()
+friendship()
+presentToNikke()
 battle() # << this point to start
 getReward()
 getCacheShop()
