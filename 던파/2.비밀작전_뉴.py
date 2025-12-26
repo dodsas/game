@@ -20,7 +20,7 @@ from tobe import *
 # image_finder.imgPath = 'Image/강림로터스/'
 
 map = {
-    "베인뚜": Unit("베인뚜", attackMode='True', plan='h', level='M'),
+    "베인뚜": Unit("베인뚜", attackMode=True, plan='h', level='M'),
     "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
     "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
     "지짱보": Unit("지짱보", plan='r', level='M'),

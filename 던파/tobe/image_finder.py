@@ -7,6 +7,7 @@
 import pyautogui
 import cv2
 import numpy as np
+from typing import Optional
 # import matplotlib.pyplot as plt
 
 imgPath = 'Images/'
@@ -49,7 +50,7 @@ def getScreenShotToGray(name:str = None):
         cv2.imwrite(imgLogPath+'바탕화면.png', gray)
     return gray
 
-def find(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
+def find(imageName: str, screenShot: Optional[np.ndarray]=None, threshold: float = 0.9):
  
     if screenShot is None:
         screenShot = getScreenShotToGray()
@@ -75,7 +76,7 @@ def find(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
         return (pt[0] + w/2 + removeX, pt[1] + h/2 + removeY), max_val
     return None, max_val
 
-def isFound(imageName: str, screenShot: cv2.Mat=None, threshold: float = 0.9):
+def isFound(imageName: str, screenShot: Optional[np.ndarray]=None, threshold: float = 0.9):
     pt, maxVal = find(imageName, screenShot, threshold)
     if pt is None:
         return False 

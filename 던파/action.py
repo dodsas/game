@@ -1,5 +1,5 @@
-from tobe import * 
-import image_finder
+from tobe import *
+from tobe import image_finder
 
 from unit import Unit
 import pyautogui

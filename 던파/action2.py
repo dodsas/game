@@ -1,6 +1,6 @@
-from tobe import * 
-import image_finder
-import image_clicker 
+from tobe import *
+from tobe import image_finder
+from tobe import image_clicker 
 
 from unit import Unit
 import pyautogui

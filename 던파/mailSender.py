@@ -17,7 +17,7 @@ username = 'dodsas87@gmail.com'
 from config import mailPassword
 password = mailPassword
 
-def sendMail(subject:str, text:str):
+def sendMail(subject:str, text:str = "내용 없음"):
     msg = MIMEText(text)
     msg['Subject'] = Header(subject, 'utf-8')
     msg['From'] = sender

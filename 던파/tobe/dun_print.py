@@ -1,7 +1,7 @@
 import pyautogui
 import datetime
 from wcwidth import wcswidth
-import mail_sender
+from . import mail_sender
 
 def errorf(imageName: str):
     printf(imageName, 'ERROR')

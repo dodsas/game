@@ -1,11 +1,13 @@
 {
-    "python.defaultInterpreter": "/Users/nam-yuseon/Documents/python/game/던파/venv/bin/python",
-    "python.pythonPath": "/Users/nam-yuseon/Documents/python/game/던파/venv/bin/python",
+    "python.defaultInterpreterPath": "/Users/nam-yuseon/Documents/python/game/던파/venv/bin/python",
     "python.terminal.executeInFileDir": true,
     "python.terminal.activateEnvironment": true,
     "files.associations": {
         "*.py": "python"
     },
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.diagnosticMode": "workspace",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
