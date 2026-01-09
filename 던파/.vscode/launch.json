@@ -14,13 +14,28 @@
             }
         },
         {
+            "name": "Python: 비밀작전",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/2.비밀작전.py",
+            "console": "integratedTerminal",
+            "python": "/Users/dodsas/Documents/python/game/던파/venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
             "name": "Python: 일반던전",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/1.일반던전.py",
             "console": "integratedTerminal",
             "python": "/Users/dodsas/Documents/python/game/던파/venv/bin/python",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
         },
         {
             "name": "Python: Claude Dashboard",
@@ -29,7 +44,10 @@
             "program": "${workspaceFolder}/claude_dashboard.py",
             "console": "integratedTerminal",
             "python": "/Users/dodsas/Documents/python/game/던파/venv/bin/python",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
         },
         {
             "name": "Python: Capture",
@@ -38,7 +56,10 @@
             "program": "${workspaceFolder}/0.capture.py",
             "console": "integratedTerminal",
             "python": "/Users/dodsas/Documents/python/game/던파/venv/bin/python",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
         }
     ]
 }

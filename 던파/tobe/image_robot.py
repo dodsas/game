@@ -1,9 +1,13 @@
 from enum import Enum
 import time
+from typing import Optional, Union, Tuple, overload, Literal
 from . import image_finder
-from . import image_clicker  
+from . import image_clicker
 from . import dun_print
 import cv2
+from cv2.typing import MatLike
+import numpy as np
+from numpy.typing import NDArray
 from . import image_keyboard
 
 # g_fallbackCount = 70
@@ -20,7 +24,7 @@ class Actionable:
         pass
 
 class Founder(Actionable):
-    def __init__(self, imageName: str, threshold: float=0.93, screenShot: cv2.Mat=None, errorMode=False):
+    def __init__(self, imageName: str, threshold: float=0.93, screenShot: Optional[MatLike]=None, errorMode=False):
         self.imageName = imageName 
         self.threshold = threshold 
         self.screenShot = screenShot
@@ -56,7 +60,7 @@ class Founder(Actionable):
         return self.imageName
 
 class Clicker(Actionable):
-    def __init__(self, imageName: str, threshold: float=0.90, screenShot: cv2.Mat=None, errorMode=False, fallbackDelay: float=0):
+    def __init__(self, imageName: str, threshold: float=0.90, screenShot: Optional[MatLike]=None, errorMode=False, fallbackDelay: float=0):
         self.imageName = imageName 
         self.threshold = threshold 
         self.screenShot = screenShot
@@ -136,7 +140,13 @@ class Direct(Actionable):
     def name(self):
         return str(self.x) + " " + str(self.y)
 
-def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None, returnPosition=False):
+@overload
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None, *, returnPosition: Literal[False] = False) -> bool: ...
+
+@overload
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None, *, returnPosition: Literal[True]) -> Tuple[bool, Optional[Tuple[int, int]]]: ...
+
+def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None, fallbackSkip=False, okSkip=False, delay=0.5, printFail2=True, customFallbackCount=None, returnPosition=False) -> Union[bool, Tuple[bool, Optional[Tuple[int, int]]]]:
     global g_prevAction
     global g_fallbackCount
     global g_skipCount
@@ -198,10 +208,10 @@ def do(currAction: Actionable, canSkip=False, onlyOneTime=False, screenShot=None
 
     if canSkip == False :
         g_prevAction = currAction
-    
+
     # time.sleep(0.2)
 
-    if returnPosition and isinstance(currAction, Founder):
+    if returnPosition:
         return (isOk, position)
     return isOk
 

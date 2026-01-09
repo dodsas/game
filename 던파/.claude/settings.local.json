@@ -9,7 +9,10 @@
       "Bash(pip install:*)",
       "Bash(ls:*)",
       "Bash(git checkout:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(chmod:*)",
+      "Bash(/Users/nam-yuseon/Documents/python/game/던파/venv/bin/python /Users/nam-yuseon/Documents/python/game/던파/2.비밀작전.py)",
+      "Bash(python:*)"
     ],
     "deny": []
   }

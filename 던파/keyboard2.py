@@ -1,9 +1,13 @@
 import keyboard
 import time
 import robot
+from typing import Union
 
-def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
+def pressKey(key: Union[str, int], sleep: float = 2, duration: float = 1, printLog=True):
     time.sleep(sleep)
+    # Convert int to string if necessary
+    if isinstance(key, int):
+        key = str(key)
     if(printLog == True):
        robot.printf('pressKey', key, '', '')
 
@@ -43,7 +47,7 @@ def pressKey(key: str, sleep: float = 2, duration: float = 1, printLog=True):
     time.sleep(duration)
     keyboard.release(modifiedKey)
 
-def pressKey2(key: str):
+def pressKey2(key: Union[str, int]):
     pressKey(key, 0, 0, False)
 
 

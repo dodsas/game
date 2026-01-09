@@ -1,6 +1,6 @@
 # pip3 install pyautogui
 
-import image_finder
+from . import image_finder
 import pyautogui 
 
 # x, y = 100, 100
