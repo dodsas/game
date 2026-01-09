@@ -1,0 +1,19 @@
+# VS Code settings (local configurations)
+.vscode/launch.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
