@@ -20,14 +20,14 @@ from tobe import *
 # image_finder.imgPath = 'Image/강림로터스/'
 
 map = {
-    "베인뚜": Unit("베인뚜", attackMode=True, plan='h', level='M'),
-    "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
-    "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
-    "지짱보": Unit("지짱보", plan='k', level='M'),
-    "강한보리": Unit("강한보리", plan='k', level='M'),
-    "보리뚜": Unit("보리뚜", plan='s', level='M'),
-    "보리세이더": Unit("보리세이더", plan='s', level='M'),
-    "보리뚜뚜": Unit("보리뚜뚜", attackMode=False, plan='s', level='M'),
+    # "베인뚜": Unit("베인뚜", attackMode=True, plan='h', level='M'),
+    # "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
+    # "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
+    # "지짱보": Unit("지짱보", plan='k', level='M'),
+    # "강한보리": Unit("강한보리", plan='k', level='M'),
+    # "보리뚜": Unit("보리뚜", plan='s', level='M'),
+    # "보리세이더": Unit("보리세이더", plan='s', level='M'),
+    # "보리뚜뚜": Unit("보리뚜뚜", attackMode=False, plan='s', level='M'),
     "보리템플러": Unit("보리템플러", attackMode=False, plan='s', level='E'),
     "인챈뚜": Unit("인챈뚜", attackMode=False, plan='s', level='E'),
     "무녀뚜": Unit("무녀뚜", attackMode=False, plan='s', level='E'),
@@ -36,8 +36,8 @@ map = {
     "런처꾸꾸": Unit("런처꾸꾸", attackMode=False, plan='r', level='E'),
     "보리꾸꾸": Unit("보리꾸꾸", attackMode=False, plan='r', level='E'),
     "웨펀꾸꾸": Unit("웨펀꾸꾸", attackMode=False, plan='r', level='E'),
-    "블레이뚜": Unit("블레이뚜", attackMode=False, plan='r', level='E'),
     "불보리뚜": Unit("불보리뚜", attackMode=False, plan='r', level='E'),
+    "블레이뚜": Unit("블레이뚜", attackMode=False, plan='r', level='E'),
     "맥보리": Unit("맥보리", attackMode=False, plan='r', level='E'),
     "건꾸꾸": Unit("건꾸꾸", attackMode=False, plan='r', level='E'),
     "보리핏": Unit("보리핏", attackMode=False, plan='r', level='E'),
@@ -177,7 +177,7 @@ def r(char):
     do(Clicker('의뢰'))
     do(Clicker('의뢰파밍'))
     do(Clicker('의뢰ruke'))
-    do(Founder('의뢰kingcheck'))
+    do(Founder('의뢰ringcheck'))
 
     select_difficulty(char)
     do(Clicker('일던입장', threshold=0.85))
@@ -263,12 +263,13 @@ def handle_dungeon_clear_with_retry(loop, max_retry_attempts=10):
         zupzup('right')
         zupzup('left')
         
+        do(Clicker('확인', threshold=0.85), onlyOneTime=True, canSkip=True)
         do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True)
         time.sleep(2) 
         if(do(Founder('피로도가부족합니다'), onlyOneTime=True, canSkip=True)):
-            do(Clicker('마을로가기', threshold=0.90))
+            do(Clicker('마을로가기', threshold=0.85))
             time.sleep(4) 
-            if(do(Founder('마을로가기', threshold=0.90), onlyOneTime=True) == False ):
+            if(do(Founder('마을로가기', threshold=0.85), onlyOneTime=True) == False ):
                 return True
 
         if(do(Clicker('던전재도전하기', threshold=0.85), onlyOneTime=True, canSkip=True) == False):
@@ -372,9 +373,12 @@ for key in map:
             if(do(Founder('비작리워드'), screenShot=screenShot, onlyOneTime=True)):
                 do(Clicker('비작리워드클릭'), canSkip=True)
 
-            if(do(Founder('던전재도전하기', threshold=0.91), screenShot=screenShot, onlyOneTime=True) or 
+            if(do(Founder('던전재도전하기', threshold=0.85), screenShot=screenShot, onlyOneTime=True) or 
                do(Founder('비작클리어'), screenShot=screenShot, onlyOneTime=True) 
             ):
+
+                do(Clicker('던전재도전하기', threshold=0.85), screenShot=screenShot, onlyOneTime=True)
+                do(Clicker('확인', threshold=0.85), screenShot=screenShot, onlyOneTime=True)
                 if handle_dungeon_clear_with_retry(loop):
                     endLoop = True
                     break
@@ -382,8 +386,8 @@ for key in map:
 
             if(char.plan=='h'):
                 if(do(Founder('지옥완료'), screenShot=screenShot, onlyOneTime=True)==True and 
-                   do(Founder('던전재도전하기'), onlyOneTime=True)==False) :
-                    do(Clicker('마을로가기', threshold=0.90))
+                   do(Founder('던전재도전하기', threshold=0.85), onlyOneTime=True)==False) :
+                    do(Clicker('마을로가기', threshold=0.85))
                     endLoop = True
                     break
                 

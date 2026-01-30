@@ -34,14 +34,15 @@ def infinity():
             print('aaaa')
             pyautogui.press('g')
 
-            # key_pool이 비어있으면 새로 채우고 섞기
-            if not key_pool:
-                key_pool = ['a', 's', 'd', 'w']
-                random.shuffle(key_pool)
+            if(random.random() < 0.95):
+                # key_pool이 비어있으면 새로 채우고 섞기
+                if not key_pool:
+                    key_pool = ['a', 's', 'd', 'w']
+                    random.shuffle(key_pool)
 
-            # 리스트에서 하나 꺼내서 사용
-            key_to_press = key_pool.pop(0)
-            robot.pressKey(key_to_press, duration=1)
+                # 리스트에서 하나 꺼내서 사용
+                key_to_press = key_pool.pop(0)
+                robot.pressKey(key_to_press, duration=1)
 
         pyautogui.press('3')
         time.sleep(random.uniform(0.5,1.3))
