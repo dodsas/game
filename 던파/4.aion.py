@@ -28,16 +28,25 @@ DIRECTION_POOL = ['a', 'd', 's', 'w', ('w','d'), ('w','a'), ('s','d'), ('s','a')
 key_pool = []
 key_pool_lock = threading.Lock()
 
+pyautogui_lock = threading.Lock()
+
 def press_direction(direction, duration=0.5):
     """단일 키 또는 대각선(2키 동시) 방향 이동"""
-    if isinstance(direction, tuple):
-        for k in direction:
+    keys = (direction,) if isinstance(direction, str) else direction
+    pressed = []
+    try:
+        for k in keys:
             pyautogui.keyDown(k)
+            pressed.append(k)
         time.sleep(duration)
-        for k in reversed(direction):
-            pyautogui.keyUp(k)
-    else:
-        robot.pressKey(direction, sleep=0, duration=duration)
+    except RuntimeError:
+        pass
+    finally:
+        for k in reversed(pressed):
+            try:
+                pyautogui.keyUp(k)
+            except RuntimeError:
+                pass
 
 def movement_loop():
     """이동 쓰레드 - g키와 8방향키 처리"""
@@ -63,9 +72,9 @@ def movement_horizenal():
     directions = ['w', 's']
     idx = 0
     while True:
-        press_direction(directions[idx], duration=5)
+        press_direction(directions[idx], duration=2)
         idx = 1 - idx
-        time.sleep(random.uniform(2.35, 3.15))
+        time.sleep(random.uniform(3.35, 4.15))
 
 def movement_horizontal_lr():
     """좌우 이동 쓰레드 - 좌(a)와 우(d)를 0.5초씩 0.5~1.5초 간격으로 교대 반복"""
@@ -75,6 +84,19 @@ def movement_horizontal_lr():
         press_direction(directions[idx], duration=0.5)
         idx = 1 - idx
         time.sleep(random.uniform(0.5, 1.5))
+
+def movement_octagon():
+    """팔각형 이동 쓰레드 - 8방향을 순서대로 각 1초씩 빙글빙글 반복"""
+    # 시계방향: 위 → 우상 → 우 → 우하 → 아래 → 좌하 → 좌 → 좌상
+    directions = ['w', ('w', 'd'), 'd', ('s', 'd'), 's', ('s', 'a'), 'a', ('w', 'a')]
+    idx = 0
+    while True:
+        try:
+            press_direction(directions[idx], duration=2.0)
+        except Exception:
+            pass
+        idx = (idx + 1) % 8
+        # time.sleep(random.uniform(0.05, 0.15))
 
 def attack_loop():
     """공격 쓰레드 - 3번 키 반복 입력"""
@@ -86,17 +108,27 @@ def attack_loop():
         pyautogui.press('1')
         time.sleep(random.uniform(0.3, 0.7))
 
+def jump_loop():
+    """점프 쓰레드 - 3~5초 간격으로 한 번씩 점프"""
+    while True:
+        time.sleep(random.uniform(3.0, 5.0))
+        pyautogui.press('space')
+
 def infinity():
     """프로그 무한 - 이동과 공격을 별도 쓰레드로 동시 실행"""
     attack_thread = threading.Thread(target=attack_loop, daemon=True, name='attack')
     attack_thread.start()
 
-    lr_thread = threading.Thread(target=movement_horizontal_lr, daemon=True, name='move_lr')
-    lr_thread.start()
+    jump_thread = threading.Thread(target=jump_loop, daemon=True, name='jump')
+    jump_thread.start()
+
+    # lr_thread = threading.Thread(target=movement_horizontal_lr, daemon=True, name='move_lr')
+    # lr_thread.start()
 
     # 메인 쓰레드(이동)가 종료되면 데몬 쓰레드(공격)도 자동 종료
     # movement_loop()
-    movement_horizenal()
+    # movement_horizenal()
+    movement_octagon()
 
 infinity()
 
