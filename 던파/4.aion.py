@@ -72,18 +72,18 @@ def movement_horizenal():
     directions = ['w', 's']
     idx = 0
     while True:
-        press_direction(directions[idx], duration=2)
+        press_direction(directions[idx], duration=0.3)
         idx = 1 - idx
-        time.sleep(random.uniform(3.35, 4.15))
+        time.sleep(random.uniform(13.35, 14.15))
 
 def movement_horizontal_lr():
     """좌우 이동 쓰레드 - 좌(a)와 우(d)를 0.5초씩 0.5~1.5초 간격으로 교대 반복"""
-    directions = ['a', 'd']
+    directions = ['d', 'a']
     idx = 0
     while True:
-        press_direction(directions[idx], duration=0.5)
+        press_direction(directions[idx], duration=5.0)
         idx = 1 - idx
-        time.sleep(random.uniform(0.5, 1.5))
+        time.sleep(random.uniform(5.5, 10.5))
 
 def movement_octagon():
     """팔각형 이동 쓰레드 - 8방향을 순서대로 각 1초씩 빙글빙글 반복"""
@@ -92,31 +92,94 @@ def movement_octagon():
     idx = 0
     while True:
         try:
-            press_direction(directions[idx], duration=2.0)
+            press_direction(directions[idx], duration=1.5)
         except Exception:
             pass
         idx = (idx + 1) % 8
         # time.sleep(random.uniform(0.05, 0.15))
 
-def attack_loop():
-    """공격 쓰레드 - 3번 키 반복 입력"""
+def movement_center_biased():
+    """랜덤 이동 - 짧은 burst + 관성 + 중앙 가중치로 자연스럽게 움직임"""
+    DIRECTION_VECTORS = {
+        'a':        (-1,  0),
+        'd':        ( 1,  0),
+        'w':        ( 0, -1),
+        's':        ( 0,  1),
+        ('w', 'd'): ( 1, -1),
+        ('w', 'a'): (-1, -1),
+        ('s', 'd'): ( 1,  1),
+        ('s', 'a'): (-1,  1),
+    }
+
+    directions = list(DIRECTION_VECTORS.keys())
+    pos_x, pos_y = 0.0, 0.0
+    prev_vec = (0.0, 0.0)  # 이전 이동 방향 벡터 (관성용)
+
     while True:
-        if random.random() < 0.21:
+        to_center_x = -pos_x
+        to_center_y = -pos_y
+        dist = (to_center_x ** 2 + to_center_y ** 2) ** 0.5
+
+        weights = []
+        for d in directions:
+            dx, dy = DIRECTION_VECTORS[d]
+            dir_len = (dx ** 2 + dy ** 2) ** 0.5
+            dx_n, dy_n = dx / dir_len, dy / dir_len
+
+            # 1) 중앙 가중치: 중앙 방향과 얼마나 일치하는지
+            if dist > 0:
+                center_cos = (dx_n * to_center_x + dy_n * to_center_y) / dist
+                center_w = 1.0 + center_cos * min(dist * 0.5, 3.0)
+            else:
+                center_w = 1.0
+
+            # 2) 관성 가중치: 이전 방향과 얼마나 가까운지 (급격한 전환 억제)
+            prev_len = (prev_vec[0] ** 2 + prev_vec[1] ** 2) ** 0.5
+            if prev_len > 0:
+                momentum_cos = (dx_n * prev_vec[0] + dy_n * prev_vec[1]) / prev_len
+                momentum_w = 1.0 + momentum_cos * 1.8
+            else:
+                momentum_w = 1.0
+
+            weights.append(max(center_w * momentum_w, 0.05))
+
+        direction = random.choices(directions, weights=weights, k=1)[0]
+
+        # 짧은 burst로 끊김 없이 연속 이동
+        duration = random.uniform(0.1, 0.35)
+        press_direction(direction, duration=duration)
+
+        dx, dy = DIRECTION_VECTORS[direction]
+        dir_len = (dx ** 2 + dy ** 2) ** 0.5
+        prev_vec = (dx / dir_len, dy / dir_len)
+
+        pos_x += dx * duration
+        pos_y += dy * duration
+
+        # 이동 사이 거의 끊김 없음 (자연스러운 흐름)
+        time.sleep(random.uniform(0.0, 0.08))
+
+
+def attack_loop(key='3'):
+    """공격 쓰레드 - key 반복 입력"""
+    while True:
+        if random.random() < 0.41:
             pyautogui.press('g')
 
-        # pyautogui.press('`')
-        pyautogui.press('1')
+        pyautogui.press(key)
         time.sleep(random.uniform(0.3, 0.7))
 
 def jump_loop():
     """점프 쓰레드 - 3~5초 간격으로 한 번씩 점프"""
     while True:
-        time.sleep(random.uniform(3.0, 5.0))
+        time.sleep(random.uniform(23.0, 35.0))
         pyautogui.press('space')
 
 def infinity():
+    # key='1'
+    key='3'
     """프로그 무한 - 이동과 공격을 별도 쓰레드로 동시 실행"""
-    attack_thread = threading.Thread(target=attack_loop, daemon=True, name='attack')
+    attack_thread = threading.Thread(target=attack_loop, args=(key,), daemon=True, name='attack')
     attack_thread.start()
 
     jump_thread = threading.Thread(target=jump_loop, daemon=True, name='jump')
@@ -127,9 +190,9 @@ def infinity():
 
     # 메인 쓰레드(이동)가 종료되면 데몬 쓰레드(공격)도 자동 종료
     # movement_loop()
-    # movement_horizenal()
-    movement_octagon()
-
+    movement_horizontal_lr()
+    # movement_octagon()
+    # movement_center_biased()
 infinity()
 
 mailSender.sendMail("[7] Deily Practice Done" , "-")
