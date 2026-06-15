@@ -20,14 +20,14 @@ from tobe import *
 # image_finder.imgPath = 'Image/강림로터스/'
 
 map = {
-    # "베인뚜": Unit("베인뚜", attackMode=True, plan='h', level='M'),
-    # "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
-    # "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
-    # "지짱보": Unit("지짱보", plan='k', level='M'),
-    # "강한보리": Unit("강한보리", plan='k', level='M'),
-    # "보리뚜": Unit("보리뚜", plan='s', level='M'),
-    # "보리세이더": Unit("보리세이더", plan='s', level='M'),
-    # "보리뚜뚜": Unit("보리뚜뚜", attackMode=False, plan='s', level='M'),
+    "베인뚜": Unit("베인뚜", attackMode=True, plan='h', level='M'),
+    "보리성": Unit("보리성", buffIndex=4, plan='h', level='M'),
+    "보리빵떡": Unit("보리빵떡", plan='k', level='M'),
+    "지짱보": Unit("지짱보", plan='k', level='M'),
+    "강한보리": Unit("강한보리", plan='k', level='M'),
+    "보리뚜": Unit("보리뚜", plan='s', level='M'),
+    "보리세이더": Unit("보리세이더", plan='s', level='M'),
+    "보리뚜뚜": Unit("보리뚜뚜", attackMode=False, plan='s', level='M'),
     "보리템플러": Unit("보리템플러", attackMode=False, plan='s', level='E'),
     "인챈뚜": Unit("인챈뚜", attackMode=False, plan='s', level='E'),
     "무녀뚜": Unit("무녀뚜", attackMode=False, plan='s', level='E'),

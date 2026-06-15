@@ -30,13 +30,19 @@ key_pool_lock = threading.Lock()
 
 pyautogui_lock = threading.Lock()
 
+def safe_press(key):
+    """pyautogui.press를 락으로 보호 (스레드 안전)"""
+    with pyautogui_lock:
+        pyautogui.press(key)
+
 def press_direction(direction, duration=0.5):
     """단일 키 또는 대각선(2키 동시) 방향 이동"""
     keys = (direction,) if isinstance(direction, str) else direction
     pressed = []
     try:
         for k in keys:
-            pyautogui.keyDown(k)
+            with pyautogui_lock:
+                pyautogui.keyDown(k)
             pressed.append(k)
         time.sleep(duration)
     except RuntimeError:
@@ -44,7 +50,8 @@ def press_direction(direction, duration=0.5):
     finally:
         for k in reversed(pressed):
             try:
-                pyautogui.keyUp(k)
+                with pyautogui_lock:
+                    pyautogui.keyUp(k)
             except RuntimeError:
                 pass
 
@@ -72,7 +79,8 @@ def movement_horizenal():
     directions = ['w', 's']
     idx = 0
     while True:
-        press_direction(directions[idx], duration=0.3)
+        # press_direction(directions[idx], duration=2.3)
+        press_direction(directions[idx], duration=5.3)
         idx = 1 - idx
         time.sleep(random.uniform(13.35, 14.15))
 
@@ -164,23 +172,31 @@ def attack_loop(key='3'):
     """공격 쓰레드 - key 반복 입력"""
     while True:
         if random.random() < 0.41:
-            pyautogui.press('g')
+            safe_press('g')
 
-        pyautogui.press(key)
+        safe_press(key)
         time.sleep(random.uniform(0.3, 0.7))
 
 def jump_loop():
     """점프 쓰레드 - 3~5초 간격으로 한 번씩 점프"""
     while True:
         time.sleep(random.uniform(23.0, 35.0))
-        pyautogui.press('space')
+        safe_press('space')
 
 def infinity():
+    key='4'
     # key='1'
-    key='3'
     """프로그 무한 - 이동과 공격을 별도 쓰레드로 동시 실행"""
+    # pyautogui를 메인 쓰레드에서 미리 초기화 (스레드 동시 호출 시 초기화 경합 방지)
+    pyautogui.position()
+    pyautogui.PAUSE = 0.01
+
     attack_thread = threading.Thread(target=attack_loop, args=(key,), daemon=True, name='attack')
     attack_thread.start()
+
+    # key2='3'
+    # attack_thread2 = threading.Thread(target=attack_loop, args=(key2,), daemon=True, name='attack')
+    # attack_thread2.start()
 
     jump_thread = threading.Thread(target=jump_loop, daemon=True, name='jump')
     jump_thread.start()
@@ -190,7 +206,8 @@ def infinity():
 
     # 메인 쓰레드(이동)가 종료되면 데몬 쓰레드(공격)도 자동 종료
     # movement_loop()
-    movement_horizontal_lr()
+    # movement_horizontal_lr()
+    movement_horizenal()
     # movement_octagon()
     # movement_center_biased()
 infinity()
