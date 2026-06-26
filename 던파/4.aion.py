@@ -79,8 +79,8 @@ def movement_horizenal():
     directions = ['w', 's']
     idx = 0
     while True:
-        # press_direction(directions[idx], duration=2.3)
-        press_direction(directions[idx], duration=5.3)
+        press_direction(directions[idx], duration=3.3)
+        # press_direction(directions[idx], duration=5.3)
         idx = 1 - idx
         time.sleep(random.uniform(13.35, 14.15))
 
@@ -107,7 +107,7 @@ def movement_octagon():
         # time.sleep(random.uniform(0.05, 0.15))
 
 def movement_center_biased():
-    """랜덤 이동 - 짧은 burst + 관성 + 중앙 가중치로 자연스럽게 움직임"""
+    """랜덤 이 - 짧은 burst + 관성 + 중앙 가중치로 자연스럽게 움직임"""
     DIRECTION_VECTORS = {
         'a':        (-1,  0),
         'd':        ( 1,  0),
@@ -168,6 +168,14 @@ def movement_center_biased():
         time.sleep(random.uniform(0.0, 0.08))
 
 
+def movement_random_simple():
+    """이동 쓰레드 - 상하좌우 4방향만 랜덤하게 입력"""
+    directions = ['w', 's', 'a', 'd']
+    while True:
+        direction = random.choice(directions)
+        press_direction(direction, duration=random.uniform(0.1, 0.2))
+        time.sleep(random.uniform(0.2, 5.0))
+
 def attack_loop(key='3'):
     """공격 쓰레드 - key 반복 입력"""
     while True:
@@ -185,7 +193,7 @@ def jump_loop():
 
 def infinity():
     key='4'
-    # key='1'
+    # key='3'
     """프로그 무한 - 이동과 공격을 별도 쓰레드로 동시 실행"""
     # pyautogui를 메인 쓰레드에서 미리 초기화 (스레드 동시 호출 시 초기화 경합 방지)
     pyautogui.position()
@@ -201,14 +209,17 @@ def infinity():
     jump_thread = threading.Thread(target=jump_loop, daemon=True, name='jump')
     jump_thread.start()
 
+    movement_horizenal()
+    # movement_random_simple()
+
     # lr_thread = threading.Thread(target=movement_horizontal_lr, daemon=True, name='move_lr')
     # lr_thread.start()
-
     # 메인 쓰레드(이동)가 종료되면 데몬 쓰레드(공격)도 자동 종료
     # movement_loop()
-    # movement_horizontal_lr()
-    movement_horizenal()
     # movement_octagon()
+    # movement_horizontal_lr()
+
+
     # movement_center_biased()
 infinity()
 
