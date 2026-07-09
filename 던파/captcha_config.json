@@ -1,0 +1,33 @@
+{
+  "enabled": true,
+  "threshold": 0.9,
+  "shots": [
+    {
+      "file": "captcha_1.png",
+      "region": [
+        1627,
+        882,
+        74,
+        20
+      ]
+    },
+    {
+      "file": "captcha_2.png",
+      "region": [
+        1566,
+        693,
+        92,
+        32
+      ]
+    },
+    {
+      "file": "captcha_3.png",
+      "region": [
+        1513,
+        802,
+        65,
+        18
+      ]
+    }
+  ]
+}

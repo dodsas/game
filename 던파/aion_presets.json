@@ -1,0 +1,38 @@
+{
+  "수호성": {
+    "attack_keys": [
+      "3"
+    ],
+    "movement_mode": "none",
+    "use_g": true,
+    "use_jump": false,
+    "use_a_find": true,
+    "move_durations": {
+      "none": 0.0,
+      "random_8dir": 0.0,
+      "horizontal_ud": 0.0,
+      "horizontal_lr": 0.0,
+      "octagon": 0.0,
+      "center_biased": 0.0,
+      "random_simple": 0.0
+    }
+  },
+  "궁성": {
+    "attack_keys": [
+      "4"
+    ],
+    "movement_mode": "horizontal_ud",
+    "use_g": true,
+    "use_jump": false,
+    "use_a_find": true,
+    "move_durations": {
+      "none": 0.0,
+      "random_8dir": 0.0,
+      "horizontal_ud": 3.0,
+      "horizontal_lr": 0.0,
+      "octagon": 0.0,
+      "center_biased": 0.0,
+      "random_simple": 0.0
+    }
+  }
+}
