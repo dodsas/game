@@ -34,5 +34,23 @@
       "center_biased": 0.0,
       "random_simple": 0.0
     }
+  },
+  "정령성": {
+    "attack_keys": [
+      "r"
+    ],
+    "movement_mode": "none",
+    "use_g": true,
+    "use_jump": false,
+    "use_a_find": true,
+    "move_durations": {
+      "none": 0.0,
+      "random_8dir": 0.0,
+      "horizontal_ud": 0.0,
+      "horizontal_lr": 0.0,
+      "octagon": 0.0,
+      "center_biased": 0.0,
+      "random_simple": 0.0
+    }
   }
 }

@@ -627,7 +627,6 @@ class AionUI:
         self.presets = load_presets()
 
         root.title('AION 매크로 제어판')
-        root.attributes('-topmost', True)
         root.resizable(False, False)
 
         # 색을 자유롭게 지정하려면 네이티브 aqua 대신 clam 테마 사용
